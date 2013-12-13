@@ -17,7 +17,7 @@
                 <Button Click="StatusPostButton_Click" x:Name="StatusPostButton"
                         Content="{Binding Path=LocalizedResources.SendButton, Source={StaticResource LocalizedStrings}}" />
                 <Button Click="ImagePicker_Click" x:Name="ImagePicker" Content="+Media" />
-                <Button x:Name="CameraAccess" Click="CameraAccess_Click" Content="+カメラ" />
+                <Button x:Name="CameraAccess" Click="CameraAccess_Click" Content="+Camera" />
                 <Button Visibility="Collapsed" x:Name="MicrophoneButton" Click="MicrophoneButton_OnClick"
                         Content="+Mic" />
             </StackPanel>
