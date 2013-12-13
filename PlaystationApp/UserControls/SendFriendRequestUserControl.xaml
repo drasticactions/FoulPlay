@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="PlaystationApp.UserControls.SendFriendRequestUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             d:DesignHeight="480" d:DesignWidth="480">
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+        <ProgressBar VerticalAlignment="Top" Visibility="Collapsed" x:Name="NewProgressBar" IsIndeterminate="True" />
+        <StackPanel>
+            <TextBox InputScope="Text" AcceptsReturn="True" x:Name="StatusUpdateBox" TextWrapping="Wrap" Height="200" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Click="FriendRequestSendButton_OnClick" x:Name="FriendRequestSendButton"
+                        Content="{Binding Path=LocalizedResources.SendButton, Source={StaticResource LocalizedStrings}}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,197 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PlaystationApp.Views.MainPivotView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Name="ListPickerItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" Margin="10 0 0 0" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Name="ListPickerFullModeItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" FontSize="35" TextWrapping="Wrap" Margin="10 0 0 0" />
+            </StackPanel>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <ProgressBar VerticalAlignment="Top" Visibility="Collapsed" x:Name="LoadingProgressBar" IsIndeterminate="True" />
+        <!--Pivot Control-->
+        <phone:Pivot x:Name="HomePivot" Title="FoulPlay">
+            <!--Pivot item one-->
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.FriendsPivot, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <toolkit:ListPicker ExpansionMode="FullScreenOnly" SelectionMode="Single"
+                                        ItemTemplate="{StaticResource ListPickerItemTemplate}"
+                                        FullModeItemTemplate="{StaticResource ListPickerFullModeItemTemplate}"
+                                        x:Name="FilterListPicker" />
+                    <Grid Grid.Row="1">
+                        <TextBlock x:Name="FriendsMessageTextBlock" FontSize="50" TextWrapping="Wrap"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+                                   Text="{Binding Path=LocalizedResources.NoFriends, Source={StaticResource LocalizedStrings}}" />
+                        <phone:LongListSelector SelectionChanged="FriendsLongListSelector_OnSelectionChanged"
+                                                ItemsSource="{Binding FriendList }" x:Name="FriendsLongListSelector">
+                            <phone:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition Width="75" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                   Grid.Column="0" Width="15" Height="15"
+                                                   Fill="{Binding Presence.PrimaryInfo.OnlineStatus, Converter={StaticResource OnlineConverter}}" />
+                                        <Border VerticalAlignment="Top" Grid.Column="1" Width="70" Height="70">
+                                            <Image Source="{Binding AvatarUrl}" Stretch="UniformToFill" />
+                                        </Border>
+                                        <Grid VerticalAlignment="Top" Grid.Column="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding OnlineId}" Width="300"
+                                                           FontSize="25" TextWrapping="NoWrap"
+                                                           TextTrimming="WordEllipsis" />
+                                                <Image Visibility="{Binding Plus, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1" HorizontalAlignment="Right" Width="25"
+                                                       Height="25" Source="/Assets/PSPlus.png" />
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0" Width="300">
+                                                    <TextBlock
+                                                        Text="{Binding Presence.PrimaryInfo.GameTitleInfo.TitleName}"
+                                                        FontSize="15" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding  Presence.PrimaryInfo.GameStatus}"
+                                                               FontSize="15" TextWrapping="Wrap" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" HorizontalAlignment="Right"
+                                                            Orientation="Vertical">
+                                                    <Image Width="25" Height="25"
+                                                           Source="/Assets/Trophy-icon-Silver.png" />
+                                                    <TextBlock FontSize="15" HorizontalAlignment="Center"
+                                                               Text="{Binding TrophySummary.Level}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </phone:LongListSelector.ItemTemplate>
+                        </phone:LongListSelector>
+                    </Grid>
+
+                </Grid>
+
+            </phone:PivotItem>
+
+            <!--Pivot item two-->
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.MessagesPivot, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <TextBlock x:Name="MessagesMessageTextBlock" FontSize="50" TextWrapping="Wrap"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+                               Text="{Binding Path=LocalizedResources.NoMessages, Source={StaticResource LocalizedStrings}}" />
+                    <phone:LongListSelector x:Name="MessageList" ItemsSource="{Binding MessageGroups}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Top" Grid.Column="0" Width="100" Height="100">
+                                        <Image Source="{Binding LatestMessage.User.AvatarUrl}" Stretch="UniformToFill" />
+                                    </Border>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock TextWrapping="NoWrap" Text="{Binding LatestMessage.SenderOnlineId}" />
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding LatestMessage.Body}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.NotificationsHeader, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <TextBlock x:Name="NotificationsMessageTextBlock" FontSize="25" TextWrapping="Wrap"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+                               Text="{Binding Path=LocalizedResources.NoNotifications, Source={StaticResource LocalizedStrings}}" />
+                    <phone:LongListSelector x:Name="NotificationListSelector"
+                                            SelectionChanged="NotificationListSelector_OnSelectionChanged"
+                                            ItemsSource="{Binding Notifications}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="6" BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        BorderThickness="3">
+                                    <Grid x:Name="NotificationGridItem">
+                                        <TextBlock FontSize="40" TextWrapping="Wrap" Text="{Binding Message}" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.RecentActivity, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <phone:LongListSelector SelectionChanged="RecentActivityLongListSelector_OnSelectionChanged"
+                                        x:Name="RecentActivityLongListSelector" ItemsSource="{Binding FeedList}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Center" Grid.Column="0" Width="70" Height="70">
+                                        <Image Source="{Binding SmallImageUrl}" Stretch="UniformToFill" />
+                                    </Border>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Padding="15,0,0,0" VerticalAlignment="Center"
+                                               TextWrapping="Wrap" Text="{Binding Caption}" FontSize="20" />
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date}"
+                                               FontSize="15" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                    <TextBlock x:Name="NoActivitiesTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
+                </Grid> 
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+</phone:PhoneApplicationPage>

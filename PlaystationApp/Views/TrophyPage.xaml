@@ -1,0 +1,129 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PlaystationApp.Views.TrophyPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="{Binding Path=LocalizedResources.TrophyHeader, Source={StaticResource LocalizedStrings}}"
+                       Style="{StaticResource PhoneTextNormalStyle}" />
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid x:Name="TrophyTitleGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border VerticalAlignment="Top" Grid.Column="0" Width="150" Height="83">
+                        <Image Source="{Binding TrophyTitleIconUrl}" Stretch="UniformToFill" />
+                    </Border>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis"
+                                       Text="{Binding TrophyTitleName}" />
+                            <Border Grid.Column="1" BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                    BorderThickness="5" HorizontalAlignment="Right">
+                                <TextBlock TextWrapping="Wrap" Text="{Binding TrophyTitlePlatfrom}" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ProgressBar Grid.Column="0" Value="{Binding ComparedUser.Progress}" />
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                                       Text="{Binding ComparedUser.Progress, Converter={StaticResource ValuePercentConverter}}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <phone:LongListSelector SelectionChanged="TrophyList_OnSelectionChanged" x:Name="TrophyList"
+                                            ItemsSource="{Binding Trophies}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Top" Grid.Column="0" Width="100" Height="100">
+                                        <Image Source="{Binding TrophyIconUrl}" Stretch="UniformToFill" />
+                                    </Border>
+                                    <Grid Grid.Column="1">
+                                        <StackPanel>
+                                            <Image Width="50"
+                                                   Source="{Binding TrophyType, Converter={StaticResource TrophyTypeConverter}}" />
+                                            <Border Background="Black">
+                                                <Image Width="50"
+                                                   Source="{Binding TrophyRare, Converter={StaticResource TrophyRareConverter}}" />
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="{Binding TrophyEarnedRate, Converter={StaticResource ValuePercentConverter}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid VerticalAlignment="Top" Grid.Column="2">
+                                        <StackPanel VerticalAlignment="Top">
+                                            <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis" FontSize="20"
+                                                       Text="{Binding TrophyName, Converter={StaticResource TrophyHiddenConverter}}" />
+                                            <TextBlock TextWrapping="NoWrap"
+                                                       Visibility="{Binding TrophyHidden, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                       TextTrimming="WordEllipsis" FontSize="15"
+                                                       Text="{Binding TrophyDetail}" />
+                                            <Grid
+                                                Visibility="{Binding ComparedUser.Earned, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="25" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Image Grid.Column="0" HorizontalAlignment="Left" Width="15"
+                                                       Source="{Binding TrophyType, Converter={StaticResource TrophyTypeConverter}}" />
+                                                <TextBlock Grid.Column="1" HorizontalAlignment="Left"
+                                                           TextWrapping="Wrap" FontSize="15"
+                                                           Text="{Binding ComparedUser.EarnedDate}" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

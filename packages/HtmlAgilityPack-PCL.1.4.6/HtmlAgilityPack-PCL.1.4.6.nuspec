@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HtmlAgilityPack-PCL</id>
+    <version>1.4.6</version>
+    <title>HtmlAgilityPack-PCL</title>
+    <authors>Roel "Deathspike" van Uden</authors>
+    <owners>Roel "Deathspike" van Uden</owners>
+    <licenseUrl>http://www.microsoft.com/en-us/openness/licenses.aspx</licenseUrl>
+    <projectUrl>https://github.com/Deathspike/HtmlAgilityPack-PCL</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A light abstraction of HtmlAgilityPack implementing the minimal functions to work with Linq under most PCL configurations.</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+  </metadata>
+</package>

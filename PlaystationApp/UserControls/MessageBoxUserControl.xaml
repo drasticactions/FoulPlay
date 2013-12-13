@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="PlaystationApp.UserControls.MessageBoxUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             d:DesignHeight="480" d:DesignWidth="480">
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+        <ProgressBar VerticalAlignment="Top" Visibility="Collapsed" x:Name="ProgressBar" IsIndeterminate="True" />
+        <StackPanel>
+            <TextBox InputScope="Text" AcceptsReturn="True" x:Name="StatusUpdateBox" TextWrapping="Wrap" Height="200" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Click="StatusPostButton_Click" x:Name="StatusPostButton"
+                        Content="{Binding Path=LocalizedResources.SendButton, Source={StaticResource LocalizedStrings}}" />
+                <Button Click="ImagePicker_Click" x:Name="ImagePicker" Content="+Media" />
+                <Button x:Name="CameraAccess" Click="CameraAccess_Click" Content="+カメラ" />
+                <Button Visibility="Collapsed" x:Name="MicrophoneButton" Click="MicrophoneButton_OnClick"
+                        Content="+Mic" />
+            </StackPanel>
+            <StackPanel x:Name="MicrophonePanel" Visibility="Collapsed" HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button x:Name="RecordButton" Click="RecordButton_OnClick" Content="Record" />
+                <Button x:Name="StopButton" Click="StopButton_OnClick" Content="Stop" />
+                <Button x:Name="PlayButton" Click="PlayButton_OnClick" Content="Play" />
+                <Button x:Name="CancelButton" Click="CancelButton_OnClick" Content="Cancel" />
+            </StackPanel>
+            <Image Height="200" Width="300" Visibility="Collapsed" x:Name="ImagePickerImage" />
+            <Image Height="200" Width="300" Visibility="Collapsed" x:Name="MicrophoneImage" />
+        </StackPanel>
+    </Grid>
+</UserControl>

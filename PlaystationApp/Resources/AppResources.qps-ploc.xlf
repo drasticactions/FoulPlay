@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="qps-ploc" original="AppResources.resx" tool-id="MultilingualAppToolkit" product-name="PlaystationApp" product-version="1.0.0.0" build-num="0">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="2.1.1100.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="Resx">
+        <trans-unit translate="yes" id="Resx/ResourceFlowDirection" xml:space="preserve">
+          <source>LeftToRight</source>
+          <target state="translated">LeftToRight</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</note>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ResourceLanguage" xml:space="preserve">
+          <source>en-US</source>
+          <target state="translated">qps-ploc</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</note>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ApplicationTitle" xml:space="preserve">
+          <source>PS</source>
+          <target state="new">PS</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AppBarButtonText" xml:space="preserve">
+          <source>add</source>
+          <target state="new">add</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AppBarMenuItemText" xml:space="preserve">
+          <source>Menu Item</source>
+          <target state="new">Menu Item</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/MessagesPivot" xml:space="preserve">
+          <source>Messages</source>
+          <target state="new">Messages</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterRequestSent" xml:space="preserve">
+          <source>Friend Requests (Sent)</source>
+          <target state="new">Friend Requests (Sent)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyTotal" xml:space="preserve">
+          <source>Total:</source>
+          <target state="new">Total:</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyHeader" xml:space="preserve">
+          <source>Trophies</source>
+          <target state="new">Trophies</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/SendButton" xml:space="preserve">
+          <source>Send</source>
+          <target state="new">Send</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ToMessageHeader" xml:space="preserve">
+          <source>To {0}</source>
+          <target state="new">To {0}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">{0} represents the person who is being sent the message</note>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NotificationsHeader" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="new">Notifications</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoPlayers" xml:space="preserve">
+          <source>No players found.</source>
+          <target state="new">No players found.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/SearchButton" xml:space="preserve">
+          <source>Search</source>
+          <target state="new">Search</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestConfirm" xml:space="preserve">
+          <source>A Friend request will be sent to this player.</source>
+          <target state="new">A Friend request will be sent to this player.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TotalFriends" xml:space="preserve">
+          <source>{0} Friends</source>
+          <target state="new">{0} Friends</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">{0} represents the total amount of friends.</note>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NowPlaying" xml:space="preserve">
+          <source>Now Playing</source>
+          <target state="new">Now Playing</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangTurkish" xml:space="preserve">
+          <source>Turkish</source>
+          <target state="new">Turkish</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LikeButton" xml:space="preserve">
+          <source>Like</source>
+          <target state="new">Like</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ViewInformation" xml:space="preserve">
+          <source>View Information</source>
+          <target state="new">View Information</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/HiddenTrophy" xml:space="preserve">
+          <source>Hidden Trophy</source>
+          <target state="new">Hidden Trophy</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyDetail" xml:space="preserve">
+          <source>Details</source>
+          <target state="new">Details</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyStatus" xml:space="preserve">
+          <source>Status</source>
+          <target state="new">Status</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyUltraRare" xml:space="preserve">
+          <source>Ultra Rare</source>
+          <target state="new">Ultra Rare</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyVeryRare" xml:space="preserve">
+          <source>Very Rare</source>
+          <target state="new">Very Rare</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/UserSearch" xml:space="preserve">
+          <source>User Search</source>
+          <target state="new">User Search</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ViewNameRequest" xml:space="preserve">
+          <source>View Name Request</source>
+          <target state="new">View Name Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/CancelNameRequest" xml:space="preserve">
+          <source>Cancel Name Request</source>
+          <target state="new">Cancel Name Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/CancelFriendRequest" xml:space="preserve">
+          <source>Cancel Friend Request</source>
+          <target state="new">Cancel Friend Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RemoveFromFriends" xml:space="preserve">
+          <source>Remove From Friends</source>
+          <target state="new">Remove From Friends</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/CancelNameRequestError" xml:space="preserve">
+          <source>Cannot cancel the name request.</source>
+          <target state="new">Cannot cancel the name request.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/GenericError" xml:space="preserve">
+          <source>(o_0)An Error Has Occured(O_o)</source>
+          <target state="new">(o_0)An Error Has Occured(O_o)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestSendError" xml:space="preserve">
+          <source>Cannot send the name request.</source>
+          <target state="new">Cannot send the name request.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestSent" xml:space="preserve">
+          <source>Friend Requests (Sent)</source>
+          <target state="new">Friend Requests (Sent)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestSent" xml:space="preserve">
+          <source>Name Request (Sent)</source>
+          <target state="new">Name Request (Sent)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestReceived" xml:space="preserve">
+          <source>Name Request (Received)</source>
+          <target state="new">Name Request (Received)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestReceived" xml:space="preserve">
+          <source>Friend Requests (Received)</source>
+          <target state="new">Friend Requests (Received)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoTrophyInfo" xml:space="preserve">
+          <source>There are no trophies.
+You can earn trophies by playing games that support them.</source>
+          <target state="new">There are no trophies.
+You can earn trophies by playing games that support them.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendSendError" xml:space="preserve">
+          <source>Cannot send the Friend Request.</source>
+          <target state="new">Cannot send the Friend Request.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/DeleteNameRequest" xml:space="preserve">
+          <source>Delete Name Request</source>
+          <target state="new">Delete Name Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/DeleteFriendRequest" xml:space="preserve">
+          <source>Delete Friend Request</source>
+          <target state="new">Delete Friend Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ViewFriendRequest" xml:space="preserve">
+          <source>View Friend Request</source>
+          <target state="new">View Friend Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RevealName" xml:space="preserve">
+          <source>Reveal Name</source>
+          <target state="new">Reveal Name</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestAlert" xml:space="preserve">
+          <source>Do you want to reveal your name to this Friend?</source>
+          <target state="new">Do you want to reveal your name to this Friend?</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestAlert" xml:space="preserve">
+          <source>Do you want to add this player as a Friend?</source>
+          <target state="new">Do you want to add this player as a Friend?</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AddAsFriend" xml:space="preserve">
+          <source>Add As Friend</source>
+          <target state="new">Add As Friend</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Search" xml:space="preserve">
+          <source>Search</source>
+          <target state="new">Search</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophySilver" xml:space="preserve">
+          <source>Silver</source>
+          <target state="new">Silver</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyRare" xml:space="preserve">
+          <source>Rare</source>
+          <target state="new">Rare</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyPlatinum" xml:space="preserve">
+          <source>Platinum</source>
+          <target state="new">Platinum</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyGold" xml:space="preserve">
+          <source>Gold</source>
+          <target state="new">Gold</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyHidden" xml:space="preserve">
+          <source>Hidden</source>
+          <target state="new">Hidden</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyCommon" xml:space="preserve">
+          <source>Common</source>
+          <target state="new">Common</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyBronze" xml:space="preserve">
+          <source>Bronze</source>
+          <target state="new">Bronze</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyRarity" xml:space="preserve">
+          <source>Rarity</source>
+          <target state="new">Rarity</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyNotEarned" xml:space="preserve">
+          <source>Not Earned</source>
+          <target state="new">Not Earned</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyGrade" xml:space="preserve">
+          <source>Grade</source>
+          <target state="new">Grade</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyEarnedDate" xml:space="preserve">
+          <source>Earned Date</source>
+          <target state="new">Earned Date</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyEarned" xml:space="preserve">
+          <source>Earned</source>
+          <target state="new">Earned</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/DislikeButton" xml:space="preserve">
+          <source>Dislike</source>
+          <target state="new">Dislike</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangSwedish" xml:space="preserve">
+          <source>Swedish</source>
+          <target state="new">Swedish</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangSpanishSpain" xml:space="preserve">
+          <source>Spanish (Spain)</source>
+          <target state="new">Spanish (Spain)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangSpanishLA" xml:space="preserve">
+          <source>Spanish (Latin America)</source>
+          <target state="new">Spanish (Latin America)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangRussian" xml:space="preserve">
+          <source>Russian</source>
+          <target state="new">Russian</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangPortuguesePortugal" xml:space="preserve">
+          <source>Portuguese (Portugal)</source>
+          <target state="new">Portuguese (Portugal)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangPortugueseBrazil" xml:space="preserve">
+          <source>Portuguese (Brazil)</source>
+          <target state="new">Portuguese (Brazil)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangPolish" xml:space="preserve">
+          <source>Polish</source>
+          <target state="new">Polish</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangNorwegian" xml:space="preserve">
+          <source>Norwegian</source>
+          <target state="new">Norwegian</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangKorean" xml:space="preserve">
+          <source>Korean</source>
+          <target state="new">Korean</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangJapanese" xml:space="preserve">
+          <source>Japanese</source>
+          <target state="new">Japanese</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangItalian" xml:space="preserve">
+          <source>Italian</source>
+          <target state="new">Italian</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangGerman" xml:space="preserve">
+          <source>German</source>
+          <target state="new">German</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangFrench" xml:space="preserve">
+          <source>French</source>
+          <target state="new">French</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangFinnish" xml:space="preserve">
+          <source>Finnish</source>
+          <target state="new">Finnish</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangEnglishUS" xml:space="preserve">
+          <source>English (United States)</source>
+          <target state="new">English (United States)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangEnglishUK" xml:space="preserve">
+          <source>English (United Kingdom)</source>
+          <target state="new">English (United Kingdom)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangDutch" xml:space="preserve">
+          <source>Dutch</source>
+          <target state="new">Dutch</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangDanish" xml:space="preserve">
+          <source>Danish</source>
+          <target state="new">Danish</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangChineseTraditional" xml:space="preserve">
+          <source>Chinese (Traditional)</source>
+          <target state="new">Chinese (Traditional)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangChineseSimplified" xml:space="preserve">
+          <source>Chinese (Simplified)</source>
+          <target state="new">Chinese (Simplified)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoNotifications" xml:space="preserve">
+          <source>There are no new notifications.</source>
+          <target state="new">There are no new notifications.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoGameAlert" xml:space="preserve">
+          <source>There are no new game alerts.</source>
+          <target state="new">There are no new game alerts.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoMessages" xml:space="preserve">
+          <source>There are no new messages.</source>
+          <target state="new">There are no new messages.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoFriends" xml:space="preserve">
+          <source>No Friends Found.</source>
+          <target state="new">No Friends Found.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/SendMessage" xml:space="preserve">
+          <source>Send Message</source>
+          <target state="new">Send Message</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RecentActivity" xml:space="preserve">
+          <source>Recent Activity</source>
+          <target state="new">Recent Activity</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RealNameRequest" xml:space="preserve">
+          <source>Send Name Request</source>
+          <target state="new">Send Name Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ProfileHeader" xml:space="preserve">
+          <source>Profile</source>
+          <target state="new">Profile</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoActivities" xml:space="preserve">
+          <source>There are no activities.</source>
+          <target state="new">There are no activities.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/MyLanguages" xml:space="preserve">
+          <source>My Languages:</source>
+          <target state="new">My Languages:</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendTotal" xml:space="preserve">
+          <source>{0} Friends</source>
+          <target state="new">{0} Friends</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">{0} represents total number of friends.</note>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AboutMeCategory" xml:space="preserve">
+          <source>Introduction</source>
+          <target state="new">Introduction</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequest" xml:space="preserve">
+          <source>Send Friend Request</source>
+          <target state="new">Send Friend Request</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AboutMe" xml:space="preserve">
+          <source>About Me:</source>
+          <target state="new">About Me:</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterRequestReceived" xml:space="preserve">
+          <source>Friend Requests (Received)</source>
+          <target state="new">Friend Requests (Received)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterPlayersMet" xml:space="preserve">
+          <source>Players Met</source>
+          <target state="new">Players Met</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterOnline" xml:space="preserve">
+          <source>Online</source>
+          <target state="new">Online</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterNameRequestSent" xml:space="preserve">
+          <source>Name Requests (Sent)</source>
+          <target state="new">Name Requests (Sent)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterNameRequestReceived" xml:space="preserve">
+          <source>Name Requests (Received)</source>
+          <target state="new">Name Requests (Received)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterBlockedPlayer" xml:space="preserve">
+          <source>Blocked Players</source>
+          <target state="new">Blocked Players</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterAll" xml:space="preserve">
+          <source>All</source>
+          <target state="new">All</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsPivot" xml:space="preserve">
+          <source>Friends</source>
+          <target state="new">Friends</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

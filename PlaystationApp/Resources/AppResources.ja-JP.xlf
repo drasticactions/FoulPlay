@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="ja-JP" original="AppResources.resx" tool-id="MultilingualAppToolkit" product-name="PlaystationApp" product-version="1.0.0.0" build-num="0">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="2.1.1100.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="Resx">
+        <trans-unit translate="yes" id="Resx/ResourceFlowDirection" xml:space="preserve">
+          <source>LeftToRight</source>
+          <target state="translated">LeftToRight</target>
+          
+        <note from="MultilingualBuild" annotates="source" priority="2">Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</note></trans-unit>
+        <trans-unit translate="yes" id="Resx/AppBarMenuItemText" xml:space="preserve">
+          <source>Menu Item</source>
+          <target state="new">Menu Item</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/MessagesPivot" xml:space="preserve">
+          <source>Messages</source>
+          <target state="translated">メッセージ</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterRequestSent" xml:space="preserve">
+          <source>Friend Requests (Sent)</source>
+          <target state="translated">フレンド依頼(送信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyTotal" xml:space="preserve">
+          <source>Total:</source>
+          <target state="translated">合計:</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyHeader" xml:space="preserve">
+          <source>Trophies</source>
+          <target state="translated">トロフィー</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/SendButton" xml:space="preserve">
+          <source>Send</source>
+          <target state="translated">送信</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ToMessageHeader" xml:space="preserve">
+          <source>To {0}</source>
+          <target state="translated">{0}へ</target>
+          
+        <note from="MultilingualBuild" annotates="source" priority="2">{0} represents the person who is being sent the message</note></trans-unit>
+        <trans-unit translate="yes" id="Resx/NotificationsHeader" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="translated">お知らせ</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoPlayers" xml:space="preserve">
+          <source>No players found.</source>
+          <target state="translated">プレーヤーが見つかりません。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/SearchButton" xml:space="preserve">
+          <source>Search</source>
+          <target state="translated">検索</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestConfirm" xml:space="preserve">
+          <source>A Friend request will be sent to this player.</source>
+          <target state="translated">このプレーヤーにフレンド依頼を送信します。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TotalFriends" xml:space="preserve">
+          <source>{0} Friends</source>
+          <target state="translated">{0}人のフレンド</target>
+          
+        <note from="MultilingualBuild" annotates="source" priority="2">{0} represents the total amount of friends.</note></trans-unit>
+        <trans-unit translate="yes" id="Resx/NowPlaying" xml:space="preserve">
+          <source>Now Playing</source>
+          <target state="translated">ただいまプレイ中</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangTurkish" xml:space="preserve">
+          <source>Turkish</source>
+          <target state="translated">トルコ語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LikeButton" xml:space="preserve">
+          <source>Like</source>
+          <target state="translated">いいね！</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ViewInformation" xml:space="preserve">
+          <source>View Information</source>
+          <target state="translated">情報を見る</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/HiddenTrophy" xml:space="preserve">
+          <source>Hidden Trophy</source>
+          <target state="translated">隠しトロフィー</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyDetail" xml:space="preserve">
+          <source>Details</source>
+          <target state="translated">詳細</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyStatus" xml:space="preserve">
+          <source>Status</source>
+          <target state="translated">状況</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyUltraRare" xml:space="preserve">
+          <source>Ultra Rare</source>
+          <target state="translated">超レア</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyVeryRare" xml:space="preserve">
+          <source>Very Rare</source>
+          <target state="translated">とてもレア</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/UserSearch" xml:space="preserve">
+          <source>User Search</source>
+          <target state="translated">ユーザー検索</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ViewNameRequest" xml:space="preserve">
+          <source>View Name Request</source>
+          <target state="translated">名前リクエストを見る</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/CancelNameRequest" xml:space="preserve">
+          <source>Cancel Name Request</source>
+          <target state="translated">名前リクエストをキャンセルする</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/CancelFriendRequest" xml:space="preserve">
+          <source>Cancel Friend Request</source>
+          <target state="translated">フレンド依頼をキャンセルする</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RemoveFromFriends" xml:space="preserve">
+          <source>Remove From Friends</source>
+          <target state="translated">フレンドから削除する</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/CancelNameRequestError" xml:space="preserve">
+          <source>Cannot cancel the name request.</source>
+          <target state="new">Cannot cancel the name request.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/GenericError" xml:space="preserve">
+          <source>(o_0)An Error Has Occured(O_o)</source>
+          <target state="new">(o_0)An Error Has Occured(O_o)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestSendError" xml:space="preserve">
+          <source>Cannot send the name request.</source>
+          <target state="translated">名前リクエストを送信できませんでした。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestSent" xml:space="preserve">
+          <source>Friend Requests (Sent)</source>
+          <target state="translated">フレンド依頼(送信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestSent" xml:space="preserve">
+          <source>Name Request (Sent)</source>
+          <target state="translated">名前リクエスト(送信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestReceived" xml:space="preserve">
+          <source>Name Request (Received)</source>
+          <target state="translated">名前リクエスト(送信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestReceived" xml:space="preserve">
+          <source>Friend Requests (Received)</source>
+          <target state="translated">フレンド依頼(受信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoTrophyInfo" xml:space="preserve">
+          <source>There are no trophies.
+You can earn trophies by playing games that support them.</source>
+          <target state="translated">トロフィーがありません。
+トロフィーに対応したゲームで遊ぶと、トロフィーを獲得できます。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendSendError" xml:space="preserve">
+          <source>Cannot send the Friend Request.</source>
+          <target state="translated">フレンド依頼を送信できませんでした。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/DeleteNameRequest" xml:space="preserve">
+          <source>Delete Name Request</source>
+          <target state="translated">名前リクエストを削除する</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/DeleteFriendRequest" xml:space="preserve">
+          <source>Delete Friend Request</source>
+          <target state="translated">フレンド以来を削除する</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ViewFriendRequest" xml:space="preserve">
+          <source>View Friend Request</source>
+          <target state="translated">フレンド依頼を見る</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RevealName" xml:space="preserve">
+          <source>Reveal Name</source>
+          <target state="translated">名前を教える</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NameRequestAlert" xml:space="preserve">
+          <source>Do you want to reveal your name to this Friend?</source>
+          <target state="translated">このフレンドに名前を教えますか？</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequestAlert" xml:space="preserve">
+          <source>Do you want to add this player as a Friend?</source>
+          <target state="translated">このプレーヤーをフレンドに追加しますか？</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AddAsFriend" xml:space="preserve">
+          <source>Add As Friend</source>
+          <target state="translated">フレンドに追加する</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Search" xml:space="preserve">
+          <source>Search</source>
+          <target state="translated">検索</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophySilver" xml:space="preserve">
+          <source>Silver</source>
+          <target state="translated">シルバー</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyRare" xml:space="preserve">
+          <source>Rare</source>
+          <target state="translated">レア</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyPlatinum" xml:space="preserve">
+          <source>Platinum</source>
+          <target state="translated">プラチナ</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyGold" xml:space="preserve">
+          <source>Gold</source>
+          <target state="translated">ゴールド</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyHidden" xml:space="preserve">
+          <source>Hidden</source>
+          <target state="translated">隠しトロフィー</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyCommon" xml:space="preserve">
+          <source>Common</source>
+          <target state="translated">ふつう</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyBronze" xml:space="preserve">
+          <source>Bronze</source>
+          <target state="translated">ブロンズ</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyRarity" xml:space="preserve">
+          <source>Rarity</source>
+          <target state="translated">グレード</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyNotEarned" xml:space="preserve">
+          <source>Not Earned</source>
+          <target state="translated">未獲得</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyGrade" xml:space="preserve">
+          <source>Grade</source>
+          <target state="translated">グレード</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyEarnedDate" xml:space="preserve">
+          <source>Earned Date</source>
+          <target state="translated">獲得日</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/TrophyEarned" xml:space="preserve">
+          <source>Earned</source>
+          <target state="translated">獲得済み</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/DislikeButton" xml:space="preserve">
+          <source>Dislike</source>
+          <target state="translated">嫌いだよ！</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangSwedish" xml:space="preserve">
+          <source>Swedish</source>
+          <target state="translated">スウェーデン語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangSpanishSpain" xml:space="preserve">
+          <source>Spanish (Spain)</source>
+          <target state="translated">スペイン語 (スペイン)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangSpanishLA" xml:space="preserve">
+          <source>Spanish (Latin America)</source>
+          <target state="translated">スペイン語 (ラテンアメリカ)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangRussian" xml:space="preserve">
+          <source>Russian</source>
+          <target state="translated">ロシア語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangPortuguesePortugal" xml:space="preserve">
+          <source>Portuguese (Portugal)</source>
+          <target state="translated">ポルトガル語 (ポルトガル)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangPortugueseBrazil" xml:space="preserve">
+          <source>Portuguese (Brazil)</source>
+          <target state="translated">ポルトガル語 (ブラジル)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangPolish" xml:space="preserve">
+          <source>Polish</source>
+          <target state="translated">ポーランド語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangNorwegian" xml:space="preserve">
+          <source>Norwegian</source>
+          <target state="translated">ノルウェー語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangKorean" xml:space="preserve">
+          <source>Korean</source>
+          <target state="translated">韓国語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangJapanese" xml:space="preserve">
+          <source>Japanese</source>
+          <target state="translated">日本語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangItalian" xml:space="preserve">
+          <source>Italian</source>
+          <target state="translated">イタリア語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangGerman" xml:space="preserve">
+          <source>German</source>
+          <target state="translated">ドイツ語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangFrench" xml:space="preserve">
+          <source>French</source>
+          <target state="translated">フランス語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangFinnish" xml:space="preserve">
+          <source>Finnish</source>
+          <target state="translated">フィンランド語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangEnglishUS" xml:space="preserve">
+          <source>English (United States)</source>
+          <target state="translated">英語（アメリカ）</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangEnglishUK" xml:space="preserve">
+          <source>English (United Kingdom)</source>
+          <target state="translated">英語（イギリス）</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangDutch" xml:space="preserve">
+          <source>Dutch</source>
+          <target state="translated">オランダ語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangDanish" xml:space="preserve">
+          <source>Danish</source>
+          <target state="translated">デンマーク語</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangChineseTraditional" xml:space="preserve">
+          <source>Chinese (Traditional)</source>
+          <target state="translated">中国語 (繁体字)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LangChineseSimplified" xml:space="preserve">
+          <source>Chinese (Simplified)</source>
+          <target state="translated">中国語 (簡体字)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoNotifications" xml:space="preserve">
+          <source>There are no new notifications.</source>
+          <target state="translated">お知らせはありません。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoGameAlert" xml:space="preserve">
+          <source>There are no new game alerts.</source>
+          <target state="translated">ゲームアラートはありません。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoMessages" xml:space="preserve">
+          <source>There are no new messages.</source>
+          <target state="translated">メッセージがありません。文字でメッセージを作成して、フレンドに送ってみよう。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoFriends" xml:space="preserve">
+          <source>No Friends Found.</source>
+          <target state="translated">フレンドはまだいません。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/SendMessage" xml:space="preserve">
+          <source>Send Message</source>
+          <target state="translated">メッセージを送信する</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RecentActivity" xml:space="preserve">
+          <source>Recent Activity</source>
+          <target state="translated">最近のアクティビティー</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/RealNameRequest" xml:space="preserve">
+          <source>Send Name Request</source>
+          <target state="translated">名前リクエストを送信する</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ProfileHeader" xml:space="preserve">
+          <source>Profile</source>
+          <target state="translated">プロフィール</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/NoActivities" xml:space="preserve">
+          <source>There are no activities.</source>
+          <target state="translated">アクティビティーはありません。</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/MyLanguages" xml:space="preserve">
+          <source>My Languages:</source>
+          <target state="translated">よく使う言語:</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendTotal" xml:space="preserve">
+          <source>{0} Friends</source>
+          <target state="translated">{0}人のフレンド</target>
+          
+        <note from="MultilingualBuild" annotates="source" priority="2">{0} represents total number of friends.</note></trans-unit>
+        <trans-unit translate="yes" id="Resx/AboutMeCategory" xml:space="preserve">
+          <source>Introduction</source>
+          <target state="translated">紹介</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendRequest" xml:space="preserve">
+          <source>Send Friend Request</source>
+          <target state="translated">フレンド依頼を送信する</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AboutMe" xml:space="preserve">
+          <source>About Me:</source>
+          <target state="translated">自己紹介:</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterRequestReceived" xml:space="preserve">
+          <source>Friend Requests (Received)</source>
+          <target state="translated">フレンド依頼(受信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterPlayersMet" xml:space="preserve">
+          <source>Players Met</source>
+          <target state="translated">一緒に遊んだプレーヤー</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterOnline" xml:space="preserve">
+          <source>Online</source>
+          <target state="translated">オンライン</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterNameRequestSent" xml:space="preserve">
+          <source>Name Requests (Sent)</source>
+          <target state="translated">名前リクエスト(送信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterNameRequestReceived" xml:space="preserve">
+          <source>Name Requests (Received)</source>
+          <target state="translated">名前リクエスト(受信済み)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterBlockedPlayer" xml:space="preserve">
+          <source>Blocked Players</source>
+          <target state="translated">ブロックしているプレーヤー</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsFilterAll" xml:space="preserve">
+          <source>All</source>
+          <target state="translated">すべて</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FriendsPivot" xml:space="preserve">
+          <source>Friends</source>
+          <target state="translated">フレンド</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/AppBarButtonText" xml:space="preserve">
+          <source>add</source>
+          <target state="new">add</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ApplicationTitle" xml:space="preserve">
+          <source>PS</source>
+          <target state="new">PS</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/ResourceLanguage" xml:space="preserve">
+          <source>en-US</source>
+          <target state="translated">ja-JP</target>
+          
+        <note from="MultilingualBuild" annotates="source" priority="2">Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</note></trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

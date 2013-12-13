@@ -1,0 +1,382 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PlaystationApp.Views.UserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <ProgressBar VerticalAlignment="Top" Visibility="Collapsed" x:Name="LoadingProgressBar" IsIndeterminate="True" />
+        <!--Pivot Control-->
+        <phone:Pivot x:Name="UserPivot" Title="{Binding OnlineId}">
+            <!--Pivot item one-->
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.ProfileHeader, Source={StaticResource LocalizedStrings}}">
+                <Grid x:Name="ProfileGrid" DataContext="{Binding UserEntity}">
+                    <ScrollViewer>
+                        <StackPanel>
+                            <Button x:Name="FriendRequestButton"
+                                    Content="{Binding Path=LocalizedResources.FriendRequest, Source={StaticResource LocalizedStrings}}"
+                                    Click="FriendRequestButton_OnClick" />
+                            <Button x:Name="FriendAcceptButton" Visibility="Collapsed"
+                                    Click="FriendAcceptButton_OnClick"
+                                    Content="{Binding Path=LocalizedResources.ViewFriendRequest, Source={StaticResource LocalizedStrings}}" />
+                            <Button x:Name="CancelFriendRequestButton" Click="FriendNoButton_click"
+                                    Visibility="Collapsed"
+                                    Content="{Binding Path=LocalizedResources.CancelFriendRequest, Source={StaticResource LocalizedStrings}}" />
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="UserImage" Width="100" Height="100" Source="{Binding AvatarUrl}" />
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Padding="15,0,0,0" FontSize="40" Text="{Binding OnlineId}" />
+                                    <TextBlock Padding="15,0,0,0" FontSize="25"
+                                               Text="{Binding personalDetail.FullName}" />
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBlock
+                                Text="{Binding Path=LocalizedResources.TrophyHeader, Source={StaticResource LocalizedStrings}}"
+                                FontSize="40" />
+                            <Border Tap="UserTrophyGrid_OnTap" BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                    BorderThickness="3">
+                                <Grid x:Name="UserTrophyGrid" Tap="UserTrophyGrid_OnTap">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Column="0" Tap="UserTrophyGrid_OnTap">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="25" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Tap="UserTrophyGrid_OnTap" FontSize="30" Grid.Row="0"
+                                                   Text="{Binding trophySummary.Level }" />
+                                        <TextBlock Tap="UserTrophyGrid_OnTap" FontSize="30" Grid.Row="0"
+                                                   HorizontalAlignment="Right" Text="{Binding trophySummary.Progress }" />
+                                        <ProgressBar Height="25" Tap="UserTrophyGrid_OnTap"
+                                                     Value="{Binding trophySummary.Progress }" Grid.Row="1" />
+                                        <StackPanel Tap="UserTrophyGrid_OnTap" Grid.Row="2" Orientation="Horizontal">
+                                            <TextBlock Tap="UserTrophyGrid_OnTap" FontSize="30"
+                                                       Text="{Binding Path=LocalizedResources.TrophyTotal, Source={StaticResource LocalizedStrings}}" />
+                                            <TextBlock Tap="UserTrophyGrid_OnTap" FontSize="30"
+                                                       Text="{Binding trophySummary.TotalTrophies }" Padding="15,0,0,0" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Column="1" Tap="UserTrophyGrid_OnTap">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Width="25" Tap="UserTrophyGrid_OnTap" Height="25"
+                                                   Source="/Assets/Trophy-icon-plat.png" />
+                                            <TextBlock Tap="UserTrophyGrid_OnTap"
+                                                       Text="{Binding trophySummary.EarnedTrophies.Platinum }"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       Grid.Column="1" />
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Width="25" Tap="UserTrophyGrid_OnTap" Height="25"
+                                                   Source="/Assets/Trophy-icon-Gold.png" />
+                                            <TextBlock Tap="UserTrophyGrid_OnTap"
+                                                       Text="{Binding trophySummary.EarnedTrophies.Gold }"
+                                                       Grid.Column="1" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Left" />
+                                        </Grid>
+
+                                    </Grid>
+                                    <Grid Grid.Column="2" Tap="UserTrophyGrid_OnTap">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Width="25" Tap="UserTrophyGrid_OnTap" Height="25"
+                                                   Source="/Assets/Trophy-icon-Silver.png" />
+                                            <TextBlock Tap="UserTrophyGrid_OnTap"
+                                                       Text="{Binding trophySummary.EarnedTrophies.Silver }"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                       Grid.Column="1" />
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Width="25" Tap="UserTrophyGrid_OnTap" Height="25"
+                                                   Source="/Assets/Trophy-icon-Bronze.png" />
+                                            <TextBlock Tap="UserTrophyGrid_OnTap"
+                                                       Text="{Binding trophySummary.EarnedTrophies.Bronze }"
+                                                       Grid.Column="1" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Left" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <StackPanel x:Name="NowPlayingStackPanel">
+                                <TextBlock
+                                    Text="{Binding Path=LocalizedResources.NowPlaying, Source={StaticResource LocalizedStrings}}"
+                                    FontSize="40" />
+                                <TextBlock Text="{Binding presence.PrimaryInfo.GameTitleInfo.TitleName}" FontSize="30"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding presence.PrimaryInfo.GameStatus}" FontSize="30"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel x:Name="RecentActivityStackPanel">
+                                <TextBlock
+                                    Text="{Binding Path=LocalizedResources.RecentActivity, Source={StaticResource LocalizedStrings}}"
+                                    FontSize="40" />
+                                <StackPanel>
+                                    <Grid Tap="RecentActivitiesGrid_OnTap"  Visibility="Collapsed" x:Name="RecentActivitiesGrid" Margin="6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="75" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border VerticalAlignment="Center" Grid.Column="0" Width="70" Height="70">
+                                            <Image Source="{Binding SmallImageUrl}" Stretch="UniformToFill" />
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Padding="15,0,0,0" VerticalAlignment="Center"
+                                                       TextWrapping="Wrap" Text="{Binding Caption}" FontSize="20" />
+                                            <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date}"
+                                                       FontSize="15" />
+                                        </Grid>
+                                    </Grid>
+                                    <ProgressBar x:Name="RecentActivityProgressBar" IsIndeterminate="True" Height="70" />
+                                    <TextBlock x:Name="NoActivitiesTextBlock" Visibility="Collapsed"
+                                               Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}"
+                                               FontSize="30" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel x:Name="AboutMeStackPanel">
+                                <TextBlock
+                                    Text="{Binding Path=LocalizedResources.AboutMe, Source={StaticResource LocalizedStrings}}"
+                                    FontSize="40" />
+                                <TextBlock x:Name="AboutMeTextBlock" Tap="UserTrophyGrid_OnTap" Padding="0,0,0,0"
+                                           FontSize="30" TextWrapping="Wrap" Text="{Binding AboutMe}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock
+                                    Text="{Binding Path=LocalizedResources.MyLanguages, Source={StaticResource LocalizedStrings}}"
+                                    FontSize="40" />
+                                <TextBlock x:Name="MyLanguagesBlock" Tap="UserTrophyGrid_OnTap" FontSize="30"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </phone:PivotItem>
+
+            <!--Pivot item two-->
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.MessagesPivot, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="100" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="SendMessageButton" Tap="SendMessageButton_OnTap" Grid.Row="1"
+                            Content="{Binding Path=LocalizedResources.SendMessage, Source={StaticResource LocalizedStrings}}" />
+                    <Grid Grid.Row="0">
+                        <phone:LongListSelector x:Name="MessageList" ItemsSource="{Binding Messages}">
+                            <phone:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="125" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border VerticalAlignment="Top" Grid.Column="0" Width="100" Height="100">
+                                            <Image Source="{Binding AvatarUrl}" Stretch="UniformToFill" />
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="50" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock TextWrapping="NoWrap" Text="{Binding SenderOnlineId}" />
+                                                <TextBlock TextWrapping="Wrap" Text="{Binding Body}" />
+                                                <TextBlock TextWrapping="NoWrap" Text="{Binding ReceivedDate}" />
+                                            </StackPanel>
+                                            <Grid Grid.Column="1">
+                                                <Image Width="50" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                                       Source="/Assets/appbar.image.png"
+                                                       Visibility="{Binding ContentKeys.HasImage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                <Image Width="50" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                                       Source="/Assets/appbar.speakerphone.png"
+                                                       Visibility="{Binding ContentKeys.HasAudio, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            </Grid>
+                                        </Grid>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </phone:LongListSelector.ItemTemplate>
+                        </phone:LongListSelector>
+                    </Grid>
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.RecentActivity, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <phone:LongListSelector SelectionChanged="RecentActivityLongListSelector_OnSelectionChanged"
+                                        x:Name="RecentActivityLongListSelector" ItemsSource="{Binding FeedList}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Center" Grid.Column="0" Width="70" Height="70">
+                                        <Image Source="{Binding SmallImageUrl}" Stretch="UniformToFill" />
+                                    </Border>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Padding="15,0,0,0" VerticalAlignment="Center"
+                                               TextWrapping="Wrap" Text="{Binding Caption}" FontSize="20" />
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date}"
+                                               FontSize="15" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                    <TextBlock x:Name="NoActivitiesListTextBlock" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}"
+                                               FontSize="30" />
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem
+                Header="{Binding Path=LocalizedResources.TrophyHeader, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="TrophyHeaderGrid" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid x:Name="ComparedUserGrid" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"
+                                           Text="{Binding OnlineId}" />
+                            </Grid>
+                            <Grid x:Name="FromUserGrid" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"
+                                           Text="{Binding OnlineId}" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <phone:LongListSelector Grid.Row="1" x:Name="TrophyList"
+                                            SelectionChanged="TrophyList_OnSelectionChanged"
+                                            ItemsSource="{Binding TrophyList}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="160" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Top" Grid.Column="0" Width="150" Height="83">
+                                        <Image Source="{Binding TrophyTitleIconUrl}" Stretch="UniformToFill" />
+                                    </Border>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis"
+                                                       Text="{Binding TrophyTitleName}" />
+                                            <Border Grid.Column="1" BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                                    BorderThickness="5" HorizontalAlignment="Right">
+                                                <TextBlock TextWrapping="Wrap" Text="{Binding TrophyTitlePlatfrom}" />
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid
+                                                Visibility="{Binding ComparedUser, Converter={StaticResource HasTrophiesConverter}}"
+                                                Grid.Column="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="15" />
+                                                </Grid.RowDefinitions>
+                                                <ProgressBar HorizontalAlignment="Stretch" Grid.Row="1"
+                                                             Value="{Binding ComparedUser.Progress}" />
+                                                <TextBlock Padding="10,0,0,0" Grid.Row="0" HorizontalAlignment="Left"
+                                                           Text="{Binding ComparedUser.Progress, Converter={StaticResource ValuePercentConverter}}" />
+                                            </Grid>
+                                            <Grid
+                                                Visibility="{Binding FromUser, Converter={StaticResource HasTrophiesConverter}}"
+                                                Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="15" />
+                                                </Grid.RowDefinitions>
+                                                <ProgressBar HorizontalAlignment="Stretch" Grid.Row="1"
+                                                             Value="{Binding FromUser.Progress}" />
+                                                <TextBlock Padding="10,0,0,0" Grid.Row="0" HorizontalAlignment="Left"
+                                                           Text="{Binding FromUser.Progress, Converter={StaticResource ValuePercentConverter}}" />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                    <TextBlock x:Name="NoTrophyTextBlock" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" Grid.Row="1" Text="{Binding Path=LocalizedResources.NoTrophyInfo, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+
+</phone:PhoneApplicationPage>
