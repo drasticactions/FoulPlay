@@ -18,18 +18,8 @@
                         Content="{Binding Path=LocalizedResources.SendButton, Source={StaticResource LocalizedStrings}}" />
                 <Button Click="ImagePicker_Click" x:Name="ImagePicker" Content="+Media" />
                 <Button x:Name="CameraAccess" Click="CameraAccess_Click" Content="+Camera" />
-                <Button Visibility="Collapsed" x:Name="MicrophoneButton" Click="MicrophoneButton_OnClick"
-                        Content="+Mic" />
-            </StackPanel>
-            <StackPanel x:Name="MicrophonePanel" Visibility="Collapsed" HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                <Button x:Name="RecordButton" Click="RecordButton_OnClick" Content="Record" />
-                <Button x:Name="StopButton" Click="StopButton_OnClick" Content="Stop" />
-                <Button x:Name="PlayButton" Click="PlayButton_OnClick" Content="Play" />
-                <Button x:Name="CancelButton" Click="CancelButton_OnClick" Content="Cancel" />
             </StackPanel>
             <Image Height="200" Width="300" Visibility="Collapsed" x:Name="ImagePickerImage" />
-            <Image Height="200" Width="300" Visibility="Collapsed" x:Name="MicrophoneImage" />
         </StackPanel>
     </Grid>
 </UserControl>
