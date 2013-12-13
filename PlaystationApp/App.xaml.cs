@@ -63,6 +63,8 @@ namespace PlaystationApp
 
         public static MessageEntity SelectedMessageEventEntity { get; set; }
 
+        public static string SelectedMessageGroupId { get; set; }
+
         /// <summary>
         ///     Provides easy access to the root frame of the Phone Application.
         /// </summary>

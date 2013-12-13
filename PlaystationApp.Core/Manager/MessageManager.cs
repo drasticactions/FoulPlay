@@ -39,7 +39,7 @@ namespace PlaystationApp.Core.Manager
             return messageGroup;
         }
 
-        public async Task<MessageEntity> GetConversation(List<string> usernames , UserAccountEntity userAccountEntity)
+        public async Task<MessageEntity> GetGroupConversation(string messageGroupId, UserAccountEntity userAccountEntity)
         {
             var authenticationManager = new AuthenticationManager();
             var user = userAccountEntity.GetUserEntity();
@@ -47,7 +47,7 @@ namespace PlaystationApp.Core.Manager
             {
                 await authenticationManager.RefreshAccessToken(userAccountEntity);
             }
-            var url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/~{1}/messages?fields=@default%2CmessageGroup%2Cbody&npLanguage={2}", user.Region, string.Join(",", usernames.ToArray()), user.Language);
+            var url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?fields=@default%2CmessageGroup%2Cbody&npLanguage={2}", user.Region, messageGroupId, user.Language);
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
@@ -56,10 +56,8 @@ namespace PlaystationApp.Core.Manager
             responseContent = "[" + responseContent + "]";
             var a = JArray.Parse(responseContent);
             var b = (JObject)a[0];
-            var messages = await MessageEntity.Parse(b, userAccountEntity);
-            return messages;
-        
-        
+            var messageGroup = await MessageEntity.Parse(b, userAccountEntity);
+            return messageGroup;
         }
 
         public async Task<bool> CreatePost(string messageUserId, string post,

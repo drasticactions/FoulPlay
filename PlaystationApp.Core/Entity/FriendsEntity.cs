@@ -15,7 +15,8 @@ namespace PlaystationApp.Core.Entity
 
         public static FriendsEntity Parse(JObject jobject)
         {
-            string json = jobject["friendList"].ToString();
+            string json = jobject["friendList"] != null ? jobject["friendList"].ToString() : null;
+            if (string.IsNullOrEmpty(json)) return null;
             var a = (JArray) JsonConvert.DeserializeObject(json);
             var friendsEntity = new FriendsEntity
             {

@@ -108,7 +108,7 @@ namespace PlaystationApp.Views
             await GetTrophyList();
             var messagerManager = new MessageManager();
             _messageEntity = await
-                   messagerManager.GetConversation(new List<string> { App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId }, App.UserAccountEntity);
+                   messagerManager.GetGroupConversation(string.Format("~{0},{1}", App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId), App.UserAccountEntity);
             MessageList.DataContext = _messageEntity;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }

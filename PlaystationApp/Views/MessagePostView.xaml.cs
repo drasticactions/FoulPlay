@@ -8,7 +8,7 @@ namespace PlaystationApp.Views
         public MessagePostView()
         {
             InitializeComponent();
-            HeaderTextBlock.Text = string.Format(AppResources.ToMessageHeader, App.SelectedUser.OnlineId);
+            //HeaderTextBlock.Text = string.Format(AppResources.ToMessageHeader, App.SelectedUser.OnlineId);
         }
     }
 }

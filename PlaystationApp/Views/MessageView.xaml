@@ -64,7 +64,6 @@
                                                        Visibility="{Binding ContentKeys.HasAudio, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                 </Grid>
-
                             </Grid>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>

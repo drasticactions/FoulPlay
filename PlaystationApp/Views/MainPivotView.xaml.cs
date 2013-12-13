@@ -42,6 +42,14 @@ namespace PlaystationApp.Views
             await LoadRecentActivityList();
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            FriendsLongListSelector.SelectedItem = null;
+            RecentActivityLongListSelector.SelectedItem = null;
+            MessageList.SelectedItem = null;
+        }
+
         // Build a localized ApplicationBar
         private void BuildLocalizedApplicationBar()
         {
@@ -109,7 +117,7 @@ namespace PlaystationApp.Views
                 },
                 new FilterItemEntity
                 {
-                    Name = "Name Requests (Received)",
+                    Name = AppResources.NameRequestReceived,
                     FriendStatus = false,
                     PlayedRecently = false,
                     PersonalDetailSharing = true,
@@ -120,7 +128,7 @@ namespace PlaystationApp.Views
                 },
                 new FilterItemEntity
                 {
-                    Name = "Name Requests (Sent)",
+                    Name = AppResources.NameRequestSent,
                     FriendStatus = false,
                     PlayedRecently = false,
                     PersonalDetailSharing = true,
@@ -137,7 +145,6 @@ namespace PlaystationApp.Views
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
             var friendManager = new FriendManager();
-            //UserAccountEntity.User user = App.UserAccountEntity.GetUserEntity();
             FriendCollection = new InfiniteScrollingCollection
             {
                 FriendList = new ObservableCollection<FriendsEntity.Friend>(),
@@ -149,29 +156,32 @@ namespace PlaystationApp.Views
                 PersonalDetailSharing = personalDetailSharing,
                 FriendStatus = friendStatus
             };
-            FriendsEntity items =
+            var items =
                 await
                     friendManager.GetFriendsList(_user.OnlineId, 0, blockedPlayer, recentlyPlayed, personalDetailSharing,
                         friendStatus, requesting, requested, onlineFilter, App.UserAccountEntity);
+            if (items == null)
+            {
+                return false;
+            }
             FriendsMessageTextBlock.Visibility = !items.FriendList.Any() ? Visibility.Visible : Visibility.Collapsed;
             foreach (FriendsEntity.Friend item in items.FriendList)
             {
                 FriendCollection.FriendList.Add(item);
             }
-
-            var messageManager = new MessageManager();
-            var notificationManager = new NotificationManager();
             FriendsLongListSelector.ItemRealized += friendList_ItemRealized;
             FriendsLongListSelector.DataContext = FriendCollection;
 
-            NotificationEntity notification =
+            var messageManager = new MessageManager();
+            var notificationManager = new NotificationManager();
+                        NotificationEntity notification =
                 await notificationManager.GetNotifications(_user.OnlineId, App.UserAccountEntity);
             NotificationsMessageTextBlock.Visibility = !notification.Notifications.Any()
                 ? Visibility.Visible
                 : Visibility.Collapsed;
             NotificationListSelector.DataContext = notification;
             MessageGroupEntity message = await messageManager.GetMessageGroup(_user.OnlineId, App.UserAccountEntity);
-            MessagesMessageTextBlock.Visibility = !message.MessageGroups.Any()
+            MessagesMessageTextBlock.Visibility = message != null && !message.MessageGroups.Any()
                 ? Visibility.Visible
                 : Visibility.Collapsed;
             MessageList.DataContext = message;
@@ -190,19 +200,18 @@ namespace PlaystationApp.Views
                 PageCount = 1
             };
             var recentActivityManager = new RecentActivityManager();
-            RecentActivityEntity recentActivityEntity =
+            var recentActivityEntity =
                 await recentActivityManager.GetActivityFeed(_user.OnlineId, 0, true, true, App.UserAccountEntity);
             if (recentActivityEntity == null)
             {
                 NoActivitiesTextBlock.Visibility = Visibility.Visible;
                 return false;
             }
-            foreach (RecentActivityEntity.Feed item in recentActivityEntity.FeedList)
+            foreach (var item in recentActivityEntity.FeedList)
             {
                 RecentActivityCollection.FeedList.Add(item);
             }
            
-            //App.SelectedRecentActivityEntity = RecentActivityCollection.FeedList;
             RecentActivityLongListSelector.DataContext = RecentActivityCollection;
             RecentActivityLongListSelector.ItemRealized += RecentActivity_ItemRealized;
             return true;
@@ -269,14 +278,12 @@ namespace PlaystationApp.Views
 
         private async void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (FilterListPicker.Items.Any())
-            {
-                var filterItem = (FilterItemEntity) FilterListPicker.SelectedItem;
-                await
-                    GetFriendsList(filterItem.IsOnline, filterItem.PlayerBlocked, filterItem.PlayedRecently,
-                        filterItem.PersonalDetailSharing, filterItem.FriendStatus, filterItem.Requesting,
-                        filterItem.Requested);
-            }
+            if (!FilterListPicker.Items.Any()) return;
+            var filterItem = (FilterItemEntity) FilterListPicker.SelectedItem;
+            await
+                GetFriendsList(filterItem.IsOnline, filterItem.PlayerBlocked, filterItem.PlayedRecently,
+                    filterItem.PersonalDetailSharing, filterItem.FriendStatus, filterItem.Requesting,
+                    filterItem.Requested);
         }
 
         private void MessageButton_Click(object sender, EventArgs e)
@@ -320,6 +327,15 @@ namespace PlaystationApp.Views
             if (item == null) return;
             App.SelectedRecentActivityFeedEntity = item;
             NavigationService.Navigate(new Uri("/Views/RecentActivityPage.xaml", UriKind.Relative));
+
+        }
+
+        private void MessageList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (MessageGroupEntity.MessageGroup) MessageList.SelectedItem;
+            if (item == null) return;
+            App.SelectedMessageGroupId = item.MessageGroupId;
+            NavigationService.Navigate(new Uri("/Views/MessageView.xaml", UriKind.Relative));
         }
     }
 }

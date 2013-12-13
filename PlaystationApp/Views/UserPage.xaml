@@ -153,9 +153,7 @@
                                             <ColumnDefinition Width="75" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Border VerticalAlignment="Center" Grid.Column="0" Width="70" Height="70">
-                                            <Image Source="{Binding SmallImageUrl}" Stretch="UniformToFill" />
-                                        </Border>
+                                    
                                         <Grid Grid.Column="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -254,7 +252,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Border VerticalAlignment="Center" Grid.Column="0" Width="70" Height="70">
-                                        <Image Source="{Binding SmallImageUrl}" Stretch="UniformToFill" />
+                                        <Image Source="{Binding Converter={StaticResource RecentActivityImageConverter}}" Stretch="UniformToFill" />
                                     </Border>
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>

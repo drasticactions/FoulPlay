@@ -23,7 +23,7 @@ namespace PlaystationApp.UserControls
             ProgressBar.Visibility = Visibility.Visible;
             var memberNames = App.SelectedMessageEventEntity.MessageGroupEntity.MessageGroupDetail.Members;
             var usernameList = memberNames.Select(member => member.OnlineId).ToList();
-            string messageId = string.Format("~{0}", string.Join(",", usernameList.ToArray()));
+            string messageId = App.SelectedMessageGroupId;
             var messageManager = new MessageManager();
             StatusPostButton.IsEnabled = false;
             ImagePicker.IsEnabled = false;

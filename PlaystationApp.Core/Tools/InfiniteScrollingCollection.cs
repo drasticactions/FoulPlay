@@ -87,6 +87,11 @@ namespace PlaystationApp.Core.Tools
             var recentActivityManager = new RecentActivityManager();
             var feedEntity =
                 await recentActivityManager.GetActivityFeed(username, PageCount, StorePromo, IsNews, UserAccountEntity);
+            if (feedEntity == null)
+            {
+                HasMoreItems = false;
+                return;
+            }
             foreach (var feed in feedEntity.FeedList)
             {
                 FeedList.Add(feed);
@@ -109,6 +114,11 @@ namespace PlaystationApp.Core.Tools
             IsLoading = true;
             var trophyManager = new TrophyManager();
             var trophyList = await trophyManager.GetTrophyList(username, Offset, UserAccountEntity);
+            if (trophyList == null)
+            {
+                //HasMoreItems = false;
+                return;
+            }
             foreach (var trophy in trophyList.TrophyTitles)
             {
                 TrophyList.Add(trophy);
@@ -131,6 +141,11 @@ namespace PlaystationApp.Core.Tools
             IsLoading = true;
             var friendManager = new FriendManager();
             var friendEntity = await friendManager.GetFriendsList(username, Offset, BlockedPlayer, RecentlyPlayed, PersonalDetailSharing, FriendStatus, Requesting, Requested, OnlineFilter, UserAccountEntity);
+            if (friendEntity == null)
+            {
+                //HasMoreItems = false;
+                return;
+            }
             foreach (var friend in friendEntity.FriendList)
             {
                 FriendList.Add(friend);

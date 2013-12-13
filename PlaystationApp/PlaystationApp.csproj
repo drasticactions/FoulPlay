@@ -111,6 +111,7 @@
     <Compile Include="Tools\HasTrophiesConverter.cs" />
     <Compile Include="Tools\NowPlayingVisibilityConverter.cs" />
     <Compile Include="Tools\OnlineConverter.cs" />
+    <Compile Include="Tools\RecentActivityImageConverter.cs" />
     <Compile Include="Tools\TrophyEarnedRateConverter.cs" />
     <Compile Include="Tools\TrophyGradeConverter.cs" />
     <Compile Include="Tools\TrophyHiddenConverter.cs" />

@@ -20,6 +20,7 @@
         <tools:TrophyGradeConverter x:Key="TrophyGradeConverter" />
         <tools:NowPlayingVisibilityConverter x:Key="NowPlayingVisibilityConverter" />
         <tools:ValuePercentConverter x:Key="ValuePercentConverter" />
+        <tools:RecentActivityImageConverter x:Key="RecentActivityImageConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

@@ -103,43 +103,40 @@ namespace PlaystationApp.Core.Entity
 
         public async static Task<MessageEntity> Parse(JObject jobject, UserAccountEntity userAccountEntity)
         {
-            if (jobject["messageGroup"] != null)
+            if (jobject["messageGroup"] == null) return new MessageEntity();
+            string json = jobject["messageGroup"].ToString();
+            JObject messageGroupObject = JObject.Parse(json);
+            var messageGroup = new MessageGroup
             {
-                string json = jobject["messageGroup"].ToString();
-                JObject messageGroupObject = JObject.Parse(json);
-                var messageGroup = new MessageGroup
+                TotalMessages = messageGroupObject["totalMessages"] != null ? (int)messageGroupObject["totalMessages"] : 0,
+                TotalUnseenMessages = messageGroupObject["totalUnseenMessages"] != null ? (int)messageGroupObject["totalUnseenMessages"] : 0,
+                MessageGroupId = messageGroupObject["messageGroupId"] != null ? (String)messageGroupObject["messageGroupId"] : null,
+                MessageGroupDetail = messageGroupObject["messageGroupDetail"] != null ? ParseMessageGroupDetail((JObject)messageGroupObject["messageGroupDetail"]) : null
+            };
+            var memberNames = messageGroup.MessageGroupDetail.Members;
+            var messages = ParseMessage(jobject, userAccountEntity);
+            var userManager = new UserManager();
+            foreach (var member in memberNames)
+            {
+                var user = await userManager.GetUser(member.OnlineId, userAccountEntity);
+                var avatarUrl = user.AvatarUrl;
+                foreach (var message in messages)
                 {
-                    TotalMessages = (int)messageGroupObject["totalMessages"],
-                    TotalUnseenMessages = (int)messageGroupObject["totalUnseenMessages"],
-                    MessageGroupId = (String)messageGroupObject["messageGroupId"],
-                    MessageGroupDetail = ParseMessageGroupDetail((JObject)messageGroupObject["messageGroupDetail"])
-                };
-                var memberNames = messageGroup.MessageGroupDetail.Members;
-                var messages = ParseMessage(jobject, userAccountEntity);
-                var userManager = new UserManager();
-                foreach (var member in memberNames)
-                {
-                    var user = await userManager.GetUser(member.OnlineId, userAccountEntity);
-                    var avatarUrl = user.AvatarUrl;
-                    foreach (var message in messages)
+                    if (message.SenderOnlineId.Equals(user.OnlineId))
                     {
-                        if (message.SenderOnlineId.Equals(user.OnlineId))
-                        {
-                            message.AvatarUrl = avatarUrl;
-                        }
+                        message.AvatarUrl = avatarUrl;
                     }
                 }
-                var messageGroupEntity = new MessageEntity()
-                {
-                    Size = (int)jobject["size"],
-                    Start = (int)jobject["start"],
-                    TotalResults = (int)jobject["totalResults"],
-                    MessageGroupEntity = messageGroup,
-                    Messages = messages
-                };
-                return messageGroupEntity;
             }
-            return new MessageEntity();
+            var messageGroupEntity = new MessageEntity()
+            {
+                Size = (int)jobject["size"],
+                Start = (int)jobject["start"],
+                TotalResults = (int)jobject["totalResults"],
+                MessageGroupEntity = messageGroup,
+                Messages = messages
+            };
+            return messageGroupEntity;
         }
 
         public static MessageGroupDetail ParseMessageGroupDetail(JObject o)

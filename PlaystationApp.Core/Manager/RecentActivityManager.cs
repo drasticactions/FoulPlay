@@ -20,7 +20,7 @@ namespace PlaystationApp.Core.Manager
             {
                 await authenticationManager.RefreshAccessToken(userAccountEntity);
             }
-            string url = string.Format("https://activity.api.np.km.playstation.net/activity/api/v1/users/{0}/{1}/{2}?filters=PLAYED_GAME&filters=TROPHY&filters=BROADCASTING&filters=PROFILE_PIC&filters=FRIENDED", userName, feedNews, pageNumber);
+            string url = string.Format("https://activity.api.np.km.playstation.net/activity/api/v1/users/{0}/{1}/{2}?filters=PLAYED_GAME&filters=TROPHY&filters=BROADCASTING&filters=PROFILE_PIC&filters=FRIENDED&filters=STORE_PROMO", userName, feedNews, pageNumber);
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());

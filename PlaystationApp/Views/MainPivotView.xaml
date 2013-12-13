@@ -117,7 +117,7 @@
                     <TextBlock x:Name="MessagesMessageTextBlock" FontSize="50" TextWrapping="Wrap"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
                                Text="{Binding Path=LocalizedResources.NoMessages, Source={StaticResource LocalizedStrings}}" />
-                    <phone:LongListSelector x:Name="MessageList" ItemsSource="{Binding MessageGroups}">
+                    <phone:LongListSelector x:Name="MessageList" SelectionChanged="MessageList_OnSelectionChanged"  ItemsSource="{Binding MessageGroups}">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="6">
@@ -173,7 +173,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Border VerticalAlignment="Center" Grid.Column="0" Width="70" Height="70">
-                                        <Image Source="{Binding SmallImageUrl}" Stretch="UniformToFill" />
+                                        <Image Source="{Binding Converter={StaticResource RecentActivityImageConverter}}" Stretch="UniformToFill" />
                                     </Border>
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>
