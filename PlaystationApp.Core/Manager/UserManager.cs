@@ -22,8 +22,11 @@ namespace PlaystationApp.Core.Manager
             }
             string url = string.Format("https://{0}-prof.np.community.playstation.net/userProfile/v1/users/{1}/profile?fields=@default,relation,onlineId,presence,avatarUrl,plus,personalDetail,trophySummary", user.Region, userName);
             var theAuthClient = new HttpClient();
+            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+            url += "&r=" + Guid.NewGuid();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
             HttpResponseMessage response = await theAuthClient.SendAsync(request);
             string responseContent = await response.Content.ReadAsStringAsync();
             var friend = UserEntity.Parse(responseContent);
@@ -39,6 +42,8 @@ namespace PlaystationApp.Core.Manager
                 await authenticationManager.RefreshAccessToken(userAccountEntity);
             }
             string url = string.Format("https://{0}-prof.np.community.playstation.net/userProfile/v1/users/{1}/profile?fields=avatarUrl", user.Region, userName);
+            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+            url += "&r=" + Guid.NewGuid();
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());

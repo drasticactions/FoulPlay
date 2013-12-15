@@ -33,10 +33,12 @@ namespace PlaystationApp.Core.Manager
                     string.Format(
                         "https://activity.api.np.km.playstation.net/activity/api/v1/users/{0}/recentlyplayed?", username);
             if (blockedPlayer) url = string.Format("https://{0}-prof.np.community.playstation.net/userProfile/v1/users/{1}/blockList?fields=%40default%2C%40profile&offset={2}", user.Region, username, offset);
-
+            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+            url += "&r=" + Guid.NewGuid();
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            request.Headers.CacheControl = new CacheControlHeaderValue{NoCache = true, MustRevalidate = true};
             HttpResponseMessage response = await theAuthClient.SendAsync(request);
             string responseContent = await response.Content.ReadAsStringAsync();
             if (string.IsNullOrEmpty(responseContent)) return null;

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json.Linq;
 using PlaystationApp.Core.Entity;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,9 +18,12 @@ namespace PlaystationApp.Core.Manager
                 await authenticationManager.RefreshAccessToken(userAccountEntity);
             }
             string url = string.Format("https://activity.api.np.km.playstation.net/activity/api/v1/users/{0}/{1}/{2}?filters=PLAYED_GAME&filters=TROPHY&filters=BROADCASTING&filters=PROFILE_PIC&filters=FRIENDED", userName, feedNews, pageNumber);
+            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+            url += "&r=" + Guid.NewGuid();
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
             var response = await theAuthClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStringAsync();
             if (string.IsNullOrEmpty(responseContent)) return null;

@@ -22,8 +22,11 @@ namespace PlaystationApp.Core.Manager
             }
             string url = string.Format("https://{0}-ntl.np.community.playstation.net/notificationList/v1/users/{1}/notifications?fields=@default%2Cmessage%2CactionUrl&npLanguage={2}", user.Region, username, user.Language);
             var theAuthClient = new HttpClient();
+            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+            url += "&r=" + Guid.NewGuid();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
             HttpResponseMessage response = await theAuthClient.SendAsync(request);
             string responseContent = await response.Content.ReadAsStringAsync();
             responseContent = "[" + responseContent + "]";

@@ -22,9 +22,12 @@ namespace PlaystationApp.Core.Manager
                 await authenticationManager.RefreshAccessToken(userAccountEntity);
             }
             string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/users/{1}/messageGroups?fields=@default%2CmessageGroupId%2CmessageGroupDetail%2CtotalUnseenMessages%2CtotalMessages%2ClatestMessage&npLanguage={2}", user.Region, username, user.Language);
+            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+            url += "&r=" + Guid.NewGuid();
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
             var response = await theAuthClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStringAsync();
             responseContent = "[" + responseContent + "]";
@@ -46,6 +49,7 @@ namespace PlaystationApp.Core.Manager
             string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages/{2}?contentKey={3}&npLanguage={4}", user.Region, id, message.MessageUid, content, user.Language);
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
             var response = await theAuthClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStreamAsync();
@@ -62,8 +66,11 @@ namespace PlaystationApp.Core.Manager
             }
             var url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?fields=@default%2CmessageGroup%2Cbody&npLanguage={2}", user.Region, messageGroupId, user.Language);
             var theAuthClient = new HttpClient();
+            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+            url += "&r=" + Guid.NewGuid();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
             var response = await theAuthClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStringAsync();
             responseContent = "[" + responseContent + "]";
