@@ -123,6 +123,9 @@
     <Compile Include="UserControls\MessageBoxUserControl.xaml.cs">
       <DependentUpon>MessageBoxUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MessageImageUserControl.xaml.cs">
+      <DependentUpon>MessageImageUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SendFriendRequestUserControl.xaml.cs">
       <DependentUpon>SendFriendRequestUserControl.xaml</DependentUpon>
     </Compile>
@@ -171,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MessageBoxUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MessageImageUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

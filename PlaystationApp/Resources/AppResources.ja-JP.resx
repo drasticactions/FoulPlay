@@ -414,4 +414,10 @@
   <data name="NameRequestReceived" xml:space="preserve">
     <value>名前リクエスト(送信済み)</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>画像</value>
+  </data>
+  <data name="VoiceMessage" xml:space="preserve">
+    <value>ボイスメッセージ</value>
+  </data>
 </root>

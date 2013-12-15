@@ -151,6 +151,14 @@ You can earn trophies by playing games that support them.</source>
           <target state="translated">トロフィーがありません。
 トロフィーに対応したゲームで遊ぶと、トロフィーを獲得できます。</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resx/Image" xml:space="preserve">
+          <source>Image</source>
+          <target state="translated">画像</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/VoiceMessage" xml:space="preserve">
+          <source>Voice Message</source>
+          <target state="translated">ボイスメッセージ</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resx/FriendSendError" xml:space="preserve">
           <source>Cannot send the Friend Request.</source>
           <target state="translated">フレンド依頼を送信できませんでした。</target>

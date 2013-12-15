@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -62,6 +63,10 @@ namespace PlaystationApp
         public static RecentActivityEntity.Feed SelectedRecentActivityFeedEntity { get; set; }
 
         public static MessageEntity SelectedMessageEventEntity { get; set; }
+
+        public static MessageEntity.Message SelectedMessage { get; set; }
+
+        public static BitmapImage SelectedMessageImage { get; set; }
 
         public static string SelectedMessageGroupId { get; set; }
 

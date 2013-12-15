@@ -281,9 +281,9 @@ namespace PlaystationApp.Views
                 IsCancelVisible = false
             };
             //_messpagePrompt.Completed += friendAlert_Completed;
-            var yesButton = new Button {Content = AppResources.AddAsFriend, FontSize = 20.0};
+            var yesButton = new Button {Content = AppResources.AddAsFriend, FontSize = 15.0};
             yesButton.Click += FriendYesButton_click;
-            var noButton = new Button {Content = AppResources.DeleteFriendRequest, FontSize = 20.0};
+            var noButton = new Button {Content = AppResources.DeleteFriendRequest, FontSize = 15.0};
             noButton.Click += FriendNoButton_click;
             _messpagePrompt.ActionPopUpButtons.Clear();
             _messpagePrompt.ActionPopUpButtons.Add(yesButton);

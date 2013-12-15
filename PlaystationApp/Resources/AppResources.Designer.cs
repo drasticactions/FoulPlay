@@ -331,6 +331,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string Image {
+            get {
+                return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chinese (Simplified).
         /// </summary>
         public static string LangChineseSimplified {
@@ -976,6 +985,15 @@ namespace PlaystationApp.Resources {
         public static string ViewNameRequest {
             get {
                 return ResourceManager.GetString("ViewNameRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voice Message.
+        /// </summary>
+        public static string VoiceMessage {
+            get {
+                return ResourceManager.GetString("VoiceMessage", resourceCulture);
             }
         }
     }

@@ -164,6 +164,14 @@ You can earn trophies by playing games that support them.</source>
           <target state="new">There are no trophies.
 You can earn trophies by playing games that support them.</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resx/Image" xml:space="preserve">
+          <source>Image</source>
+          <target state="new">Image</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/VoiceMessage" xml:space="preserve">
+          <source>Voice Message</source>
+          <target state="new">Voice Message</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resx/FriendSendError" xml:space="preserve">
           <source>Cannot send the Friend Request.</source>
           <target state="new">Cannot send the Friend Request.</target>

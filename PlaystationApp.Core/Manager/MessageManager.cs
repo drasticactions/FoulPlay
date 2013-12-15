@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PlaystationApp.Core.Entity;
+using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
-using PlaystationApp.Core.Entity;
 
 namespace PlaystationApp.Core.Manager
 {
@@ -37,6 +32,24 @@ namespace PlaystationApp.Core.Manager
             var b = (JObject)a[0];
             var messageGroup = await MessageGroupEntity.Parse(b, userAccountEntity);
             return messageGroup;
+        }
+
+        public async Task<Stream> GetMessageContent(string id, MessageEntity.Message message, UserAccountEntity userAccountEntity)
+        {
+            var authenticationManager = new AuthenticationManager();
+            var user = userAccountEntity.GetUserEntity();
+            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            {
+                await authenticationManager.RefreshAccessToken(userAccountEntity);
+            }
+            var content = message.ContentKeys.HasImage ? "image-data-0" : "voice-data-0";
+            string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages/{2}?contentKey={3}&npLanguage={4}", user.Region, id, message.MessageUid, content, user.Language);
+            var theAuthClient = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            var response = await theAuthClient.SendAsync(request);
+            var responseContent = await response.Content.ReadAsStreamAsync();
+            return responseContent;
         }
 
         public async Task<MessageEntity> GetGroupConversation(string messageGroupId, UserAccountEntity userAccountEntity)
