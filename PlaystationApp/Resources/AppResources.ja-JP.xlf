@@ -159,6 +159,18 @@ You can earn trophies by playing games that support them.</source>
           <source>Voice Message</source>
           <target state="translated">ボイスメッセージ</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resx/Logout" xml:space="preserve">
+          <source>Logout</source>
+          <target state="translated">ログアウト</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Login" xml:space="preserve">
+          <source>Login</source>
+          <target state="translated">ログイン</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Refresh" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="translated">更新</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resx/FriendSendError" xml:space="preserve">
           <source>Cannot send the Friend Request.</source>
           <target state="translated">フレンド依頼を送信できませんでした。</target>
@@ -169,7 +181,7 @@ You can earn trophies by playing games that support them.</source>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/DeleteFriendRequest" xml:space="preserve">
           <source>Delete Friend Request</source>
-          <target state="translated">フレンド以来を削除する</target>
+          <target state="translated">フレンド依頼を削除する</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/ViewFriendRequest" xml:space="preserve">
           <source>View Friend Request</source>

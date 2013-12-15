@@ -159,6 +159,18 @@ You can earn trophies by playing games that support them.</target>
           <source>Voice Message</source>
           <target state="new">Voice Message</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resx/Logout" xml:space="preserve">
+          <source>Logout</source>
+          <target state="new">Logout</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Login" xml:space="preserve">
+          <source>Login</source>
+          <target state="new">Login</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Refresh" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="new">Refresh</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resx/FriendSendError" xml:space="preserve">
           <source>Cannot send the Friend Request.</source>
           <target state="new">Cannot send the Friend Request.</target>

@@ -68,6 +68,8 @@ namespace PlaystationApp
 
         public static BitmapImage SelectedMessageImage { get; set; }
 
+        public static string SelectedFriendRequestMessage { get; set; }
+
         public static string SelectedMessageGroupId { get; set; }
 
         /// <summary>

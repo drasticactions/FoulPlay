@@ -47,11 +47,9 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button
-                        Content="{Binding Path=LocalizedResources.LikeButton, Source={StaticResource LocalizedStrings}}" />
-                    <Viewbox Grid.Column="1">
-                        <TextBlock Text="{Binding LikeCount}" VerticalAlignment="Center" FontSize="40" />
-                    </Viewbox>
+                    <Button x:Name="LikeButton"  Click="LikeButton_OnClick"
+                        Content="{Binding Liked, Converter={StaticResource LikebuttonTextConverter}}" />
+                    <TextBlock Grid.Column="1" x:Name="LikeCountTextBlock" Text="{Binding LikeCount}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
                 </Grid>
                 <Grid Grid.Column="1" Visibility="Collapsed" x:Name="ActivityPageGrid">
                     <Grid.ColumnDefinitions>

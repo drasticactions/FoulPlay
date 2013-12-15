@@ -435,4 +435,13 @@ You can earn trophies by playing games that support them.</value>
   <data name="VoiceMessage" xml:space="preserve">
     <value>Voice Message</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
 </root>

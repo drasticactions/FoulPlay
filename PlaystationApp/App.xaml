@@ -21,6 +21,7 @@
         <tools:NowPlayingVisibilityConverter x:Key="NowPlayingVisibilityConverter" />
         <tools:ValuePercentConverter x:Key="ValuePercentConverter" />
         <tools:RecentActivityImageConverter x:Key="RecentActivityImageConverter" />
+        <tools:LikebuttonTextConverter x:Key="LikebuttonTextConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

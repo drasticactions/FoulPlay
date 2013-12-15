@@ -109,6 +109,7 @@
     <Compile Include="Tools\AssociationUriMapper.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
     <Compile Include="Tools\HasTrophiesConverter.cs" />
+    <Compile Include="Tools\LikebuttonTextConverter.cs" />
     <Compile Include="Tools\NowPlayingVisibilityConverter.cs" />
     <Compile Include="Tools\OnlineConverter.cs" />
     <Compile Include="Tools\RecentActivityImageConverter.cs" />
@@ -120,6 +121,9 @@
     <Compile Include="Tools\TrophyStatusConverter.cs" />
     <Compile Include="Tools\TrophyTypeConverter.cs" />
     <Compile Include="Tools\ValuePercentConverter.cs" />
+    <Compile Include="UserControls\AcceptFriendUserControl.xaml.cs">
+      <DependentUpon>AcceptFriendUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MessageBoxUserControl.xaml.cs">
       <DependentUpon>MessageBoxUserControl.xaml</DependentUpon>
     </Compile>
@@ -170,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="LaunchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AcceptFriendUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

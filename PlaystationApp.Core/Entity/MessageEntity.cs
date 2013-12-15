@@ -86,11 +86,13 @@ namespace PlaystationApp.Core.Entity
         public static ContentKeys ParseContentKeys(string json)
         {
             var a = (JArray)JsonConvert.DeserializeObject(json);
-            var contentKeys = new ContentKeys()
+            var contentKeys = new ContentKeys
             {
-                ContentKeyValues = a.Select(o => o.ToString()).ToList()
+                ContentKeyValues = a.Select(o => o.ToString()).ToList(),
+                HasAudio = false
             };
-            contentKeys.HasAudio = contentKeys.ContentKeyValues.Contains("voice-data-0");
+            // TODO: Add Audio Support
+            //contentKeys.HasAudio = contentKeys.ContentKeyValues.Contains("voice-data-0");
             contentKeys.HasImage = contentKeys.ContentKeyValues.Contains("image-data-0");
             return contentKeys;
         }

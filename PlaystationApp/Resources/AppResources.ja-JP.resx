@@ -384,7 +384,7 @@
     <value>名前リクエストを削除する</value>
   </data>
   <data name="DeleteFriendRequest" xml:space="preserve">
-    <value>フレンド以来を削除する</value>
+    <value>フレンド依頼を削除する</value>
   </data>
   <data name="CancelNameRequest" xml:space="preserve">
     <value>名前リクエストをキャンセルする</value>
@@ -419,5 +419,14 @@
   </data>
   <data name="VoiceMessage" xml:space="preserve">
     <value>ボイスメッセージ</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>ログイン</value>
   </data>
 </root>

@@ -538,6 +538,24 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Messages.
         /// </summary>
         public static string MessagesPivot {
@@ -697,6 +715,15 @@ namespace PlaystationApp.Resources {
         public static string RecentActivity {
             get {
                 return ResourceManager.GetString("RecentActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
             }
         }
         

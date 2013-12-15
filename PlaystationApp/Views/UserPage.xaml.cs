@@ -13,6 +13,7 @@ using PlaystationApp.Core.Entity;
 using PlaystationApp.Core.Manager;
 using PlaystationApp.Core.Tools;
 using PlaystationApp.Resources;
+using PlaystationApp.UserControls;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace PlaystationApp.Views
@@ -21,7 +22,6 @@ namespace PlaystationApp.Views
     {
         private const int OffsetKnob = 15;
         private MessagePrompt _messpagePrompt;
-        private string _requestMessage;
 
         public UserPage()
         {
@@ -89,7 +89,7 @@ namespace PlaystationApp.Views
             }
             ComparedUserGrid.DataContext = App.SelectedUser;
             FromUserGrid.DataContext = App.UserAccountEntity.GetUserEntity();
-            List<string> languageList = App.SelectedUser.LanguagesUsed.Select(ParseLanguageVariable).ToList();
+            var languageList = App.SelectedUser.LanguagesUsed.Select(ParseLanguageVariable).ToList();
             MyLanguagesBlock.Text = string.Join("," + Environment.NewLine, languageList);
             ProfileGrid.DataContext = App.SelectedUser;
             SetFriendButtons();
@@ -210,12 +210,11 @@ namespace PlaystationApp.Views
                 ? Visibility.Collapsed
                 : Visibility.Visible;
 
-
             if (App.SelectedUser.Relation.Equals("requested friend"))
             {
                 FriendAcceptButton.Visibility = Visibility.Visible;
                 var friendManager = new FriendManager();
-                _requestMessage =
+                App.SelectedFriendRequestMessage =
                     await friendManager.GetRequestMessage(App.SelectedUser.OnlineId, App.UserAccountEntity);
             }
             else FriendAcceptButton.Visibility = Visibility.Collapsed;
@@ -270,17 +269,9 @@ namespace PlaystationApp.Views
             _messpagePrompt = new MessagePrompt
             {
                 Title = AppResources.FriendRequest,
-                Body =
-                    new TextBlock
-                    {
-                        Text =
-                            string.Format("{0}\n\n{1}", _requestMessage, AppResources.FriendRequestAlert),
-                        FontSize = 30.0,
-                        TextWrapping = TextWrapping.Wrap
-                    },
+                Body = new AcceptFriendUserControl(),
                 IsCancelVisible = false
             };
-            //_messpagePrompt.Completed += friendAlert_Completed;
             var yesButton = new Button {Content = AppResources.AddAsFriend, FontSize = 15.0};
             yesButton.Click += FriendYesButton_click;
             var noButton = new Button {Content = AppResources.DeleteFriendRequest, FontSize = 15.0};

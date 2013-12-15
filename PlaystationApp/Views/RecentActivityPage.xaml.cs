@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -6,6 +7,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using PlaystationApp.Core.Entity;
+using PlaystationApp.Core.Manager;
+using PlaystationApp.Resources;
 
 namespace PlaystationApp.Views
 {
@@ -18,22 +21,30 @@ namespace PlaystationApp.Views
 
         private int StoryCount { get; set; }
 
+        private RecentActivityEntity.Feed _recentActivityFeedEntity;
+
+        private bool _isLiked;
+
+        private int _likeCount;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             StoryCount = 0;
-            RecentActivityEntity.Feed recentActivityFeedEntity = App.SelectedRecentActivityFeedEntity;
+            _recentActivityFeedEntity = App.SelectedRecentActivityFeedEntity;
+            _isLiked = _recentActivityFeedEntity.Liked;
+            _likeCount = _recentActivityFeedEntity.LikeCount;
             ContentPanel.DataContext = App.SelectedRecentActivityFeedEntity;
-            if (recentActivityFeedEntity.CondensedStories != null)
+            if (_recentActivityFeedEntity.CondensedStories != null)
             {
-                ActivityPageCount.Text = string.Format("1/{0}", recentActivityFeedEntity.CondensedStories.Count);
+                ActivityPageCount.Text = string.Format("1/{0}", _recentActivityFeedEntity.CondensedStories.Count);
                 SetDataContentCondensedStories(App.SelectedRecentActivityFeedEntity.StoryType,
                     App.SelectedRecentActivityFeedEntity.CondensedStories[StoryCount]);
                 ActivityPageGrid.Visibility = Visibility.Visible;
             }
             else
             {
-                SetDataContent(recentActivityFeedEntity.StoryType);
+                SetDataContent(_recentActivityFeedEntity.StoryType);
             }
         }
 
@@ -188,6 +199,25 @@ namespace PlaystationApp.Views
             ContentPanel.DataContext = App.SelectedRecentActivityFeedEntity.CondensedStories[StoryCount];
             ActivityPageCount.Text = string.Format("{0}/{1}", StoryCount + 1,
                 App.SelectedRecentActivityFeedEntity.CondensedStories.Count);
+        }
+
+        private async void LikeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var recentActivityManager = new RecentActivityManager();
+            _isLiked = !_isLiked;
+            await recentActivityManager.LikeDislikeFeedItem(_isLiked, _recentActivityFeedEntity.StoryId, App.UserAccountEntity);
+            if (_isLiked)
+            {
+                LikeButton.Content = AppResources.DislikeButton;
+                _likeCount += 1;
+                LikeCountTextBlock.Text = (_likeCount).ToString(CultureInfo.CurrentCulture);
+            }
+            else
+            {
+                LikeButton.Content = AppResources.LikeButton;
+                _likeCount -= 1;
+                LikeCountTextBlock.Text = (_likeCount).ToString(CultureInfo.CurrentCulture);
+            }
         }
     }
 }

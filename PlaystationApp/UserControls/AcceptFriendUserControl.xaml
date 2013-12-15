@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="PlaystationApp.UserControls.AcceptFriendUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer x:Name="FriendRequestScrollViewer" Visibility="Collapsed" Grid.Row="0">
+                <TextBlock FontSize="30" TextWrapping="Wrap" x:Name="FriendRequestMessageTextBlock"/>
+            </ScrollViewer>       
+            <Viewbox Grid.Row="1">
+                <TextBlock VerticalAlignment="Bottom" FontSize="30" x:Name="FriendRequestAlertTextBlock" Text="{Binding Path=LocalizedResources.FriendRequestAlert, Source={StaticResource LocalizedStrings}}" Grid.Row="1"/>
+            </Viewbox>
+        </Grid>
+    </Grid>
+</UserControl>
