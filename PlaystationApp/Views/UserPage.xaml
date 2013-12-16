@@ -201,7 +201,7 @@
                     <Button x:Name="SendMessageButton" Tap="SendMessageButton_OnTap" Grid.Row="1"
                             Content="{Binding Path=LocalizedResources.SendMessage, Source={StaticResource LocalizedStrings}}" />
                     <Grid Grid.Row="0">
-                        <phone:LongListSelector x:Name="MessageList" ItemsSource="{Binding Messages}">
+                        <phone:LongListSelector SelectionChanged="MessageList_OnSelectionChanged"  x:Name="MessageList" ItemsSource="{Binding Messages}">
                             <phone:LongListSelector.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="6">

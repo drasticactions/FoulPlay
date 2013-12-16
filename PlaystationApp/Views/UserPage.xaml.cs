@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Coding4Fun.Toolkit.Controls;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 using PlaystationApp.Core.Entity;
 using PlaystationApp.Core.Manager;
 using PlaystationApp.Core.Tools;
@@ -26,6 +28,39 @@ namespace PlaystationApp.Views
         public UserPage()
         {
             InitializeComponent();
+            BuildLocalizedApplicationBar();
+        }
+
+        private void BuildLocalizedApplicationBar()
+        {
+            // Set the page's ApplicationBar to a new instance of ApplicationBar.
+            ApplicationBar = new ApplicationBar();
+
+            // Create a new button and set the text value to the localized string from AppResources.
+            var refreshButton =
+                new ApplicationBarIconButton(new Uri("/Assets/AppBar/sync.png", UriKind.Relative))
+                {
+                    Text = AppResources.Refresh
+                };
+            refreshButton.Click += RefreshButton_Click;
+
+            ApplicationBar.Buttons.Add(refreshButton);
+        }
+
+        private async void RefreshButton_Click(object sender, EventArgs e)
+        {
+            await RefreshGroupMessages();
+        }
+
+        private async Task<bool> RefreshGroupMessages()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+            var messagerManager = new MessageManager();
+            _messageEntity = await
+                   messagerManager.GetGroupConversation(string.Format("~{0},{1}", App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId), App.UserAccountEntity);
+            MessageList.DataContext = _messageEntity;
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
+            return true;
         }
 
         public static InfiniteScrollingCollection TrophyCollection { get; set; }
@@ -353,5 +388,36 @@ namespace PlaystationApp.Views
         {
             UserPivot.SelectedIndex = 2;
         }
+
+        private async void MessageList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (MessageEntity.Message)MessageList.SelectedItem;
+            if (item == null) return;
+            var messageManager = new MessageManager();
+            if (item.ContentKeys.HasImage)
+            {
+                LoadingProgressBar.Visibility = Visibility.Visible;
+                App.SelectedMessage = item;
+                var imageBytes = await
+                    messageManager.GetMessageContent(_messageEntity.MessageGroupEntity.MessageGroupId, item,
+                        App.UserAccountEntity);
+                App.SelectedMessageImage = DecodeImage(imageBytes);
+                var messagePrompt = new MessagePrompt { Title = AppResources.Image, Body = new MessageImageUserControl() };
+                messagePrompt.Show();
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
+            }
+            else if (item.ContentKeys.HasAudio)
+            {
+                // TODO: Add audio support
+            }
+            MessageList.SelectedItem = null;
+        }
+
+        public BitmapImage DecodeImage(Stream array)
+        {
+            var bitmapImage = new BitmapImage();
+            bitmapImage.SetSource(array);
+            return bitmapImage;
+        }    
     }
 }

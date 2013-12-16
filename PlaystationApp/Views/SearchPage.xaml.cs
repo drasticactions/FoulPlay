@@ -18,8 +18,8 @@ namespace PlaystationApp.Views
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(SearchBox.Text)) return;
             ProgressBar.Visibility = Visibility.Visible;
-
             var userManager = new UserManager();
             User = await userManager.GetUser(SearchBox.Text, App.UserAccountEntity);
             NoResultsFoundBlock.Visibility = string.IsNullOrEmpty(User.OnlineId)

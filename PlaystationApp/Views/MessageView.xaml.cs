@@ -1,9 +1,11 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Coding4Fun.Toolkit.Audio.Helpers;
 using Coding4Fun.Toolkit.Controls;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 using Microsoft.Xna.Framework.Audio;
 using PlaystationApp.Core.Entity;
 using PlaystationApp.Core.Manager;
@@ -21,6 +23,28 @@ namespace PlaystationApp.Views
         public MessageView()
         {
             InitializeComponent();
+            BuildLocalizedApplicationBar();
+        }
+
+        private void BuildLocalizedApplicationBar()
+        {
+            // Set the page's ApplicationBar to a new instance of ApplicationBar.
+            ApplicationBar = new ApplicationBar();
+
+            // Create a new button and set the text value to the localized string from AppResources.
+            var refreshButton =
+                new ApplicationBarIconButton(new Uri("/Assets/AppBar/sync.png", UriKind.Relative))
+                {
+                    Text = AppResources.Refresh
+                };
+            refreshButton.Click += RefreshButton_Click;
+
+            ApplicationBar.Buttons.Add(refreshButton);
+        }
+
+        private async void RefreshButton_Click(object sender, EventArgs e)
+        {
+            await RefreshGroupMessages();
         }
 
         private MessageEntity _messageEntity;
@@ -28,11 +52,17 @@ namespace PlaystationApp.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            await RefreshGroupMessages();
+        }
+
+        private async Task<bool> RefreshGroupMessages()
+        {
             LoadingProgressBar.Visibility = Visibility.Visible;
             var messagerManager = new MessageManager();
             _messageEntity = await messagerManager.GetGroupConversation(App.SelectedMessageGroupId, App.UserAccountEntity);
             MessageList.DataContext = _messageEntity;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
+            return true;
         }
 
         private void SendMessageButton_OnTap(object sender, GestureEventArgs e)
