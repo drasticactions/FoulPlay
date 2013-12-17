@@ -74,9 +74,20 @@ namespace PlaystationApp.Views
                 Text = AppResources.Logout
             };
             logoutButton.Click += LogOutButton_Click;
+            var batchFriendButton = new ApplicationBarMenuItem
+            {
+                Text = AppResources.BatchFriendInvite
+            };
+            batchFriendButton.Click += BatchFriendButton_Click;
+            //ApplicationBar.MenuItems.Add(batchFriendButton);
             ApplicationBar.MenuItems.Add(logoutButton);
             ApplicationBar.Buttons.Add(appBarButton);
             ApplicationBar.Buttons.Add(refreshButton);
+        }
+
+        private void BatchFriendButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/BatchFriendsPage.xaml", UriKind.Relative));
         }
 
         private void BuildLocalizedPivot()

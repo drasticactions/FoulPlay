@@ -429,4 +429,13 @@
   <data name="Login" xml:space="preserve">
     <value>ログイン</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="BatchFriendInvite" xml:space="preserve">
+    <value>同法フレンド以来</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>追加</value>
+  </data>
 </root>

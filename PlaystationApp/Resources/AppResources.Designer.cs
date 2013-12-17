@@ -79,6 +79,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add As Friend.
         /// </summary>
         public static string AddAsFriend {
@@ -115,6 +124,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Batch Friend Invite.
+        /// </summary>
+        public static string BatchFriendInvite {
+            get {
+                return ResourceManager.GetString("BatchFriendInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel Friend Request.
         /// </summary>
         public static string CancelFriendRequest {
@@ -138,6 +156,15 @@ namespace PlaystationApp.Resources {
         public static string CancelNameRequestError {
             get {
                 return ResourceManager.GetString("CancelNameRequestError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         

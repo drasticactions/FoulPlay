@@ -171,6 +171,18 @@ You can earn trophies by playing games that support them.</target>
           <source>Refresh</source>
           <target state="new">Refresh</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resx/Delete" xml:space="preserve">
+          <source>Delete</source>
+          <target state="new">Delete</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/BatchFriendInvite" xml:space="preserve">
+          <source>Batch Friend Invite</source>
+          <target state="new">Batch Friend Invite</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Accept" xml:space="preserve">
+          <source>Accept</source>
+          <target state="new">Accept</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resx/FriendSendError" xml:space="preserve">
           <source>Cannot send the Friend Request.</source>
           <target state="new">Cannot send the Friend Request.</target>

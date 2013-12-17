@@ -444,4 +444,13 @@ You can earn trophies by playing games that support them.</value>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="BatchFriendInvite" xml:space="preserve">
+    <value>Batch Friend Invite</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>

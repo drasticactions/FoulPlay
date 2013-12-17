@@ -133,6 +133,9 @@
     <Compile Include="UserControls\SendFriendRequestUserControl.xaml.cs">
       <DependentUpon>SendFriendRequestUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BatchFriendsPage.xaml.cs">
+      <DependentUpon>BatchFriendsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginConnectPage.xaml.cs">
       <DependentUpon>LoginConnectPage.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SendFriendRequestUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BatchFriendsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
