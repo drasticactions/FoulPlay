@@ -42,6 +42,8 @@ namespace PlaystationApp.Views
             if (NavigationService != null && NavigationService.CanGoBack)
                 NavigationService.RemoveBackEntry();
             await LoadRecentActivityList();
+            var sessionInvite = new SessionInviteManager();
+            await sessionInvite.GetSessionInvites(App.UserAccountEntity);
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
