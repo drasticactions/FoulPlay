@@ -58,6 +58,12 @@ namespace PlaystationApp.Core.Tools
             }
         }
 
+        public ObservableCollection<SessionInviteEntity.Invitation> InviteCollection
+        {
+            get;
+            set;
+        }
+
         public ObservableCollection<FriendsEntity.Friend> FriendList
         {
             get;
@@ -78,6 +84,32 @@ namespace PlaystationApp.Core.Tools
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public async void LoadInviteList()
+        {
+            IsLoading = true;
+            var sessionInviteManager = new SessionInviteManager();
+            var inviteEntity = await sessionInviteManager.GetSessionInvites(Offset, UserAccountEntity);
+            if (inviteEntity == null)
+            {
+                HasMoreItems = false;
+                return;
+            }
+            foreach (var invite in inviteEntity.Invitations)
+            {
+                InviteCollection.Add(invite);
+            }
+            if (inviteEntity.Invitations.Any())
+            {
+                HasMoreItems = true;
+                Offset += 32;
+            }
+            else
+            {
+                HasMoreItems = false;
+            }
+            IsLoading = false;
         }
 
         public async void LoadFeedList(string username)

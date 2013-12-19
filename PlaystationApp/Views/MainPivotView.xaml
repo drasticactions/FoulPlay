@@ -139,25 +139,25 @@
                 </Grid>
             </phone:PivotItem>
             <phone:PivotItem
-                Header="{Binding Path=LocalizedResources.NotificationsHeader, Source={StaticResource LocalizedStrings}}">
+                Header="{Binding Path=LocalizedResources.Invitations, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <TextBlock x:Name="NotificationsMessageTextBlock" FontSize="25" TextWrapping="Wrap"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
-                               Text="{Binding Path=LocalizedResources.NoNotifications, Source={StaticResource LocalizedStrings}}" />
-                    <phone:LongListSelector x:Name="NotificationListSelector"
-                                            SelectionChanged="NotificationListSelector_OnSelectionChanged"
-                                            ItemsSource="{Binding Notifications}">
-                        <phone:LongListSelector.ItemTemplate>
-                            <DataTemplate>
-                                <Border Margin="6" BorderBrush="{StaticResource PhoneForegroundBrush}"
-                                        BorderThickness="3">
-                                    <Grid x:Name="NotificationGridItem">
-                                        <TextBlock FontSize="40" TextWrapping="Wrap" Text="{Binding Message}" />
-                                    </Grid>
-                                </Border>
+                    <phone:LongListSelector x:Name="InvitationsLongListSelector"  SelectionChanged="InvitationsLongListSelector_OnSelectionChanged" ItemsSource="{Binding InviteCollection}">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                                <Grid Margin="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border VerticalAlignment="Top" Grid.Column="0" Width="70" Height="70">
+                                        <Image Source="{Binding NpTitleDetail.NpTitleIconUrl}" Stretch="UniformToFill" />
+                                    </Border>
+                                    <TextBlock Grid.Column="1" Text="{Binding NpTitleDetail.NpTitleName}"/>
+                                </Grid>
                             </DataTemplate>
-                        </phone:LongListSelector.ItemTemplate>
-                    </phone:LongListSelector>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+                    <TextBlock x:Name="NoInvitesTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoInvites, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
                 </Grid>
             </phone:PivotItem>
             <phone:PivotItem

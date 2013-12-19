@@ -453,4 +453,34 @@ You can earn trophies by playing games that support them.</value>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Elapsed Time</value>
+  </data>
+  <data name="Invitations" xml:space="preserve">
+    <value>Invitations</value>
+  </data>
+  <data name="Invitation_singular" xml:space="preserve">
+    <value>Invitation</value>
+  </data>
+  <data name="JoinInvitationExpired" xml:space="preserve">
+    <value>This invitation has expired.</value>
+  </data>
+  <data name="NoInvites" xml:space="preserve">
+    <value>There are no invitations.</value>
+  </data>
+  <data name="Notification_invited" xml:space="preserve">
+    <value>You received an invitation.</value>
+  </data>
+  <data name="NumberOfPlayers" xml:space="preserve">
+    <value>Number Of Players</value>
+  </data>
+  <data name="PlayersJoinedParty" xml:space="preserve">
+    <value>Players Joining the Party</value>
+  </data>
+  <data name="PlayersJoinedSession" xml:space="preserve">
+    <value>Players Joining the Session</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
 </root>

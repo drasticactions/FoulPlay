@@ -37,13 +37,14 @@ namespace PlaystationApp.Views
 
         public static InfiniteScrollingCollection RecentActivityCollection { get; set; }
 
+        public static InfiniteScrollingCollection InviteCollection { get; set; }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             if (NavigationService != null && NavigationService.CanGoBack)
                 NavigationService.RemoveBackEntry();
             await LoadRecentActivityList();
-            var sessionInvite = new SessionInviteManager();
-            await sessionInvite.GetSessionInvites(App.UserAccountEntity);
+            await LoadSessionInviteList();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -201,19 +202,38 @@ namespace PlaystationApp.Views
             FriendsLongListSelector.DataContext = FriendCollection;
 
             var messageManager = new MessageManager();
-            var notificationManager = new NotificationManager();
-                        NotificationEntity notification =
-                await notificationManager.GetNotifications(_user.OnlineId, App.UserAccountEntity);
-            NotificationsMessageTextBlock.Visibility = !notification.Notifications.Any()
-                ? Visibility.Visible
-                : Visibility.Collapsed;
-            NotificationListSelector.DataContext = notification;
+            //var notificationManager = new NotificationManager();
+            //            NotificationEntity notification =
+            //    await notificationManager.GetNotifications(_user.OnlineId, App.UserAccountEntity);
+            //NotificationsMessageTextBlock.Visibility = !notification.Notifications.Any()
+            //    ? Visibility.Visible
+            //    : Visibility.Collapsed;
+            //NotificationListSelector.DataContext = notification;
             MessageGroupEntity message = await messageManager.GetMessageGroup(_user.OnlineId, App.UserAccountEntity);
             MessagesMessageTextBlock.Visibility = message != null && !message.MessageGroups.Any()
                 ? Visibility.Visible
                 : Visibility.Collapsed;
             MessageList.DataContext = message;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
+            return true;
+        }
+
+        private async Task<bool> LoadSessionInviteList()
+        {
+            InviteCollection = new InfiniteScrollingCollection
+            {
+                Offset = 32,
+                InviteCollection = new ObservableCollection<SessionInviteEntity.Invitation>()
+            };
+            var sessionInvite = new SessionInviteManager();
+            var inviteEntity = await sessionInvite.GetSessionInvites(0, App.UserAccountEntity);
+            if (inviteEntity == null) return false;
+            
+            foreach (var item in inviteEntity.Invitations)
+            {
+                InviteCollection.InviteCollection.Add(item);
+            }
+            InvitationsLongListSelector.DataContext = InviteCollection;
             return true;
         }
 
@@ -345,23 +365,23 @@ namespace PlaystationApp.Views
             NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative));
         }
 
-        private void NotificationListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var item = (NotificationEntity.Notification) NotificationListSelector.SelectedItem;
-            if (item == null) return;
-            if (item.ActionUrl.Contains("NewMessage"))
-            {
-                HomePivot.SelectedIndex = 1;
-            }
-            if (item.ActionUrl.Contains("personalDetailSharing=requested"))
-            {
-                HomePivot.SelectedIndex = 0;
-            }
-            if (item.ActionUrl.Contains("friendStatus=requested"))
-            {
-                HomePivot.SelectedIndex = 0;
-            }
-        }
+        //private void NotificationListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var item = (NotificationEntity.Notification) NotificationListSelector.SelectedItem;
+        //    if (item == null) return;
+        //    if (item.ActionUrl.Contains("NewMessage"))
+        //    {
+        //        HomePivot.SelectedIndex = 1;
+        //    }
+        //    if (item.ActionUrl.Contains("personalDetailSharing=requested"))
+        //    {
+        //        HomePivot.SelectedIndex = 0;
+        //    }
+        //    if (item.ActionUrl.Contains("friendStatus=requested"))
+        //    {
+        //        HomePivot.SelectedIndex = 0;
+        //    }
+        //}
 
         private void RecentActivityLongListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -380,6 +400,11 @@ namespace PlaystationApp.Views
             App.SelectedMessageGroupId = item.MessageGroupId;
             MessageList.SelectedItem = null;
             NavigationService.Navigate(new Uri("/Views/MessageView.xaml", UriKind.Relative));
+        }
+
+        private void InvitationsLongListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

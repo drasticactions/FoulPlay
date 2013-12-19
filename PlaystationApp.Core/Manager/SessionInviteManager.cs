@@ -12,7 +12,7 @@ namespace PlaystationApp.Core.Manager
 {
     public class SessionInviteManager
     {
-        public async Task<SessionInviteEntity> GetSessionInvites(UserAccountEntity userAccountEntity)
+        public async Task<SessionInviteEntity> GetSessionInvites(int offset, UserAccountEntity userAccountEntity)
         {
             var authenticationManager = new AuthenticationManager();
             var user = userAccountEntity.GetUserEntity();
@@ -20,7 +20,7 @@ namespace PlaystationApp.Core.Manager
             {
                 await authenticationManager.RefreshAccessToken(userAccountEntity);
             }
-            string url = string.Format("https://{0}-ivt.np.community.playstation.net/sessionInvitation/v1/users/{1}/invitations?fields=@default,sessionId,receivedDate,expired,updateDate,fromUser,subject,npTitleDetail,availablePlatforms&npLanguage={2}", user.Region, user.OnlineId, user.Language);
+            string url = string.Format("https://{0}-ivt.np.community.playstation.net/sessionInvitation/v1/users/{1}/invitations?fields=@default,sessionId,receivedDate,expired,updateDate,fromUser,subject,npTitleDetail,availablePlatforms&npLanguage={2}&offset={3}", user.Region, user.OnlineId, user.Language, offset);
             // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
             url += "&r=" + Guid.NewGuid();
             var theAuthClient = new HttpClient();

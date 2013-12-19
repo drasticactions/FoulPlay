@@ -196,6 +196,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Elapsed Time.
+        /// </summary>
+        public static string ElapsedTime {
+            get {
+                return ResourceManager.GetString("ElapsedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Friend Request.
         /// </summary>
         public static string FriendRequest {
@@ -363,6 +372,33 @@ namespace PlaystationApp.Resources {
         public static string Image {
             get {
                 return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invitation.
+        /// </summary>
+        public static string Invitation_singular {
+            get {
+                return ResourceManager.GetString("Invitation_singular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invitations.
+        /// </summary>
+        public static string Invitations {
+            get {
+                return ResourceManager.GetString("Invitations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This invitation has expired..
+        /// </summary>
+        public static string JoinInvitationExpired {
+            get {
+                return ResourceManager.GetString("JoinInvitationExpired", resourceCulture);
             }
         }
         
@@ -664,6 +700,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no invitations..
+        /// </summary>
+        public static string NoInvites {
+            get {
+                return ResourceManager.GetString("NoInvites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no new messages..
         /// </summary>
         public static string NoMessages {
@@ -687,6 +732,15 @@ namespace PlaystationApp.Resources {
         public static string NoPlayers {
             get {
                 return ResourceManager.GetString("NoPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You received an invitation..
+        /// </summary>
+        public static string Notification_invited {
+            get {
+                return ResourceManager.GetString("Notification_invited", resourceCulture);
             }
         }
         
@@ -715,6 +769,33 @@ namespace PlaystationApp.Resources {
         public static string NowPlaying {
             get {
                 return ResourceManager.GetString("NowPlaying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number Of Players.
+        /// </summary>
+        public static string NumberOfPlayers {
+            get {
+                return ResourceManager.GetString("NumberOfPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players Joining the Party.
+        /// </summary>
+        public static string PlayersJoinedParty {
+            get {
+                return ResourceManager.GetString("PlayersJoinedParty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players Joining the Session.
+        /// </summary>
+        public static string PlayersJoinedSession {
+            get {
+                return ResourceManager.GetString("PlayersJoinedSession", resourceCulture);
             }
         }
         
@@ -823,6 +904,15 @@ namespace PlaystationApp.Resources {
         public static string SendMessage {
             get {
                 return ResourceManager.GetString("SendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         
