@@ -177,43 +177,47 @@ You can earn trophies by playing games that support them.</source>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/Status" xml:space="preserve">
           <source>Status</source>
-          <target state="new">Status</target>
+          <target state="translated">ステータス</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/FromUser" xml:space="preserve">
+          <source>From</source>
+          <target state="translated">"差出人</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/PlayersJoinedSession" xml:space="preserve">
           <source>Players Joining the Session</source>
-          <target state="new">Players Joining the Session</target>
+          <target state="translated">セッションに参加しているプレーヤー</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/PlayersJoinedParty" xml:space="preserve">
           <source>Players Joining the Party</source>
-          <target state="new">Players Joining the Party</target>
+          <target state="translated">パーティーに参加しているプレーヤー</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/NumberOfPlayers" xml:space="preserve">
           <source>Number Of Players</source>
-          <target state="new">Number Of Players</target>
+          <target state="translated">プレーヤー数</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/Notification_invited" xml:space="preserve">
           <source>You received an invitation.</source>
-          <target state="new">You received an invitation.</target>
+          <target state="translated">招待が届きました。</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/NoInvites" xml:space="preserve">
           <source>There are no invitations.</source>
-          <target state="new">There are no invitations.</target>
+          <target state="translated">招待はありません。</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/JoinInvitationExpired" xml:space="preserve">
           <source>This invitation has expired.</source>
-          <target state="new">This invitation has expired.</target>
+          <target state="translated">この招待は期限が切れています。</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/Invitation_singular" xml:space="preserve">
           <source>Invitation</source>
-          <target state="new">Invitation</target>
+          <target state="translated">招待</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/Invitations" xml:space="preserve">
           <source>Invitations</source>
-          <target state="new">Invitations</target>
+          <target state="translated">招待</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/ElapsedTime" xml:space="preserve">
           <source>Elapsed Time</source>
-          <target state="new">Elapsed Time</target>
+          <target state="translated">経過時間</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resx/BatchFriendInvite" xml:space="preserve">
           <source>Batch Friend Invite</source>

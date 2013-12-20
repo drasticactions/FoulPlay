@@ -107,12 +107,17 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Tools\AssociationUriMapper.cs" />
+    <Compile Include="Tools\AvailablePlatformConverter.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Tools\ExpiredConverter.cs" />
     <Compile Include="Tools\HasTrophiesConverter.cs" />
+    <Compile Include="Tools\InviteImageConverter.cs" />
     <Compile Include="Tools\LikebuttonTextConverter.cs" />
+    <Compile Include="Tools\MaxPlayersConverter.cs" />
     <Compile Include="Tools\NowPlayingVisibilityConverter.cs" />
     <Compile Include="Tools\OnlineConverter.cs" />
     <Compile Include="Tools\RecentActivityImageConverter.cs" />
+    <Compile Include="Tools\SenderNameConverter.cs" />
     <Compile Include="Tools\TrophyEarnedRateConverter.cs" />
     <Compile Include="Tools\TrophyGradeConverter.cs" />
     <Compile Include="Tools\TrophyHiddenConverter.cs" />
@@ -135,6 +140,9 @@
     </Compile>
     <Compile Include="Views\BatchFriendsPage.xaml.cs">
       <DependentUpon>BatchFriendsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvitePage.xaml.cs">
+      <DependentUpon>InvitePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginConnectPage.xaml.cs">
       <DependentUpon>LoginConnectPage.xaml</DependentUpon>
@@ -200,6 +208,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InvitePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginConnectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -255,6 +267,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\appbar.hardware.headset.dark.png" />
+    <Content Include="Assets\appbar.hardware.headset.light.png" />
     <Content Include="Assets\appbar.image.png" />
     <Content Include="Assets\appbar.speakerphone.png" />
     <Content Include="Assets\AppBar\add.png" />
@@ -298,6 +312,7 @@
     <Content Include="Assets\Trophy-icon-Silver.png" />
     <Content Include="Assets\Trophy-icon.png" />
     <Content Include="Images\blank.png" />
+    <Content Include="Images\FrameThumbnail.png" />
     <Content Include="Images\microphone.png" />
     <Content Include="Images\phone_trophy_rareness_common.png" />
     <Content Include="Images\phone_trophy_rareness_rare.png" />
@@ -305,6 +320,7 @@
     <Content Include="Images\phone_trophy_rareness_uncommon.png" />
     <Content Include="Images\play.png" />
     <Content Include="Images\record.png" />
+    <Content Include="Images\SendIcon.png" />
     <Content Include="Images\speaker.png" />
     <Content Include="Images\stop.png" />
     <Content Include="ReadMe.Coding4Fun.Toolkit.txt" />

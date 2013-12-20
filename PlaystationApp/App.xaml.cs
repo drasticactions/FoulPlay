@@ -72,6 +72,8 @@ namespace PlaystationApp
 
         public static string SelectedMessageGroupId { get; set; }
 
+        public static SessionInviteEntity.Invitation SelectedInvitation { get; set; }
+
         /// <summary>
         ///     Provides easy access to the root frame of the Phone Application.
         /// </summary>

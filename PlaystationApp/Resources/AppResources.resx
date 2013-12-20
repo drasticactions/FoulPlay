@@ -483,4 +483,7 @@ You can earn trophies by playing games that support them.</value>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>From</value>
+  </data>
 </root>

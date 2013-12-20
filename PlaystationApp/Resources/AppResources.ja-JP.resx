@@ -438,4 +438,37 @@
   <data name="Accept" xml:space="preserve">
     <value>追加</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>"差出人</value>
+  </data>
+  <data name="PlayersJoinedSession" xml:space="preserve">
+    <value>セッションに参加しているプレーヤー</value>
+  </data>
+  <data name="PlayersJoinedParty" xml:space="preserve">
+    <value>パーティーに参加しているプレーヤー</value>
+  </data>
+  <data name="NumberOfPlayers" xml:space="preserve">
+    <value>プレーヤー数</value>
+  </data>
+  <data name="Notification_invited" xml:space="preserve">
+    <value>招待が届きました。</value>
+  </data>
+  <data name="NoInvites" xml:space="preserve">
+    <value>招待はありません。</value>
+  </data>
+  <data name="JoinInvitationExpired" xml:space="preserve">
+    <value>この招待は期限が切れています。</value>
+  </data>
+  <data name="Invitation_singular" xml:space="preserve">
+    <value>招待</value>
+  </data>
+  <data name="Invitations" xml:space="preserve">
+    <value>招待</value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>経過時間</value>
+  </data>
 </root>

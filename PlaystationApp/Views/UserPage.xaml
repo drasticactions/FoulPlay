@@ -150,11 +150,10 @@
                                 <StackPanel>
                                     <Grid Tap="RecentActivitiesGrid_OnTap"  Visibility="Collapsed" x:Name="RecentActivitiesGrid" Margin="6">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="75" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                     
-                                        <Grid Grid.Column="1">
+                                        <Grid Grid.Column="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*" />
@@ -189,7 +188,6 @@
                     </ScrollViewer>
                 </Grid>
             </phone:PivotItem>
-
             <!--Pivot item two-->
             <phone:PivotItem
                 Header="{Binding Path=LocalizedResources.MessagesPivot, Source={StaticResource LocalizedStrings}}">

@@ -349,6 +349,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string FromUser {
+            get {
+                return ResourceManager.GetString("FromUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (o_0)An Error Has Occured(O_o).
         /// </summary>
         public static string GenericError {

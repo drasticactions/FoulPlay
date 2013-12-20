@@ -404,7 +404,11 @@ namespace PlaystationApp.Views
 
         private void InvitationsLongListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //throw new NotImplementedException();
+            var item = (SessionInviteEntity.Invitation) InvitationsLongListSelector.SelectedItem;
+            if (item == null) return;
+            App.SelectedInvitation = item;
+            string url = string.Format("/Views/InvitePage.xaml?inviteId={0}",item.InvitationId);
+            NavigationService.Navigate(new Uri(url, UriKind.Relative));
         }
     }
 }

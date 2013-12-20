@@ -26,6 +26,8 @@ namespace PlaystationApp.Core.Entity
         public class Invitation
         {
             public string InvitationId { get; set; }
+
+            public string Message { get; set; }
             public bool SeenFlag { get; set; }
             public bool UsedFlag { get; set; }
             public string SessionId { get; set; }
@@ -36,6 +38,26 @@ namespace PlaystationApp.Core.Entity
             public List<string> AvailablePlatforms { get; set; }
             public string Subject { get; set; }
             public NpTitleDetail NpTitleDetail { get; set; }
+        }
+
+        public class Member
+        {
+            public string OnlineId { get; set; }
+            public string Platform { get; set; }
+        }
+
+        public class Session
+        {
+            public string SessionId { get; set; }
+            public string NpTitleType { get; set; }
+            public string SessionType { get; set; }
+            public string SessionPrivacy { get; set; }
+            public int SessionMaxUser { get; set; }
+            public string SessionName { get; set; }
+            public string SessionStatus { get; set; }
+            public long SessionCreateTimestamp { get; set; }
+            public string SessionCreator { get; set; }
+            public List<Member> Members { get; set; }
         }
 
         public int Start { get; set; }
@@ -63,8 +85,10 @@ namespace PlaystationApp.Core.Entity
                 select new Invitation
                 {
                     InvitationId = o["invitationId"] != null ? (string)o["invitationId"] : string.Empty,
+                    Message = o["message"] != null ? (string)o["message"] : string.Empty,
                     SeenFlag = o["seenFlag"] != null && (bool)o["seenFlag"],
                     UsedFlag = o["usedFlag"] != null && (bool)o["usedFlag"],
+                    AvailablePlatforms = o["availablePlatforms"] != null ? (from platform in o["availablePlatforms"] select platform.ToString()).ToList() : new List<string>(),
                     SessionId = o["sessionId"] != null ? (string)o["sessionId"] : string.Empty,
                     ReceivedDate = o["receivedDate"] != null ? (string)o["receivedDate"] : string.Empty,
                     UpdateDate = o["updateDate"] != null ? (string)o["updateDate"] : string.Empty,

@@ -91,6 +91,7 @@
     <Compile Include="Entity\MessageGroupEntity.cs" />
     <Compile Include="Entity\NotificationEntity.cs" />
     <Compile Include="Entity\RecentActivityEntity.cs" />
+    <Compile Include="Entity\SessionInviteDetailEntity.cs" />
     <Compile Include="Entity\SessionInviteEntity.cs" />
     <Compile Include="Entity\TrophyDetailEntity.cs" />
     <Compile Include="Entity\TrophyEntity.cs" />

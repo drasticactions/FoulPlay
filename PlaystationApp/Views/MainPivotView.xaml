@@ -55,7 +55,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="25" />
                                             <ColumnDefinition Width="75" />
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Rectangle VerticalAlignment="Center" HorizontalAlignment="Left"
                                                    Grid.Column="0" Width="15" Height="15"
@@ -71,7 +71,7 @@
                                             <Grid Grid.Row="0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="25" />
                                                 </Grid.ColumnDefinitions>
                                                 <TextBlock Grid.Column="0" Text="{Binding OnlineId}" Width="300"
                                                            FontSize="25" TextWrapping="NoWrap"
@@ -146,13 +146,24 @@
                         <DataTemplate>
                                 <Grid Margin="6">
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25"/>
                                         <ColumnDefinition Width="75" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Border VerticalAlignment="Top" Grid.Column="0" Width="70" Height="70">
-                                        <Image Source="{Binding NpTitleDetail.NpTitleIconUrl}" Stretch="UniformToFill" />
+                                    <Rectangle VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                   Grid.Column="0" Width="15" Height="15"
+                                                   Fill="{Binding Expired, Converter={StaticResource ExpiredConverter}}" />
+                                    <Border VerticalAlignment="Center" Grid.Column="1" Width="70" Height="70">
+                                        <Image Source="{Binding NpTitleDetail.NpTitleIconUrl, Converter={StaticResource InviteImageConverter}}" Stretch="UniformToFill" />
                                     </Border>
-                                    <TextBlock Grid.Column="1" Text="{Binding NpTitleDetail.NpTitleName}"/>
+                                    <Grid Margin="15,23,0,0" VerticalAlignment="Center" Grid.Column="2">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding NpTitleDetail.NpTitleName}" />
+                                            <TextBlock Text="{Binding AvailablePlatforms, Converter={StaticResource AvailablePlatformConverter}}" />
+                                            <TextBlock Text="{Binding FromUser.OnlineId, Converter={StaticResource SenderNameConverter}}" />
+                                            <TextBlock HorizontalAlignment="Right" FontSize="15" Text="{Binding ReceivedDate}" />
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
                             </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>

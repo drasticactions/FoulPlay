@@ -22,6 +22,11 @@
         <tools:ValuePercentConverter x:Key="ValuePercentConverter" />
         <tools:RecentActivityImageConverter x:Key="RecentActivityImageConverter" />
         <tools:LikebuttonTextConverter x:Key="LikebuttonTextConverter" />
+        <tools:ExpiredConverter x:Key="ExpiredConverter" />
+        <tools:SenderNameConverter x:Key="SenderNameConverter" />
+        <tools:AvailablePlatformConverter x:Key="AvailablePlatformConverter" />
+        <tools:InviteImageConverter x:Key="InviteImageConverter" />
+        <tools:MaxPlayersConverter x:Key="MaxPlayersConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
