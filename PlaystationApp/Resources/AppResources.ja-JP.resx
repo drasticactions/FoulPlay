@@ -442,7 +442,7 @@
     <value>ステータス</value>
   </data>
   <data name="FromUser" xml:space="preserve">
-    <value>"差出人</value>
+    <value>差出人</value>
   </data>
   <data name="PlayersJoinedSession" xml:space="preserve">
     <value>セッションに参加しているプレーヤー</value>
@@ -470,5 +470,8 @@
   </data>
   <data name="ElapsedTime" xml:space="preserve">
     <value>経過時間</value>
+  </data>
+  <data name="Conversation" xml:space="preserve">
+    <value>会話</value>
   </data>
 </root>

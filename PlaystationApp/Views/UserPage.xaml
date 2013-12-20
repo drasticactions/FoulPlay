@@ -306,7 +306,7 @@
                     </Grid>
                     <phone:LongListSelector Grid.Row="1" x:Name="TrophyList"
                                             SelectionChanged="TrophyList_OnSelectionChanged"
-                                            ItemsSource="{Binding TrophyList}">
+                                            ItemsSource="{Binding TrophyList}" Margin="-10,0,10,0">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="6">

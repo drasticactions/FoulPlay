@@ -160,6 +160,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conversation.
+        /// </summary>
+        public static string Conversation {
+            get {
+                return ResourceManager.GetString("Conversation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {

@@ -183,6 +183,10 @@ You can earn trophies by playing games that support them.</target>
           <source>From</source>
           <target state="new">From</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resx/Conversation" xml:space="preserve">
+          <source>Conversation</source>
+          <target state="new">Conversation</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resx/PlayersJoinedSession" xml:space="preserve">
           <source>Players Joining the Session</source>
           <target state="new">Players Joining the Session</target>

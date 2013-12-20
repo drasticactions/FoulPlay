@@ -486,4 +486,7 @@ You can earn trophies by playing games that support them.</value>
   <data name="FromUser" xml:space="preserve">
     <value>From</value>
   </data>
+  <data name="Conversation" xml:space="preserve">
+    <value>Conversation</value>
+  </data>
 </root>
