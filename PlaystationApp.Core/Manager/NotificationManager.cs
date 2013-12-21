@@ -36,7 +36,7 @@ namespace PlaystationApp.Core.Manager
             return notification;
         }
 
-        public async Task<bool> ClearNotification(NotificationEntity.Notification notification,
+        public static async Task<bool> ClearNotification(NotificationEntity.Notification notification,
             UserAccountEntity userAccountEntity)
         {
             var authenticationManager = new AuthenticationManager();

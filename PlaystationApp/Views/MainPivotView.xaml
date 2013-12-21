@@ -126,7 +126,7 @@
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    <Rectangle Margin="0,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
                                                    Grid.Column="0" Width="15" Height="15"
                                                    Fill="{Binding LatestMessage.SeenFlag, Converter={StaticResource HasSeenConverter}}" />
                                     <Border VerticalAlignment="Top" Grid.Column="1" Width="100" Height="100">

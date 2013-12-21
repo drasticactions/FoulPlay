@@ -47,21 +47,23 @@ namespace PlaystationApp.ScheduledTask
                 userAccountEntity.SetUserEntity(user);
                 NotificationEntity notificationEntity = await GetNotifications(userAccountEntity);
                 var notificationList = notificationEntity.Notifications.Where(o => o.SeenFlag == false);
-                NotificationEntity.Notification firstNotification = null;
-                foreach (NotificationEntity.Notification notification in notificationList)
-                {
-                    firstNotification = notification;
-                    break;
-                }
+                NotificationEntity.Notification firstNotification = notificationList.FirstOrDefault();
+                ShellTile appTile = ShellTile.ActiveTiles.First();
                 if (firstNotification != null)
                 {
                     var toastMessage = firstNotification.Message;
                     var toast = new ShellToast { Title = "FoulPlay", Content = toastMessage };
-                    toast.Show(); 
-                }
-                foreach (var notification in notificationList)
-                {
-                    
+                    toast.Show();
+                    var tileData = new FlipTileData
+                    {
+                        Title = "FoulPlay",
+                        BackTitle = "FoulPlay",
+                        BackContent = firstNotification.Message,
+                        WideBackContent = firstNotification.Message,
+                        Count = notificationList.Count()
+                    };
+                    appTile.Update(tileData);
+                    await NotificationManager.ClearNotification(firstNotification, userAccountEntity);
                 }
             }
 #if DEBUG_AGENT

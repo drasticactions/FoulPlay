@@ -68,15 +68,15 @@ namespace PlaystationApp.Core.Entity
              var messages = (from JObject o in a
                             select new Message
                             {
-                                MessageUid = (int)o["messageUid"],
-                                FakeMessageUid = (long)o["fakeMessageUid"],
-                                SeenFlag = (bool)o["seenFlag"],
-                                DataUsedFlag = (bool)o["dataUsedFlag"],
-                                MessageKind = (int)o["messageKind"],
-                                SenderOnlineId = (String)o["senderOnlineId"],
-                                SentMessageId = (String)o["sentMessageId"],
-                                ReceivedDate = (String)o["receivedDate"],
-                                ContentKeys = ParseContentKeys(o["contentKeys"].ToString()),
+                                MessageUid = o["messageUid"] != null ? (int)o["messageUid"] : 0,
+                                FakeMessageUid = o["fakeMessageUid"] != null ? (long)o["fakeMessageUid"] : 0,
+                                SeenFlag = o["seenFlag"] != null && (bool)o["seenFlag"],
+                                DataUsedFlag = o["dataUsedFlag"] != null && (bool)o["dataUsedFlag"],
+                                MessageKind = o["messageKind"] != null ? (int)o["messageKind"] : 0,
+                                SenderOnlineId = (String)o["senderOnlineId"] ?? string.Empty,
+                                SentMessageId = (String)o["sentMessageId"] ?? string.Empty,
+                                ReceivedDate = (String)o["receivedDate"] ?? string.Empty,
+                                ContentKeys = o["contentKeys"] != null ? ParseContentKeys(o["contentKeys"].ToString()) : null,
                                 Body = (String)o["body"]
                             }).ToList();
 
