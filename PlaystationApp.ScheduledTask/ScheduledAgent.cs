@@ -1,0 +1,79 @@
+﻿#define DEBUG_AGENT
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using Microsoft.Phone.Reactive;
+using Microsoft.Phone.Scheduler;
+using Microsoft.Phone.Shell;
+using PlaystationApp.Core.Entity;
+using PlaystationApp.Core.Manager;
+
+namespace PlaystationApp.ScheduledTask
+{
+    public class ScheduledAgent : ScheduledTaskAgent
+    {
+        /// <remarks>
+        /// ScheduledAgent constructor, initializes the UnhandledException handler
+        /// </remarks>
+        static ScheduledAgent()
+        {
+            // Subscribe to the managed exception handler
+            Deployment.Current.Dispatcher.BeginInvoke(delegate
+            {
+                Application.Current.UnhandledException += UnhandledException;
+            });
+        }
+
+        /// Code to execute on Unhandled Exceptions
+        private static void UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
+        {
+            if (Debugger.IsAttached)
+            {
+                // An unhandled exception has occurred; break into the debugger
+                Debugger.Break();
+            }
+        }
+
+        protected async override void OnInvoke(Microsoft.Phone.Scheduler.ScheduledTask task)
+        {
+            var userAccountEntity = new UserAccountEntity();
+            var authManager = new AuthenticationManager();
+            bool loginTest = await authManager.RefreshAccessToken(userAccountEntity);
+            if (loginTest)
+            {
+                UserAccountEntity.User user = await authManager.GetUserEntity(userAccountEntity);
+                userAccountEntity.SetUserEntity(user);
+                NotificationEntity notificationEntity = await GetNotifications(userAccountEntity);
+                var notificationList = notificationEntity.Notifications.Where(o => o.SeenFlag == false);
+                NotificationEntity.Notification firstNotification = null;
+                foreach (NotificationEntity.Notification notification in notificationList)
+                {
+                    firstNotification = notification;
+                    break;
+                }
+                if (firstNotification != null)
+                {
+                    var toastMessage = firstNotification.Message;
+                    var toast = new ShellToast { Title = "FoulPlay", Content = toastMessage };
+                    toast.Show(); 
+                }
+                foreach (var notification in notificationList)
+                {
+                    
+                }
+            }
+#if DEBUG_AGENT
+            ScheduledActionService.LaunchForTest(task.Name, TimeSpan.FromSeconds(60));
+#endif
+            NotifyComplete();
+        }
+
+        private async Task<NotificationEntity> GetNotifications(UserAccountEntity userAccountEntity)
+        {
+            var notificationManager = new NotificationManager();
+            return await notificationManager.GetNotifications(userAccountEntity.GetUserEntity().OnlineId, userAccountEntity);
+        }
+    }
+}

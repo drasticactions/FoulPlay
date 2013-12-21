@@ -61,6 +61,7 @@ namespace PlaystationApp.Views
             var messagerManager = new MessageManager();
             _messageEntity = await messagerManager.GetGroupConversation(App.SelectedMessageGroupId, App.UserAccountEntity);
             MessageList.DataContext = _messageEntity;
+            await messagerManager.ClearMessages(_messageEntity, App.UserAccountEntity);
             LoadingProgressBar.Visibility = Visibility.Collapsed;
             return true;
         }

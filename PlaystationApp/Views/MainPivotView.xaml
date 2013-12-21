@@ -122,17 +122,24 @@
                             <DataTemplate>
                                 <Grid Margin="6">
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25"/>
                                         <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Border VerticalAlignment="Top" Grid.Column="0" Width="100" Height="100">
+                                    <Rectangle VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                   Grid.Column="0" Width="15" Height="15"
+                                                   Fill="{Binding LatestMessage.SeenFlag, Converter={StaticResource HasSeenConverter}}" />
+                                    <Border VerticalAlignment="Top" Grid.Column="1" Width="100" Height="100">
                                         <Image Source="{Binding LatestMessage.User.AvatarUrl}" Stretch="UniformToFill" />
                                     </Border>
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock TextWrapping="NoWrap" Text="{Binding LatestMessage.SenderOnlineId}" />
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding LatestMessage.Body}" />
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock TextWrapping="NoWrap" Text="{Binding Converter={StaticResource ConversationUsersConverter}}" />
+                                        <StackPanel Background="{StaticResource PhoneAccentBrush}">
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding LatestMessage.Body}" />
+                                        </StackPanel>
+                                        <TextBlock FontSize="15" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding LatestMessage.ReceivedDate}" />
                                     </StackPanel>
-                                </Grid>
+                               </Grid>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>

@@ -200,6 +200,18 @@ You can earn trophies by playing games that support them.</target>
           <source>Conversation</source>
           <target state="new">Conversation</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resx/NotificationSupport" xml:space="preserve">
+          <source>Notification Support</source>
+          <target state="new">Notification Support</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/LiveTileSupport" xml:space="preserve">
+          <source>Live Tile Support</source>
+          <target state="new">Live Tile Support</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resx/Settings" xml:space="preserve">
+          <source>Settings</source>
+          <target state="new">Settings</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resx/PlayersJoinedSession" xml:space="preserve">
           <source>Players Joining the Session</source>
           <target state="new">Players Joining the Session</target>

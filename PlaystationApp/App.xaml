@@ -27,6 +27,8 @@
         <tools:AvailablePlatformConverter x:Key="AvailablePlatformConverter" />
         <tools:InviteImageConverter x:Key="InviteImageConverter" />
         <tools:MaxPlayersConverter x:Key="MaxPlayersConverter" />
+        <tools:ConversationUsersConverter x:Key="ConversationUsersConverter" />
+        <tools:HasSeenConverter x:Key="HasSeenConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

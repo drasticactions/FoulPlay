@@ -474,4 +474,7 @@
   <data name="Conversation" xml:space="preserve">
     <value>会話</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
 </root>

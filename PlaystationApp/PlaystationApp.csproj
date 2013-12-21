@@ -109,7 +109,9 @@
     <Compile Include="Tools\AssociationUriMapper.cs" />
     <Compile Include="Tools\AvailablePlatformConverter.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Tools\ConversationUsersConverter.cs" />
     <Compile Include="Tools\ExpiredConverter.cs" />
+    <Compile Include="Tools\HasSeenConverter.cs" />
     <Compile Include="Tools\HasTrophiesConverter.cs" />
     <Compile Include="Tools\InviteImageConverter.cs" />
     <Compile Include="Tools\LikebuttonTextConverter.cs" />
@@ -167,6 +169,9 @@
     </Compile>
     <Compile Include="Views\SendFriendRequestPage.xaml.cs">
       <DependentUpon>SendFriendRequestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TrophyDetailPage.xaml.cs">
       <DependentUpon>TrophyDetailPage.xaml</DependentUpon>
@@ -241,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SendFriendRequestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -362,6 +371,10 @@
     <ProjectReference Include="..\PlaystationApp.Core\PlaystationApp.Core.csproj">
       <Project>{1BB742BF-16C9-4C06-82CC-2C19C0F7F4E4}</Project>
       <Name>PlaystationApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlaystationApp.ScheduledTask\PlaystationApp.ScheduledTask.csproj">
+      <Project>{78FF69D9-941C-463E-BF7A-BECB258B6B9C}</Project>
+      <Name>PlaystationApp.ScheduledTask</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

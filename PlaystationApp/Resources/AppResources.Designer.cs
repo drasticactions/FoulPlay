@@ -619,6 +619,15 @@ namespace PlaystationApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live Tile Support.
+        /// </summary>
+        public static string LiveTileSupport {
+            get {
+                return ResourceManager.GetString("LiveTileSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
@@ -768,6 +777,15 @@ namespace PlaystationApp.Resources {
         public static string NotificationsHeader {
             get {
                 return ResourceManager.GetString("NotificationsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification Support.
+        /// </summary>
+        public static string NotificationSupport {
+            get {
+                return ResourceManager.GetString("NotificationSupport", resourceCulture);
             }
         }
         
@@ -922,6 +940,15 @@ namespace PlaystationApp.Resources {
         public static string SendMessage {
             get {
                 return ResourceManager.GetString("SendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

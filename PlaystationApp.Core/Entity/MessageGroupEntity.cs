@@ -67,7 +67,7 @@ namespace PlaystationApp.Core.Entity
                 SeenFlag = (bool)o["seenFlag"],
                 MessageKind = (int)o["messageKind"],
                 SenderOnlineId = (String)o["senderOnlineId"],
-                ReceivedDate = (String)o["recievedDate"],
+                ReceivedDate = (String)o["receivedDate"],
                 Body = (String)o["body"]
             };
             latestMessage.User = await userManager.GetUser(latestMessage.SenderOnlineId, userAccountEntity);

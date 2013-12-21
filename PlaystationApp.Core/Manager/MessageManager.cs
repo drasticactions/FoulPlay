@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PlaystationApp.Core.Entity;
 using System;
@@ -54,6 +56,30 @@ namespace PlaystationApp.Core.Manager
             var response = await theAuthClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStreamAsync();
             return responseContent;
+        }
+
+        public async Task<bool> ClearMessages(MessageEntity messageEntity, UserAccountEntity userAccountEntity)
+        {
+            var authenticationManager = new AuthenticationManager();
+            var user = userAccountEntity.GetUserEntity();
+            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            {
+                await authenticationManager.RefreshAccessToken(userAccountEntity);
+            }
+            var messageUids = new List<int>();
+            messageUids.AddRange(messageEntity.Messages.Where(o => o.SeenFlag == false).Select(message => message.MessageUid));
+            if (messageUids.Count == 0) return true;
+            string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?messageUid={2}", user.Region, messageEntity.MessageGroupEntity.MessageGroupId, string.Join(",", messageUids));
+            var theAuthClient = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
+            request.Headers.Add("Origin", "http://psapp.dl.playstation.net");
+            request.Headers.Add("Referer", "http://psapp.dl.playstation.net/psapp/6228351b09c436f44f1c53955c0a51ca/index.html");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+            request.Content = new StringContent("{\"seenFlag\":true}", Encoding.UTF8, "application/json");
+            //request.Content.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
+            var response = await theAuthClient.SendAsync(request);
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<MessageEntity> GetGroupConversation(string messageGroupId, UserAccountEntity userAccountEntity)
@@ -255,6 +281,8 @@ namespace PlaystationApp.Core.Manager
             public long fakeMessageUid { get; set; }
 
             public int messageKind  {get; set; }
+
+            public int messageUid { get; set; }
         }
     }
 }
