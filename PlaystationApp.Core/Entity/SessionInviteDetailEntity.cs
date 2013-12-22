@@ -11,7 +11,7 @@ namespace PlaystationApp.Core.Entity
     public class SessionInviteDetailEntity
     {
 
-        public string ReceivedDate { get; set; }
+        public DateTime ReceivedDate { get; set; }
         public bool SeenFlag { get; set; }
         public bool Expired { get; set; }
         public string Message { get; set; }
@@ -64,7 +64,7 @@ namespace PlaystationApp.Core.Entity
                 SeenFlag = o["seenFlag"] != null && (bool)o["seenFlag"],
                 UsedFlag = o["usedFlag"] != null && (bool)o["usedFlag"],
                 AvailablePlatforms = o["availablePlatforms"] != null ? (from platform in o["availablePlatforms"] select platform.ToString()).ToList() : new List<string>(),
-                ReceivedDate = o["receivedDate"] != null ? (string)o["receivedDate"] : string.Empty,
+                ReceivedDate = o["receivedDate"] != null ? DateTime.Parse((string)o["receivedDate"]).ToLocalTime() : new DateTime(),
                 Expired = o["expired"] != null && (bool)o["expired"],
                 session = (JObject)o["session"] != null ? ParseSession((JObject)o["session"]) : null,
                 fromUser = (JObject)o["fromUser"] != null ? ParseFromUser((JObject)o["fromUser"]) : null,

@@ -31,8 +31,8 @@ namespace PlaystationApp.Core.Entity
             public bool SeenFlag { get; set; }
             public bool UsedFlag { get; set; }
             public string SessionId { get; set; }
-            public string ReceivedDate { get; set; }
-            public string UpdateDate { get; set; }
+            public DateTime ReceivedDate { get; set; }
+            public DateTime UpdateDate { get; set; }
             public bool Expired { get; set; }
             public FromUser FromUser { get; set; }
             public List<string> AvailablePlatforms { get; set; }
@@ -90,8 +90,8 @@ namespace PlaystationApp.Core.Entity
                     UsedFlag = o["usedFlag"] != null && (bool)o["usedFlag"],
                     AvailablePlatforms = o["availablePlatforms"] != null ? (from platform in o["availablePlatforms"] select platform.ToString()).ToList() : new List<string>(),
                     SessionId = o["sessionId"] != null ? (string)o["sessionId"] : string.Empty,
-                    ReceivedDate = o["receivedDate"] != null ? (string)o["receivedDate"] : string.Empty,
-                    UpdateDate = o["updateDate"] != null ? (string)o["updateDate"] : string.Empty,
+                    ReceivedDate = o["receivedDate"] != null ? DateTime.Parse((string)o["receivedDate"]).ToLocalTime() : new DateTime(),
+                    UpdateDate = o["updateDate"] != null ? DateTime.Parse((string)o["updateDate"]).ToLocalTime() : new DateTime(),
                     Expired = o["expired"] != null && (bool)o["expired"],
                     FromUser = (JObject)o["fromUser"] != null ? ParseFromUser((JObject)o["fromUser"]) : null,
                     NpTitleDetail = (JObject)o["npTitleDetail"] != null ? ParseTitleDetail((JObject)o["npTitleDetail"]) : null,
@@ -102,7 +102,7 @@ namespace PlaystationApp.Core.Entity
 
         private static FromUser ParseFromUser(JObject o)
         {
-            var fromUser = new FromUser()
+            var fromUser = new FromUser
             {
                 OnlineId = (String)o["onlineId"],
             };

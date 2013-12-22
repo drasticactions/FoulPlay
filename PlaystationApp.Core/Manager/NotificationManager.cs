@@ -45,7 +45,7 @@ namespace PlaystationApp.Core.Manager
             {
                 await authenticationManager.RefreshAccessToken(userAccountEntity);
             }
-            string url = string.Format("https://{0}-ntl.np.community.playstation.net/notificationList/v1/users/{1}/notifications/{2}/{3}", user.Region, user.OnlineId, notification.ActionUrl, notification.NotificationId);
+            string url = string.Format("https://{0}-ntl.np.community.playstation.net/notificationList/v1/users/{1}/notifications/{2}/{3}", user.Region, user.OnlineId, notification.NotificationGroup, notification.NotificationId);
             var theAuthClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Put, url)
             {

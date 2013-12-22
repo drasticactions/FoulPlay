@@ -227,8 +227,15 @@ namespace PlaystationApp.Views
             };
             var sessionInvite = new SessionInviteManager();
             var inviteEntity = await sessionInvite.GetSessionInvites(0, App.UserAccountEntity);
-            if (inviteEntity == null) return false;
-            
+            if (inviteEntity == null)
+            {
+                NoInvitesTextBlock.Visibility = Visibility.Visible;
+                return false;
+            }
+            if (!inviteEntity.Invitations.Any())
+            {
+                NoInvitesTextBlock.Visibility = Visibility.Visible;
+            }
             foreach (var item in inviteEntity.Invitations)
             {
                 InviteCollection.InviteCollection.Add(item);
@@ -250,7 +257,11 @@ namespace PlaystationApp.Views
             var recentActivityManager = new RecentActivityManager();
             var recentActivityEntity =
                 await recentActivityManager.GetActivityFeed(_user.OnlineId, 0, true, true, App.UserAccountEntity);
-            if (recentActivityEntity == null) return false;
+            if (recentActivityEntity == null)
+            {
+                NoActivitiesTextBlock.Visibility = Visibility.Visible;
+                return false;
+            }
             foreach (var item in recentActivityEntity.FeedList)
             {
                 RecentActivityCollection.FeedList.Add(item);

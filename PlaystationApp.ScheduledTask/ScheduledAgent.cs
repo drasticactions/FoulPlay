@@ -1,4 +1,4 @@
-﻿#define DEBUG_AGENT
+﻿//#define DEBUG_AGENT
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -54,15 +54,18 @@ namespace PlaystationApp.ScheduledTask
                     var toastMessage = firstNotification.Message;
                     var toast = new ShellToast { Title = "FoulPlay", Content = toastMessage };
                     toast.Show();
-                    var tileData = new FlipTileData
+                    if (appTile != null)
                     {
-                        Title = "FoulPlay",
-                        BackTitle = "FoulPlay",
-                        BackContent = firstNotification.Message,
-                        WideBackContent = firstNotification.Message,
-                        Count = notificationList.Count()
-                    };
-                    appTile.Update(tileData);
+                        var tileData = new FlipTileData
+                        {
+                            Title = "FoulPlay",
+                            BackTitle = "FoulPlay",
+                            BackContent = firstNotification.Message,
+                            WideBackContent = firstNotification.Message,
+                            Count = notificationList.Count()
+                        };
+                        appTile.Update(tileData);
+                    }
                     await NotificationManager.ClearNotification(firstNotification, userAccountEntity);
                 }
             }

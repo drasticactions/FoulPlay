@@ -208,7 +208,7 @@ namespace PlaystationApp.Core.Manager
                 form.Add(t);
                 request.Content = form;
                 HttpResponseMessage response = await theAuthClient.SendAsync(request);
-                await response.Content.ReadAsStringAsync();
+                string test = await response.Content.ReadAsStringAsync();
                 return response.IsSuccessStatusCode;
 
             }

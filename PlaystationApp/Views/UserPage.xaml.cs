@@ -113,6 +113,18 @@ namespace PlaystationApp.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
+            if (App.SelectedUser.OnlineId.Equals(App.UserAccountEntity.GetUserEntity().OnlineId))
+            {
+                SendMessageButton.IsEnabled = false;
+            }
+            else
+            {
+                SendMessageButton.IsEnabled = true;
+                var messagerManager = new MessageManager();
+                _messageEntity = await
+                       messagerManager.GetGroupConversation(string.Format("~{0},{1}", App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId), App.UserAccountEntity);
+                MessageList.DataContext = _messageEntity;
+            }
             if (App.SelectedUser.presence == null ||
                 (App.SelectedUser.presence != null && App.SelectedUser.presence.PrimaryInfo.GameTitleInfo == null))
             {
@@ -141,10 +153,7 @@ namespace PlaystationApp.Views
             }
             RecentActivityProgressBar.Visibility = Visibility.Collapsed;
             await GetTrophyList();
-            var messagerManager = new MessageManager();
-            _messageEntity = await
-                   messagerManager.GetGroupConversation(string.Format("~{0},{1}", App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId), App.UserAccountEntity);
-            MessageList.DataContext = _messageEntity;
+            
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
@@ -244,6 +253,10 @@ namespace PlaystationApp.Views
             FriendRequestButton.Visibility = App.SelectedUser.Relation.Contains("friend")
                 ? Visibility.Collapsed
                 : Visibility.Visible;
+
+            FriendRequestButton.Visibility = App.SelectedUser.Relation.Equals("friend of friends")
+                ? Visibility.Visible
+                : Visibility.Collapsed;
 
             if (App.SelectedUser.Relation.Equals("requested friend"))
             {

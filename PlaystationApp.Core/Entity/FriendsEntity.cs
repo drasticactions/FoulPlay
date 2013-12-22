@@ -51,10 +51,10 @@ namespace PlaystationApp.Core.Entity
         {
             var personalDetail = new PersonalDetail()
             {
-                FirstName = (String)o["firstName"],
-                LastName = (String)o["lastName"],
-                FullName = string.Format("{0} {1}", (String)o["firstName"], (String)o["lastName"]),
-                ProfilePictureUrl = (String)o["profilePictureUrl"]
+                FirstName = (String)o["firstName"] ?? string.Empty,
+                LastName = (String)o["lastName"] ?? string.Empty,
+                FullName = string.Format("{0} {1}", (String)o["firstName"] ?? string.Empty, (String)o["lastName"] ?? string.Empty),
+                ProfilePictureUrl = (String)o["profilePictureUrl"] ?? string.Empty
             };
             return personalDetail;
         }
@@ -63,11 +63,11 @@ namespace PlaystationApp.Core.Entity
         {
             var primaryInfo = new PrimaryInfo
             {
-                Platform = (String) o["platform"],
-                OnlineStatus = (String) o["onlineStatus"],
+                Platform = (String) o["platform"] ?? string.Empty,
+                OnlineStatus = (String)o["onlineStatus"] ?? string.Empty,
                 GameStatus = (String)o["gameStatus"] ?? string.Empty,
                 GameTitleInfo = o["gameTitleInfo"] != null ? ParseGameTitleInfo((JObject) o["gameTitleInfo"]) : null,
-                LastOnlineDate = (String)o["lastOnlineDate"] ?? string.Empty
+                LastOnlineDate = o["lateOnlineDate"] != null ? DateTime.Parse((string)o["lateOnlineDate"]).ToLocalTime() : new DateTime()
             };
             primaryInfo.IsOnline = primaryInfo.OnlineStatus.Equals("Online");
             return primaryInfo;
@@ -158,7 +158,7 @@ namespace PlaystationApp.Core.Entity
             public bool IsOnline { get; set; }
             public GameTitleInfo GameTitleInfo { get; set; }
             public string GameStatus { get; set; }
-            public string LastOnlineDate { get; set; }
+            public DateTime LastOnlineDate { get; set; }
         }
 
         public class TrophySummary

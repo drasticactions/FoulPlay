@@ -269,6 +269,7 @@
   <ItemGroup>
     <None Include="Images\Thumbs.db" />
     <None Include="packages.config" />
+    <None Include="PlaystationApp_2013_12_21_16_52_14.sap" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>

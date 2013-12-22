@@ -32,7 +32,7 @@ namespace PlaystationApp.Core.Entity
             public int Progress { get; set; }
             public EarnedTrophies EarnedTrophies { get; set; }
             public bool HiddenFlag { get; set; }
-            public string LastUpdateDate { get; set; }
+            public DateTime LastUpdateDate { get; set; }
         }
 
         public class ComparedUser
@@ -40,7 +40,7 @@ namespace PlaystationApp.Core.Entity
             public string OnlineId { get; set; }
             public int Progress { get; set; }
             public EarnedTrophies EarnedTrophies { get; set; }
-            public string LastUpdateDate { get; set; }
+            public DateTime LastUpdateDate { get; set; }
         }
 
         public class TrophyTitle
@@ -104,7 +104,7 @@ namespace PlaystationApp.Core.Entity
             {
                 OnlineId = (String)o["onlineId"],
                 Progress = (int)o["progress"],
-                LastUpdateDate = (String)o["lastUpdateDate"],
+                LastUpdateDate = o["lastUpdateDate"] != null ? DateTime.Parse((string)o["lastUpdateDate"]).ToLocalTime() : new DateTime(),
                 EarnedTrophies = (JObject)o["earnedTrophies"] != null ? ParseEarnedTrophies((JObject)o["earnedTrophies"]) : null
             };
             return comparedUser;
@@ -117,7 +117,7 @@ namespace PlaystationApp.Core.Entity
                 OnlineId = (String)o["onlineId"],
                 HiddenFlag = (bool)o["hiddenFlag"],
                 Progress = (int)o["progress"],
-                LastUpdateDate = (String)o["lastUpdateDate"],
+                LastUpdateDate = o["lastUpdateDate"] != null ? DateTime.Parse((string)o["lastUpdateDate"]).ToLocalTime() : new DateTime(),
                 EarnedTrophies = (JObject)o["earnedTrophies"] != null ? ParseEarnedTrophies((JObject)o["earnedTrophies"]) : null
             };
             return fromUser;

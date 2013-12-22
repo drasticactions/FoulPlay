@@ -84,7 +84,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Entity\FeedEntity.cs" />
     <Compile Include="Entity\FilterItemEntity.cs" />
     <Compile Include="Entity\FriendsEntity.cs" />
     <Compile Include="Entity\MessageEntity.cs" />
@@ -99,7 +98,6 @@
     <Compile Include="Entity\UserAuthenticationEntity.cs" />
     <Compile Include="Entity\UserEntity.cs" />
     <Compile Include="Manager\AuthenticationManager.cs" />
-    <Compile Include="Manager\FeedManager.cs" />
     <Compile Include="Manager\FilterItemManager.cs" />
     <Compile Include="Manager\FriendManager.cs" />
     <Compile Include="Manager\MessageManager.cs" />

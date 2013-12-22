@@ -30,7 +30,7 @@ namespace PlaystationApp.Core.Entity
             public string SmallImageAspectRatio { get; set; }
             public string LargeImageUrl { get; set; }
             public string ThumbnailImageUrl { get; set; }
-            public string Date { get; set; }
+            public DateTime Date { get; set; }
             public double Relevancy { get; set; }
             public int CommentCount { get; set; }
             public int LikeCount { get; set; }
@@ -71,7 +71,7 @@ namespace PlaystationApp.Core.Entity
             public string SmallImageAspectRatio { get; set; }
             public string LargeImageUrl { get; set; }
             public string ThumbnailImageUrl { get; set; }
-            public string Date { get; set; }
+            public DateTime Date { get; set; }
             public double Relevancy { get; set; }
             public int CommentCount { get; set; }
             public int LikeCount { get; set; }
@@ -99,7 +99,7 @@ namespace PlaystationApp.Core.Entity
                     SmallImageAspectRatio = (String)o["smallImageAspectRadio"] ?? string.Empty,
                     LargeImageUrl = (String)o["largeImageUrl"] ?? string.Empty,
                     ThumbnailImageUrl = (String)o["thumbnailImageUrl"] ?? string.Empty,
-                    Date = (String)o["date"] ?? string.Empty,
+                    Date = o["date"] != null ? DateTime.Parse((string)o["date"]).ToLocalTime() : new DateTime(),
                     Relevancy = o["relevancy"] != null ? (Double)o["relevancy"] : 0,
                     CommentCount = o["commentCount"] != null ? (int)o["commentCount"] : 0,
                     LikeCount = o["likeCount"] != null ? (int)o["likeCount"] : 0,
@@ -131,7 +131,7 @@ namespace PlaystationApp.Core.Entity
                     SmallImageAspectRatio = (String)o["smallImageAspectRadio"] ?? string.Empty,
                     LargeImageUrl = (String)o["largeImageUrl"] ?? string.Empty,
                     ThumbnailImageUrl = (String)o["thumbnailImageUrl"] ?? string.Empty,
-                    Date = (String)o["date"] ?? string.Empty,
+                    Date = o["date"] != null ? DateTime.Parse((string)o["date"]).ToLocalTime() : new DateTime(),
                     Relevancy = o["relevancy"] != null ? (Double)o["relevancy"] : 0,
                     CommentCount = o["commentCount"] != null ? (int)o["commentCount"] : 0,
                     LikeCount = o["likeCount"] != null ? (int)o["likeCount"] : 0,

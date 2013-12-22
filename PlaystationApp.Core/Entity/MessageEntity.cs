@@ -43,7 +43,7 @@ namespace PlaystationApp.Core.Entity
             public int MessageKind { get; set; }
             public string SenderOnlineId { get; set; }
             public string SentMessageId { get; set; }
-            public string ReceivedDate { get; set; }
+            public DateTime ReceivedDate { get; set; }
             public ContentKeys ContentKeys { get; set; }
             public string Body { get; set; }
 
@@ -75,7 +75,7 @@ namespace PlaystationApp.Core.Entity
                                 MessageKind = o["messageKind"] != null ? (int)o["messageKind"] : 0,
                                 SenderOnlineId = (String)o["senderOnlineId"] ?? string.Empty,
                                 SentMessageId = (String)o["sentMessageId"] ?? string.Empty,
-                                ReceivedDate = (String)o["receivedDate"] ?? string.Empty,
+                                ReceivedDate = o["receivedDate"] != null ? DateTime.Parse((string)o["receivedDate"]).ToLocalTime() : new DateTime(),
                                 ContentKeys = o["contentKeys"] != null ? ParseContentKeys(o["contentKeys"].ToString()) : null,
                                 Body = (String)o["body"]
                             }).ToList();

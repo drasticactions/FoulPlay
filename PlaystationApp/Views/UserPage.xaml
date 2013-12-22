@@ -24,7 +24,7 @@
                 <Grid x:Name="ProfileGrid" DataContext="{Binding UserEntity}">
                     <ScrollViewer>
                         <StackPanel>
-                            <Button x:Name="FriendRequestButton"
+                            <Button Visibility="Collapsed" x:Name="FriendRequestButton"
                                     Content="{Binding Path=LocalizedResources.FriendRequest, Source={StaticResource LocalizedStrings}}"
                                     Click="FriendRequestButton_OnClick" />
                             <Button x:Name="FriendAcceptButton" Visibility="Collapsed"
@@ -189,7 +189,7 @@
                 </Grid>
             </phone:PivotItem>
             <!--Pivot item two-->
-            <phone:PivotItem
+            <phone:PivotItem x:Name="MessagesPivotItem"
                 Header="{Binding Path=LocalizedResources.MessagesPivot, Source={StaticResource LocalizedStrings}}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -336,7 +336,7 @@
                                             <TextBlock TextWrapping="NoWrap" TextTrimming="WordEllipsis"
                                                        Text="{Binding TrophyTitleName}" />
                                             <Border Grid.Column="1" BorderBrush="{StaticResource PhoneForegroundBrush}"
-                                                    BorderThickness="5" HorizontalAlignment="Right">
+                                                    BorderThickness="2" HorizontalAlignment="Right">
                                                 <TextBlock TextWrapping="Wrap" Text="{Binding TrophyTitlePlatfrom}" />
                                             </Border>
                                         </Grid>

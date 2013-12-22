@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -14,14 +12,14 @@ namespace PlaystationApp.Core.Entity
         {
             public string OnlineId { get; set; }
             public bool Earned { get; set; }
-            public string EarnedDate { get; set; }
+            public DateTime EarnedDate { get; set; }
         }
 
         public class ComparedUser
         {
             public string OnlineId { get; set; }
             public bool Earned { get; set; }
-            public string EarnedDate { get; set; }
+            public DateTime EarnedDate { get; set; }
         }
 
         public class Trophy
@@ -67,9 +65,10 @@ namespace PlaystationApp.Core.Entity
         {
             var comparedUser = new ComparedUser()
             {
-                OnlineId = (String)o["onlineId"],
-                Earned = (Boolean)o["earned"],
-                EarnedDate = (String)o["earnedDate"] ?? string.Empty
+                OnlineId = (String) o["onlineId"],
+                Earned = (Boolean) o["earned"],
+                EarnedDate =
+                    o["earnedDate"] != null ? DateTime.Parse((string) o["earnedDate"]).ToLocalTime() : new DateTime()
             };
             return comparedUser;
         }
@@ -80,7 +79,7 @@ namespace PlaystationApp.Core.Entity
             {
                 OnlineId = (String)o["onlineId"],
                 Earned = (Boolean)o["earned"],
-                EarnedDate = (String)o["earnedDate"] ?? string.Empty
+                EarnedDate = o["earnedDate"] != null ? DateTime.Parse((string)o["earnedDate"]).ToLocalTime() : new DateTime()
             };
             return fromUser;
         }
