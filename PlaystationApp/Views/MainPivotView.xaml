@@ -30,7 +30,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <ProgressBar VerticalAlignment="Top" Visibility="Collapsed" x:Name="LoadingProgressBar" IsIndeterminate="True" />
         <!--Pivot Control-->
-        <phone:Pivot x:Name="HomePivot" Title="FoulPlay">
+        <phone:Pivot x:Name="HomePivot" SelectionChanged="HomePivot_OnSelectionChanged" Title="FoulPlay">
             <!--Pivot item one-->
             <phone:PivotItem
                 Header="{Binding Path=LocalizedResources.FriendsPivot, Source={StaticResource LocalizedStrings}}">

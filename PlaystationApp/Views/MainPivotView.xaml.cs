@@ -43,8 +43,8 @@ namespace PlaystationApp.Views
         {
             if (NavigationService != null && NavigationService.CanGoBack)
                 NavigationService.RemoveBackEntry();
-            await LoadRecentActivityList();
-            await LoadSessionInviteList();
+            //await LoadRecentActivityList();
+            //await LoadSessionInviteList();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -194,23 +194,22 @@ namespace PlaystationApp.Views
                 return false;
             }
             FriendsMessageTextBlock.Visibility = !items.FriendList.Any() ? Visibility.Visible : Visibility.Collapsed;
-            foreach (FriendsEntity.Friend item in items.FriendList)
+            foreach (var item in items.FriendList)
             {
                 FriendCollection.FriendList.Add(item);
             }
             FriendsLongListSelector.ItemRealized += friendList_ItemRealized;
             FriendsLongListSelector.DataContext = FriendCollection;
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
+            return true;
+        }
 
+        private async Task<bool> LoadMessages()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
             var messageManager = new MessageManager();
-            //var notificationManager = new NotificationManager();
-            //            NotificationEntity notification =
-            //    await notificationManager.GetNotifications(_user.OnlineId, App.UserAccountEntity);
-            //NotificationsMessageTextBlock.Visibility = !notification.Notifications.Any()
-            //    ? Visibility.Visible
-            //    : Visibility.Collapsed;
-            //NotificationListSelector.DataContext = notification;
             MessageGroupEntity message = await messageManager.GetMessageGroup(_user.OnlineId, App.UserAccountEntity);
-            MessagesMessageTextBlock.Visibility = message != null && !message.MessageGroups.Any()
+            MessagesMessageTextBlock.Visibility = message != null && (message.MessageGroups != null && (!message.MessageGroups.Any()))
                 ? Visibility.Visible
                 : Visibility.Collapsed;
             MessageList.DataContext = message;
@@ -220,6 +219,7 @@ namespace PlaystationApp.Views
 
         private async Task<bool> LoadSessionInviteList()
         {
+            LoadingProgressBar.Visibility = Visibility.Visible;
             InviteCollection = new InfiniteScrollingCollection
             {
                 Offset = 32,
@@ -232,20 +232,23 @@ namespace PlaystationApp.Views
                 NoInvitesTextBlock.Visibility = Visibility.Visible;
                 return false;
             }
-            if (!inviteEntity.Invitations.Any())
+            if (inviteEntity.Invitations != null && !inviteEntity.Invitations.Any())
             {
                 NoInvitesTextBlock.Visibility = Visibility.Visible;
             }
-            foreach (var item in inviteEntity.Invitations)
-            {
-                InviteCollection.InviteCollection.Add(item);
-            }
+            if (inviteEntity.Invitations != null)
+                foreach (var item in inviteEntity.Invitations)
+                {
+                    InviteCollection.InviteCollection.Add(item);
+                }
             InvitationsLongListSelector.DataContext = InviteCollection;
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
             return true;
         }
 
         private async Task<bool> LoadRecentActivityList()
         {
+            LoadingProgressBar.Visibility = Visibility.Visible;
             RecentActivityCollection = new InfiniteScrollingCollection
             {
                 IsNews = true,
@@ -262,31 +265,35 @@ namespace PlaystationApp.Views
                 NoActivitiesTextBlock.Visibility = Visibility.Visible;
                 return false;
             }
-            foreach (var item in recentActivityEntity.FeedList)
+            if (recentActivityEntity.FeedList != null)
             {
-                RecentActivityCollection.FeedList.Add(item);
-            }
-
-            if (recentActivityEntity.FeedList.Count < 15)
-            {
-                recentActivityEntity =
-                await recentActivityManager.GetActivityFeed(_user.OnlineId, 1, true, true, App.UserAccountEntity);
-                if (!recentActivityEntity.FeedList.Any())
-                {
-                    NoActivitiesTextBlock.Visibility = Visibility.Visible;
-                    return false;
-                }
-
                 foreach (var item in recentActivityEntity.FeedList)
                 {
                     RecentActivityCollection.FeedList.Add(item);
                 }
 
-                RecentActivityCollection.PageCount = 2;
+                //if (recentActivityEntity.FeedList.Count < 15)
+                //{
+                //    recentActivityEntity =
+                //        await recentActivityManager.GetActivityFeed(_user.OnlineId, 1, true, true, App.UserAccountEntity);
+                //    if (!recentActivityEntity.FeedList.Any())
+                //    {
+                //        NoActivitiesTextBlock.Visibility = Visibility.Visible;
+                //        return false;
+                //    }
+
+                //    foreach (var item in recentActivityEntity.FeedList)
+                //    {
+                //        RecentActivityCollection.FeedList.Add(item);
+                //    }
+
+                //    RecentActivityCollection.PageCount = 2;
+                //}
             }
-           
+
             RecentActivityLongListSelector.DataContext = RecentActivityCollection;
             RecentActivityLongListSelector.ItemRealized += RecentActivity_ItemRealized;
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
             return true;
         }
 
@@ -420,6 +427,24 @@ namespace PlaystationApp.Views
             App.SelectedInvitation = item;
             string url = string.Format("/Views/InvitePage.xaml?inviteId={0}",item.InvitationId);
             NavigationService.Navigate(new Uri(url, UriKind.Relative));
+        }
+
+        private async void HomePivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (HomePivot.SelectedIndex)
+            {
+                case 1:
+                    await LoadMessages();
+                    break;
+                case 2:
+                    if (InviteCollection == null)
+                    await LoadSessionInviteList();
+                    break;
+                case 3:
+                    if (RecentActivityCollection == null)
+                    await LoadRecentActivityList();
+                    break;
+            }
         }
     }
 }

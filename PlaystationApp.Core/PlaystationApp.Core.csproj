@@ -109,6 +109,7 @@
     <Compile Include="Manager\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\InfiniteScrollingCollection.cs" />
+    <Compile Include="Tools\UdpRemote.cs" />
     <Compile Include="Tools\UrlConstants.cs" />
   </ItemGroup>
   <ItemGroup>

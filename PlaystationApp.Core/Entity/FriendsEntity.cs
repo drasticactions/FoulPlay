@@ -77,8 +77,8 @@ namespace PlaystationApp.Core.Entity
         {
             var gameTitleInfo = new GameTitleInfo
             {
-                NpTitleId = (String) o["npTitleId"],
-                TitleName = (String) o["titleName"]
+                NpTitleId = (String) o["npTitleId"] ?? string.Empty,
+                TitleName = (String)o["titleName"] ?? string.Empty
             };
             return gameTitleInfo;
         }
@@ -87,9 +87,9 @@ namespace PlaystationApp.Core.Entity
         {
             var trophySummary = new TrophySummary
             {
-                Level = (int) o["level"],
-                Progress = (int) o["progress"],
-                EarnedTrophies = ParseEarnedTrophies((JObject) o["earnedTrophies"])
+                Level = o["level"] != null ? (int) o["level"] : 0,
+                Progress = o["progress"] != null ? (int) o["progress"] : 0,
+                EarnedTrophies = o["earnedTrophies"] != null ? ParseEarnedTrophies((JObject) o["earnedTrophies"]) : null
             };
             return trophySummary;
         }

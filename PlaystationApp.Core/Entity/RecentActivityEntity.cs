@@ -152,9 +152,9 @@ namespace PlaystationApp.Core.Entity
         {
             return new Source
             {
-                Meta = (String)o["meta"],
-                Type = (String)o["type"],
-                ImageUrl = (String)o["imageUrl"]
+                Meta = (String)o["meta"] ?? string.Empty,
+                Type = (String)o["type"] ?? string.Empty,
+                ImageUrl = (String)o["imageUrl"] ?? string.Empty
             };
         }
 
@@ -164,9 +164,9 @@ namespace PlaystationApp.Core.Entity
             var targets = (from JObject o in a
                 select new Target
                 {
-                    Meta = (String)o["meta"],
-                    Type = (String)o["type"],
-                    ImageUrl = (String)o["imageUrl"]
+                    Meta = (String)o["meta"] ?? string.Empty,
+                    Type = (String)o["type"] ?? string.Empty,
+                    ImageUrl = (String)o["imageUrl"] ?? string.Empty
                 }).ToList();
             return targets;
         }
@@ -177,8 +177,8 @@ namespace PlaystationApp.Core.Entity
             var captionComponents = (from JObject o in a
                 select new CaptionComponent
                 {
-                    Key = (String)o["key"],
-                    Value = (String)o["value"],
+                    Key = (String)o["key"] ?? string.Empty,
+                    Value = (String)o["value"] ?? string.Empty,
                 }).ToList();
             return captionComponents;
         }

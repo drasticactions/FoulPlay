@@ -18,20 +18,20 @@ namespace PlaystationApp.Core.Entity
             var a = (JArray)JsonConvert.DeserializeObject(json);
             var notificationEntity = new NotificationEntity()
             {
-                Size = (int)jobject["size"],
-                Start = (int)jobject["start"],
-                TotalResults = (int)jobject["totalResults"]
+                Size = jobject["size"] != null ? (int)jobject["size"] : 0,
+                Start = jobject["start"] != null ? (int)jobject["start"] : 0,
+                TotalResults = jobject["totalResults"] != null ? (int)jobject["totalResults"] : 0
             };
             List<Notification> notifications = (from JObject o in a
                                                 select new Notification
                                                 {
-                                                    NotificationGroup = (String)o["notificationGroup"],
-                                                    NotificationId = (long)o["notificationId"],
-                                                    SeenFlag = (Boolean)o["seenFlag"],
-                                                    ReceivedDate = (String)o["receivedDate"],
-                                                    UpdateDate = (String)o["updateDate"],
-                                                    Message = (String)o["message"],
-                                                    ActionUrl = (String)o["actionUrl"]
+                                                    NotificationGroup = (String)o["notificationGroup"] ?? string.Empty,
+                                                    NotificationId = o["notificationId"] != null ? (long)o["notificationId"] : 0,
+                                                    SeenFlag = o["seenFlag"] != null && (Boolean)o["seenFlag"],
+                                                    ReceivedDate = (String)o["receivedDate"] ?? string.Empty,
+                                                    UpdateDate = (String)o["updateDate"] ?? string.Empty,
+                                                    Message = (String)o["message"] ?? string.Empty,
+                                                    ActionUrl = (String)o["actionUrl"] ?? string.Empty
                                                 }).ToList();
             notificationEntity.Notifications = notifications;
             return notificationEntity;
