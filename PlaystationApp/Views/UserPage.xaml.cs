@@ -83,6 +83,7 @@ namespace PlaystationApp.Views
                     recentActivityManager.GetActivityFeed(App.SelectedUser.OnlineId, 0, true, false,
                         App.UserAccountEntity);
             if (recentActivityEntity == null) return false;
+            if (recentActivityEntity.FeedList == null) return false;
             foreach (RecentActivityEntity.Feed item in recentActivityEntity.FeedList)
             {
                 RecentActivityCollection.FeedList.Add(item);
@@ -141,15 +142,23 @@ namespace PlaystationApp.Views
             ProfileGrid.DataContext = App.SelectedUser;
             SetFriendButtons();
             await LoadRecentActivityList();
-            if (!RecentActivityCollection.FeedList.Any())
+            if (RecentActivityCollection != null)
             {
-                NoActivitiesTextBlock.Visibility = Visibility.Visible;
-                NoActivitiesListTextBlock.Visibility = Visibility.Visible;
+                if (!RecentActivityCollection.FeedList.Any())
+                {
+                    NoActivitiesTextBlock.Visibility = Visibility.Visible;
+                    NoActivitiesListTextBlock.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    RecentActivitiesGrid.Visibility = Visibility.Visible;
+                    RecentActivityStackPanel.DataContext = RecentActivityCollection.FeedList.FirstOrDefault();
+                }
             }
             else
             {
-                RecentActivitiesGrid.Visibility = Visibility.Visible;
-                RecentActivityStackPanel.DataContext = RecentActivityCollection.FeedList.FirstOrDefault();
+                NoActivitiesTextBlock.Visibility = Visibility.Visible;
+                NoActivitiesListTextBlock.Visibility = Visibility.Visible;
             }
             RecentActivityProgressBar.Visibility = Visibility.Collapsed;
             await GetTrophyList();

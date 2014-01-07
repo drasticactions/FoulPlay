@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Coding4Fun.Toolkit.Controls;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PlaystationApp.Core.Entity;
 using PlaystationApp.Core.Manager;
 using PlaystationApp.Core.Tools;
 using PlaystationApp.Resources;
+using PlaystationApp.UserControls;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace PlaystationApp.Views
@@ -77,6 +79,11 @@ namespace PlaystationApp.Views
                 Text = AppResources.Logout
             };
             logoutButton.Click += LogOutButton_Click;
+            var aboutButton = new ApplicationBarMenuItem()
+            {
+                Text = "About"
+            };
+            aboutButton.Click += AboutButton_Click;
             var batchFriendButton = new ApplicationBarMenuItem
             {
                 Text = AppResources.BatchFriendInvite
@@ -84,8 +91,17 @@ namespace PlaystationApp.Views
             batchFriendButton.Click += BatchFriendButton_Click;
             //ApplicationBar.MenuItems.Add(batchFriendButton);
             ApplicationBar.MenuItems.Add(logoutButton);
+            ApplicationBar.MenuItems.Add(aboutButton);
             ApplicationBar.Buttons.Add(appBarButton);
             ApplicationBar.Buttons.Add(refreshButton);
+        }
+
+        private void AboutButton_Click(object sender, EventArgs e)
+        {
+            var p = new AboutPrompt();
+            p.Title = "FoulPlay";
+            p.VersionNumber = "v1.1.1.2";
+            p.Show("Tim Miller (DrasticActions)", "@innerlogic", "t_miller@outlook.com", @"http://twitter.com/innerlogic");
         }
 
         private void BatchFriendButton_Click(object sender, EventArgs e)
@@ -263,6 +279,7 @@ namespace PlaystationApp.Views
             if (recentActivityEntity == null)
             {
                 NoActivitiesTextBlock.Visibility = Visibility.Visible;
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
                 return false;
             }
             if (recentActivityEntity.FeedList != null)
@@ -271,24 +288,6 @@ namespace PlaystationApp.Views
                 {
                     RecentActivityCollection.FeedList.Add(item);
                 }
-
-                //if (recentActivityEntity.FeedList.Count < 15)
-                //{
-                //    recentActivityEntity =
-                //        await recentActivityManager.GetActivityFeed(_user.OnlineId, 1, true, true, App.UserAccountEntity);
-                //    if (!recentActivityEntity.FeedList.Any())
-                //    {
-                //        NoActivitiesTextBlock.Visibility = Visibility.Visible;
-                //        return false;
-                //    }
-
-                //    foreach (var item in recentActivityEntity.FeedList)
-                //    {
-                //        RecentActivityCollection.FeedList.Add(item);
-                //    }
-
-                //    RecentActivityCollection.PageCount = 2;
-                //}
             }
 
             RecentActivityLongListSelector.DataContext = RecentActivityCollection;

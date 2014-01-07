@@ -62,6 +62,7 @@ namespace PlaystationApp.Core.Entity
 
         public static List<Message> ParseMessage(JObject obj, UserAccountEntity userAccountEntity)
         {
+            if(obj["messages"] == null) return new List<Message>();
             string json = obj["messages"].ToString();
             var a = (JArray)JsonConvert.DeserializeObject(json);
             var userManager = new UserManager();
@@ -143,6 +144,7 @@ namespace PlaystationApp.Core.Entity
 
         public static MessageGroupDetail ParseMessageGroupDetail(JObject o)
         {
+            if(o["members"] == null) return new MessageGroupDetail();
             string json = o["members"].ToString();
             var a = (JArray)JsonConvert.DeserializeObject(json);
             List<Member> members = (from JObject q in a

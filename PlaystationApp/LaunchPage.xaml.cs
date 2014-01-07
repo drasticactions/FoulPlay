@@ -27,6 +27,16 @@ namespace PlaystationApp
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            ShellTile iconicTile = ShellTile.ActiveTiles.FirstOrDefault();
+            if (iconicTile != null)
+            {
+                var tileData = new FlipTileData
+                {
+                    Title = "FoulPlay",
+                    Count = 0
+                };
+                iconicTile.Update(tileData);
+            }
             string authCode;
             /*
              * If we're coming from IE with our Auth Code, parse it out and get the Access Token.

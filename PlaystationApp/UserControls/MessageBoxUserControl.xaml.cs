@@ -21,8 +21,6 @@ namespace PlaystationApp.UserControls
         private async void StatusPostButton_Click(object sender, RoutedEventArgs e)
         {
             ProgressBar.Visibility = Visibility.Visible;
-            var memberNames = App.SelectedMessageEventEntity.MessageGroupEntity.MessageGroupDetail.Members;
-            var usernameList = memberNames.Select(member => member.OnlineId).ToList();
             string messageId = App.SelectedMessageGroupId;
             var messageManager = new MessageManager();
             StatusPostButton.IsEnabled = false;

@@ -24,15 +24,25 @@ namespace PlaystationApp.Core.Manager
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
             request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
-            var response = await theAuthClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
-            if (string.IsNullOrEmpty(responseContent)) return null;
-            responseContent = "[" + responseContent + "]";
-            JArray a = JArray.Parse(responseContent);
-            var b = (JObject)a[0];
-            if (b["message"] != null) return null;
-            var recentActivityEntity = RecentActivityEntity.Parse(b["feed"].ToString());
-            return recentActivityEntity;
+            try
+            {
+                var response = await theAuthClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(responseContent)) return null;
+                responseContent = "[" + responseContent + "]";
+                JArray a = JArray.Parse(responseContent);
+                var b = (JObject)a[0];
+                if (b == null) return null;
+                if (b["message"] != null) return null;
+                if (b["feed"] == null) return null;
+                var recentActivityEntity = RecentActivityEntity.Parse(b["feed"].ToString());
+                return recentActivityEntity;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
         public async Task<bool> LikeDislikeFeedItem(bool isLiked, string feedId, UserAccountEntity userAccountEntity)
