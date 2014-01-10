@@ -26,26 +26,38 @@ namespace PlaystationApp.UserControls
             StatusPostButton.IsEnabled = false;
             ImagePicker.IsEnabled = false;
             CameraAccess.IsEnabled = false;
+            bool result;
             if (ImagePickerImage.Source != null)
             {
                 var bmp = new WriteableBitmap((BitmapSource) ImagePickerImage.Source);
                 byte[] byteArray;
                 using (var stream = new MemoryStream())
                 {
-                    bmp.SaveJpeg(stream, bmp.PixelWidth, bmp.PixelHeight, 0, 100);
+                    bmp.SaveJpeg(stream, bmp.PixelWidth, bmp.PixelHeight, 0, 50);
                     byteArray = stream.ToArray();
                 }
-                await
+                result = await
                     messageManager.CreatePostWithMedia(messageId, StatusUpdateBox.Text, "", byteArray,
                         App.UserAccountEntity);
             }
             else
             {
-                await messageManager.CreatePost(messageId, StatusUpdateBox.Text, App.UserAccountEntity);
+                result = await messageManager.CreatePost(messageId, StatusUpdateBox.Text, App.UserAccountEntity);
             }
-            var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
-            if (rootFrame != null)
-                rootFrame.GoBack();
+
+            if(result != true)
+            {
+                MessageBox.Show("An error has occurred.");
+                StatusPostButton.IsEnabled = true;
+                ImagePicker.IsEnabled = true;
+                CameraAccess.IsEnabled = true;
+            }
+            else
+            {
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+            }
         }
 
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
@@ -58,10 +70,11 @@ namespace PlaystationApp.UserControls
         private void photoChooserTask_Completed(object sender, PhotoResult e)
         {
             if (e.TaskResult != TaskResult.OK) return;
-            var bmp = new BitmapImage();
-            bmp.SetSource(e.ChosenPhoto);
+            BitmapImage bitmap = new BitmapImage { CreateOptions = BitmapCreateOptions.None };
+            bitmap.SetSource(e.ChosenPhoto);
+            
             ImagePickerImage.Visibility = Visibility.Visible;
-            ImagePickerImage.Source = bmp;
+            ImagePickerImage.Source = bitmap;
         }
 
         private void cameraCaptureTask_Completed(object sender, PhotoResult e)

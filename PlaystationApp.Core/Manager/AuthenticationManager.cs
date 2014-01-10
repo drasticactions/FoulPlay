@@ -24,89 +24,113 @@ namespace PlaystationApp.Core.Manager
 
         public async Task<UserAccountEntity.User> GetUserEntity(UserAccountEntity userAccountEntity)
         {
-            var authenticationManager = new AuthenticationManager();
-            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            try
             {
-                await authenticationManager.RefreshAccessToken(userAccountEntity);
+                var authenticationManager = new AuthenticationManager();
+                if (userAccountEntity.GetAccessToken().Equals("refresh"))
+                {
+                    await authenticationManager.RefreshAccessToken(userAccountEntity);
+                }
+                string url = "https://vl.api.np.km.playstation.net/vl/api/v1/mobile/users/me/info";
+                var theAuthClient = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+                HttpResponseMessage response = await theAuthClient.SendAsync(request);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                UserAccountEntity.User user = UserAccountEntity.ParseUser(responseContent);
+                return user;
             }
-            string url = "https://vl.api.np.km.playstation.net/vl/api/v1/mobile/users/me/info";
-            var theAuthClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
-            HttpResponseMessage response = await theAuthClient.SendAsync(request);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            UserAccountEntity.User user = UserAccountEntity.ParseUser(responseContent);
-            return user;
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
         public async Task<bool> RequestAccessToken(String code)
         {
-            var dic = new Dictionary<String, String>();
-            dic["grant_type"] = "authorization_code";
-            dic["client_id"] = ConsumerKey;
-            dic["client_secret"] = ConsumerSecret;
-            dic["redirect_uri"] = "com.playstation.PlayStationApp://redirect";
-            dic["state"] = "x";
-            dic["scope"] = "psn:sceapp";
-            dic["code"] = code;
-            var theAuthClient = new HttpClient();
-            var header = new FormUrlEncodedContent(dic);
-            var response = await theAuthClient.PostAsync(OauthToken, header);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            UserAuthenticationEntity authEntity = UserAuthenticationEntity.Parse(responseContent);
-            if (!_appSettings.Any())
+            try
             {
-                _appSettings.Add("accessToken", authEntity.AccessToken);
-            }
-            else
-            {
-                _appSettings["accessToken"] = authEntity.AccessToken;
-            }
+                var dic = new Dictionary<String, String>();
+                dic["grant_type"] = "authorization_code";
+                dic["client_id"] = ConsumerKey;
+                dic["client_secret"] = ConsumerSecret;
+                dic["redirect_uri"] = "com.playstation.PlayStationApp://redirect";
+                dic["state"] = "x";
+                dic["scope"] = "psn:sceapp";
+                dic["code"] = code;
+                var theAuthClient = new HttpClient();
+                var header = new FormUrlEncodedContent(dic);
+                var response = await theAuthClient.PostAsync(OauthToken, header);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                UserAuthenticationEntity authEntity = UserAuthenticationEntity.Parse(responseContent);
+                if (!_appSettings.Any())
+                {
+                    _appSettings.Add("accessToken", authEntity.AccessToken);
+                }
+                else
+                {
+                    _appSettings["accessToken"] = authEntity.AccessToken;
+                }
 
-            if (!_appSettings.Any())
-            {
-                _appSettings.Add("refreshToken", authEntity.RefreshToken);
-            }
-            else
-            {
-                _appSettings["refreshToken"] = authEntity.RefreshToken;
-            }
+                if (!_appSettings.Any())
+                {
+                    _appSettings.Add("refreshToken", authEntity.RefreshToken);
+                }
+                else
+                {
+                    _appSettings["refreshToken"] = authEntity.RefreshToken;
+                }
 
-            _appSettings.Save();
-            return true;
+                _appSettings.Save();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
         }
 
         public async Task<bool> RefreshAccessToken(UserAccountEntity account)
         {
-            //var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            var dic = new Dictionary<String, String>();
-            dic["grant_type"] = "refresh_token";
-            dic["client_id"] = ConsumerKey;
-            dic["client_secret"] = ConsumerSecret;
-            dic["refresh_token"] = account.GetRefreshToken();
-            dic["scope"] = "psn:sceapp";
-
-            account.SetAccessToken("updating", null);
-            account.SetRefreshTime(1000);
-            var theAuthClient = new HttpClient();
-            HttpContent header = new FormUrlEncodedContent(dic);
-            HttpResponseMessage response = await theAuthClient.PostAsync(OauthToken, header);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            try
             {
-                string responseContent = await response.Content.ReadAsStringAsync();
-                JObject o = JObject.Parse(responseContent);
-                account.SetAccessToken((String)o["access_token"], (String)o["refresh_token"]);
-                account.SetRefreshTime(long.Parse((String)o["expires_in"]));
+                //var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                var dic = new Dictionary<String, String>();
+                dic["grant_type"] = "refresh_token";
+                dic["client_id"] = ConsumerKey;
+                dic["client_secret"] = ConsumerSecret;
+                dic["refresh_token"] = account.GetRefreshToken();
+                dic["scope"] = "psn:sceapp";
 
-                UserAuthenticationEntity authEntity = UserAuthenticationEntity.Parse(responseContent);
-                _appSettings["refreshToken"] = authEntity.RefreshToken;
-                _appSettings["accessToken"] = authEntity.AccessToken;
-                _appSettings.Save();
-                return true;
+                account.SetAccessToken("updating", null);
+                account.SetRefreshTime(1000);
+                var theAuthClient = new HttpClient();
+                HttpContent header = new FormUrlEncodedContent(dic);
+                HttpResponseMessage response = await theAuthClient.PostAsync(OauthToken, header);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    JObject o = JObject.Parse(responseContent);
+                    account.SetAccessToken((String)o["access_token"], (String)o["refresh_token"]);
+                    account.SetRefreshTime(long.Parse((String)o["expires_in"]));
+
+                    UserAuthenticationEntity authEntity = UserAuthenticationEntity.Parse(responseContent);
+                    _appSettings["refreshToken"] = authEntity.RefreshToken;
+                    _appSettings["accessToken"] = authEntity.AccessToken;
+                    _appSettings.Save();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception)
             {
                 return false;
             }
+            
         }
     }
 }

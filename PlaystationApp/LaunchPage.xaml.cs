@@ -115,6 +115,11 @@ namespace PlaystationApp
                 StartPeriodicAgent();
 
                 UserAccountEntity.User user = await authManager.GetUserEntity(App.UserAccountEntity);
+                if (user == null)
+                {
+                    MessageBox.Show(AppResources.GenericError);
+                    Application.Current.Terminate();
+                }
                 App.UserAccountEntity.SetUserEntity(user);
 
                 // Clears old notifications and resets the live tile.
