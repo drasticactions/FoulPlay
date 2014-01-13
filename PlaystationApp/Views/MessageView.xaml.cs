@@ -60,9 +60,18 @@ namespace PlaystationApp.Views
             LoadingProgressBar.Visibility = Visibility.Visible;
             var messagerManager = new MessageManager();
             _messageEntity = await messagerManager.GetGroupConversation(App.SelectedMessageGroupId, App.UserAccountEntity);
+            if (_messageEntity == null)
+            {
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+                return false;
+            }
             MessageList.DataContext = _messageEntity;
             await messagerManager.ClearMessages(_messageEntity, App.UserAccountEntity);
             LoadingProgressBar.Visibility = Visibility.Collapsed;
+            SendMessageButton.IsEnabled = true;
             return true;
         }
 
@@ -99,8 +108,15 @@ namespace PlaystationApp.Views
         public BitmapImage DecodeImage(Stream array)
         {
             var bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(array);
-            return bitmapImage;
+            try
+            {
+                bitmapImage.SetSource(array);
+                return bitmapImage;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }    
     }
 }

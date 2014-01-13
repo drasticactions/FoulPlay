@@ -37,6 +37,10 @@ namespace PlaystationApp.Core.Manager
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
                 HttpResponseMessage response = await theAuthClient.SendAsync(request);
                 string responseContent = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(responseContent))
+                {
+                    return null;
+                }
                 UserAccountEntity.User user = UserAccountEntity.ParseUser(responseContent);
                 return user;
             }
@@ -62,6 +66,10 @@ namespace PlaystationApp.Core.Manager
                 var header = new FormUrlEncodedContent(dic);
                 var response = await theAuthClient.PostAsync(OauthToken, header);
                 string responseContent = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(responseContent))
+                {
+                    return false;
+                }
                 UserAuthenticationEntity authEntity = UserAuthenticationEntity.Parse(responseContent);
                 if (!_appSettings.Any())
                 {
@@ -112,6 +120,10 @@ namespace PlaystationApp.Core.Manager
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
                     JObject o = JObject.Parse(responseContent);
+                    if (string.IsNullOrEmpty(responseContent))
+                    {
+                        return false;
+                    }
                     account.SetAccessToken((String)o["access_token"], (String)o["refresh_token"]);
                     account.SetRefreshTime(long.Parse((String)o["expires_in"]));
 

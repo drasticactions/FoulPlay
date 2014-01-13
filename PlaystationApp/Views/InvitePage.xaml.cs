@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PlaystationApp.Core.Entity;
 using PlaystationApp.Core.Manager;
+using PlaystationApp.Resources;
 
 namespace PlaystationApp.Views
 {
@@ -32,29 +33,47 @@ namespace PlaystationApp.Views
                 _user = await userManager.GetUser(App.SelectedInvitation.FromUser.OnlineId, App.UserAccountEntity);
                 UserInformationGrid.DataContext = _user;
             }
+            else
+            {
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+            }
             string parameterValue = NavigationContext.QueryString["inviteId"];
             var sessionInviteManager = new SessionInviteManager();
             var sessionInvite = await sessionInviteManager.GetInviteInformation(parameterValue, App.UserAccountEntity);
-            UserMessageBlock.Text = sessionInvite.Message;
-            InviteInformationViewer.DataContext = sessionInvite.session;
-            if (sessionInvite.Expired)
+            if (sessionInvite == null)
             {
-                InviteExpiredTextBlock.Visibility = Visibility.Visible;
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
             }
-            else
+            if (sessionInvite != null)
             {
-                InviteInformationViewer.Visibility = Visibility.Visible;
-                if (sessionInvite.session != null)
+                UserMessageBlock.Text = sessionInvite.Message;
+                InviteInformationViewer.DataContext = sessionInvite.session;
+                if (sessionInvite.Expired)
                 {
-                    foreach (var member in sessionInvite.session.Members)
+                    InviteExpiredTextBlock.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    InviteInformationViewer.Visibility = Visibility.Visible;
+                    if (sessionInvite.session != null)
                     {
-                        var userManager = new UserManager();
-                        var test = await userManager.GetUserAvatar(member.OnlineId, App.UserAccountEntity);
-                        member.AvatarUrl = test.AvatarUrl;
+                        foreach (var member in sessionInvite.session.Members)
+                        {
+                            var userManager = new UserManager();
+                            var test = await userManager.GetUserAvatar(member.OnlineId, App.UserAccountEntity);
+                            member.AvatarUrl = test.AvatarUrl;
+                        }
+                        PlayersListSelector.ItemsSource = sessionInvite.session.Members;
                     }
-                    PlayersListSelector.ItemsSource = sessionInvite.session.Members;
                 }
             }
+            SendMessageToUserButton.IsEnabled = true;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 

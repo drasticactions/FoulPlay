@@ -120,7 +120,7 @@
                 </ScrollViewer>
                 <TextBlock Visibility="Collapsed" x:Name="InviteExpiredTextBlock" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" Text="{Binding Path=LocalizedResources.JoinInvitationExpired, Source={StaticResource LocalizedStrings}}"></TextBlock>
             </Grid>
-            <Button x:Name="SendMessageToUserButton" Click="SendMessageToUserButton_OnClick" Grid.Row="2" Content="{Binding Path=LocalizedResources.SendMessage, Source={StaticResource LocalizedStrings}}"/>
+            <Button x:Name="SendMessageToUserButton" IsEnabled="False" Click="SendMessageToUserButton_OnClick" Grid.Row="2" Content="{Binding Path=LocalizedResources.SendMessage, Source={StaticResource LocalizedStrings}}"/>
         </Grid>
     </Grid>
 

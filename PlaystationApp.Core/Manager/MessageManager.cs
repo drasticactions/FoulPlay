@@ -17,93 +17,130 @@ namespace PlaystationApp.Core.Manager
     {
         public async Task<MessageGroupEntity> GetMessageGroup(string username, UserAccountEntity userAccountEntity)
         {
-            var authenticationManager = new AuthenticationManager();
-            var user = userAccountEntity.GetUserEntity();
-            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            try
             {
-                await authenticationManager.RefreshAccessToken(userAccountEntity);
+                var authenticationManager = new AuthenticationManager();
+                var user = userAccountEntity.GetUserEntity();
+                if (userAccountEntity.GetAccessToken().Equals("refresh"))
+                {
+                    await authenticationManager.RefreshAccessToken(userAccountEntity);
+                }
+                string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/users/{1}/messageGroups?fields=@default%2CmessageGroupId%2CmessageGroupDetail%2CtotalUnseenMessages%2CtotalMessages%2ClatestMessage&npLanguage={2}", user.Region, username, user.Language);
+                // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+                url += "&r=" + Guid.NewGuid();
+                var theAuthClient = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+                request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
+                var response = await theAuthClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(responseContent))
+                {
+                    return null;
+                }
+                responseContent = "[" + responseContent + "]";
+                var a = JArray.Parse(responseContent);
+                var b = (JObject)a[0];
+                var messageGroup = await MessageGroupEntity.Parse(b, userAccountEntity);
+                return messageGroup;
             }
-            string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/users/{1}/messageGroups?fields=@default%2CmessageGroupId%2CmessageGroupDetail%2CtotalUnseenMessages%2CtotalMessages%2ClatestMessage&npLanguage={2}", user.Region, username, user.Language);
-            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
-            url += "&r=" + Guid.NewGuid();
-            var theAuthClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
-            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
-            var response = await theAuthClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
-            responseContent = "[" + responseContent + "]";
-            var a = JArray.Parse(responseContent);
-            var b = (JObject)a[0];
-            var messageGroup = await MessageGroupEntity.Parse(b, userAccountEntity);
-            return messageGroup;
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
         public async Task<Stream> GetMessageContent(string id, MessageEntity.Message message, UserAccountEntity userAccountEntity)
         {
-            var authenticationManager = new AuthenticationManager();
-            var user = userAccountEntity.GetUserEntity();
-            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            try
             {
-                await authenticationManager.RefreshAccessToken(userAccountEntity);
+                var authenticationManager = new AuthenticationManager();
+                var user = userAccountEntity.GetUserEntity();
+                if (userAccountEntity.GetAccessToken().Equals("refresh"))
+                {
+                    await authenticationManager.RefreshAccessToken(userAccountEntity);
+                }
+                var content = message.ContentKeys.HasImage ? "image-data-0" : "voice-data-0";
+                string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages/{2}?contentKey={3}&npLanguage={4}", user.Region, id, message.MessageUid, content, user.Language);
+                var theAuthClient = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+                var response = await theAuthClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStreamAsync();
+                return responseContent;
             }
-            var content = message.ContentKeys.HasImage ? "image-data-0" : "voice-data-0";
-            string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages/{2}?contentKey={3}&npLanguage={4}", user.Region, id, message.MessageUid, content, user.Language);
-            var theAuthClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
-            var response = await theAuthClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStreamAsync();
-            return responseContent;
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<bool> ClearMessages(MessageEntity messageEntity, UserAccountEntity userAccountEntity)
         {
-            var authenticationManager = new AuthenticationManager();
-            var user = userAccountEntity.GetUserEntity();
-            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            try
             {
-                await authenticationManager.RefreshAccessToken(userAccountEntity);
+                var authenticationManager = new AuthenticationManager();
+                var user = userAccountEntity.GetUserEntity();
+                if (userAccountEntity.GetAccessToken().Equals("refresh"))
+                {
+                    await authenticationManager.RefreshAccessToken(userAccountEntity);
+                }
+                var messageUids = new List<int>();
+                messageUids.AddRange(messageEntity.Messages.Where(o => o.SeenFlag == false).Select(message => message.MessageUid));
+                if (messageUids.Count == 0) return true;
+                string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?messageUid={2}", user.Region, messageEntity.MessageGroupEntity.MessageGroupId, string.Join(",", messageUids));
+                var theAuthClient = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Put, url);
+                request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
+                request.Headers.Add("Origin", "http://psapp.dl.playstation.net");
+                request.Headers.Add("Referer", "http://psapp.dl.playstation.net/psapp/6228351b09c436f44f1c53955c0a51ca/index.html");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+                request.Content = new StringContent("{\"seenFlag\":true}", Encoding.UTF8, "application/json");
+                //request.Content.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
+                var response = await theAuthClient.SendAsync(request);
+                return response.IsSuccessStatusCode;
             }
-            var messageUids = new List<int>();
-            messageUids.AddRange(messageEntity.Messages.Where(o => o.SeenFlag == false).Select(message => message.MessageUid));
-            if (messageUids.Count == 0) return true;
-            string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?messageUid={2}", user.Region, messageEntity.MessageGroupEntity.MessageGroupId, string.Join(",", messageUids));
-            var theAuthClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Put, url);
-            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
-            request.Headers.Add("Origin", "http://psapp.dl.playstation.net");
-            request.Headers.Add("Referer", "http://psapp.dl.playstation.net/psapp/6228351b09c436f44f1c53955c0a51ca/index.html");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
-            request.Content = new StringContent("{\"seenFlag\":true}", Encoding.UTF8, "application/json");
-            //request.Content.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
-            var response = await theAuthClient.SendAsync(request);
-            return response.IsSuccessStatusCode;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<MessageEntity> GetGroupConversation(string messageGroupId, UserAccountEntity userAccountEntity)
         {
-            var authenticationManager = new AuthenticationManager();
-            var user = userAccountEntity.GetUserEntity();
-            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            try
             {
-                await authenticationManager.RefreshAccessToken(userAccountEntity);
+                var authenticationManager = new AuthenticationManager();
+                var user = userAccountEntity.GetUserEntity();
+                if (userAccountEntity.GetAccessToken().Equals("refresh"))
+                {
+                    await authenticationManager.RefreshAccessToken(userAccountEntity);
+                }
+                var url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?fields=@default%2CmessageGroup%2Cbody&npLanguage={2}", user.Region, messageGroupId, user.Language);
+                var theAuthClient = new HttpClient();
+                // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
+                url += "&r=" + Guid.NewGuid();
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+                request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
+                var response = await theAuthClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(responseContent))
+                {
+                    return null;
+                }
+                responseContent = "[" + responseContent + "]";
+                var a = JArray.Parse(responseContent);
+                var b = (JObject)a[0];
+                var messageGroup = await MessageEntity.Parse(b, userAccountEntity);
+                return messageGroup;
             }
-            var url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?fields=@default%2CmessageGroup%2Cbody&npLanguage={2}", user.Region, messageGroupId, user.Language);
-            var theAuthClient = new HttpClient();
-            // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
-            url += "&r=" + Guid.NewGuid();
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
-            request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
-            var response = await theAuthClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
-            responseContent = "[" + responseContent + "]";
-            var a = JArray.Parse(responseContent);
-            var b = (JObject)a[0];
-            var messageGroup = await MessageEntity.Parse(b, userAccountEntity);
-            return messageGroup;
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<bool> CreatePost(string messageUserId, string post,
@@ -143,7 +180,7 @@ namespace PlaystationApp.Core.Manager
                 return response.IsSuccessStatusCode;
 
             }
-            catch (WebException e)
+            catch (Exception)
             {
                 { return false; }
             }
@@ -212,7 +249,7 @@ namespace PlaystationApp.Core.Manager
                 return response.IsSuccessStatusCode;
 
             }
-            catch (WebException e)
+            catch (Exception)
             {
                 { return false; }
             }
@@ -263,7 +300,7 @@ namespace PlaystationApp.Core.Manager
                 return response.IsSuccessStatusCode;
 
             }
-            catch (WebException e)
+            catch (Exception)
             {
                 { return false; }
             }

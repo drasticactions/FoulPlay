@@ -72,7 +72,7 @@ namespace PlaystationApp.Views
             RecentActivityCollection = new InfiniteScrollingCollection
             {
                 IsNews = false,
-                StorePromo = true,
+                StorePromo = false,
                 UserAccountEntity = App.UserAccountEntity,
                 FeedList = new ObservableCollection<RecentActivityEntity.Feed>(),
                 PageCount = 1
@@ -114,17 +114,12 @@ namespace PlaystationApp.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
-            if (App.SelectedUser.OnlineId.Equals(App.UserAccountEntity.GetUserEntity().OnlineId))
+            if (App.SelectedUser == null)
             {
-                SendMessageButton.IsEnabled = false;
-            }
-            else
-            {
-                SendMessageButton.IsEnabled = true;
-                var messagerManager = new MessageManager();
-                _messageEntity = await
-                       messagerManager.GetGroupConversation(string.Format("~{0},{1}", App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId), App.UserAccountEntity);
-                MessageList.DataContext = _messageEntity;
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+                return;
             }
             if (App.SelectedUser.presence == null ||
                 (App.SelectedUser.presence != null && App.SelectedUser.presence.PrimaryInfo.GameTitleInfo == null))
@@ -141,28 +136,7 @@ namespace PlaystationApp.Views
             MyLanguagesBlock.Text = string.Join("," + Environment.NewLine, languageList);
             ProfileGrid.DataContext = App.SelectedUser;
             SetFriendButtons();
-            await LoadRecentActivityList();
-            if (RecentActivityCollection != null)
-            {
-                if (!RecentActivityCollection.FeedList.Any())
-                {
-                    NoActivitiesTextBlock.Visibility = Visibility.Visible;
-                    NoActivitiesListTextBlock.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    RecentActivitiesGrid.Visibility = Visibility.Visible;
-                    RecentActivityStackPanel.DataContext = RecentActivityCollection.FeedList.FirstOrDefault();
-                }
-            }
-            else
-            {
-                NoActivitiesTextBlock.Visibility = Visibility.Visible;
-                NoActivitiesListTextBlock.Visibility = Visibility.Visible;
-            }
             RecentActivityProgressBar.Visibility = Visibility.Collapsed;
-            await GetTrophyList();
-            
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
@@ -170,7 +144,6 @@ namespace PlaystationApp.Views
 
         private async Task<bool> GetTrophyList()
         {
-            LoadingProgressBar.Visibility = Visibility.Visible;
             var trophyManager = new TrophyManager();
             TrophyCollection = new InfiniteScrollingCollection
             {
@@ -179,6 +152,7 @@ namespace PlaystationApp.Views
                 Offset = 64
             };
             var items = await trophyManager.GetTrophyList(App.SelectedUser.OnlineId, 0, App.UserAccountEntity);
+            if (items == null) return false;
             foreach (TrophyEntity.TrophyTitle item in items.TrophyTitles)
             {
                 TrophyCollection.TrophyList.Add(item);
@@ -310,6 +284,7 @@ namespace PlaystationApp.Views
             var trophyEntity = (TrophyEntity.TrophyTitle) TrophyList.SelectedItem;
             if (trophyEntity == null) return;
             App.SelectedTrophyTitle = trophyEntity;
+            TrophyList.SelectedItem = null;
             NavigationService.Navigate(new Uri("/Views/TrophyPage.xaml", UriKind.Relative));
         }
 
@@ -318,6 +293,7 @@ namespace PlaystationApp.Views
             var item = (RecentActivityEntity.Feed) RecentActivityLongListSelector.SelectedItem;
             if (item == null) return;
             App.SelectedRecentActivityFeedEntity = item;
+            RecentActivityLongListSelector.SelectedItem = null;
             NavigationService.Navigate(new Uri("/Views/RecentActivityPage.xaml", UriKind.Relative));
         }
 
@@ -440,6 +416,53 @@ namespace PlaystationApp.Views
             var bitmapImage = new BitmapImage();
             bitmapImage.SetSource(array);
             return bitmapImage;
-        }    
+        }
+
+        private async void UserPivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+            switch (UserPivot.SelectedIndex)
+            {
+                case 1:
+                    if (App.SelectedUser.OnlineId.Equals(App.UserAccountEntity.GetUserEntity().OnlineId))
+                    {
+                        SendMessageButton.IsEnabled = false;
+                    }
+                    else
+                    {
+                        SendMessageButton.IsEnabled = true;
+                        var messagerManager = new MessageManager();
+                        _messageEntity = await
+                               messagerManager.GetGroupConversation(string.Format("~{0},{1}", App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId), App.UserAccountEntity);
+                        MessageList.DataContext = _messageEntity;
+                    }
+                    break;
+                case 2:
+                        await LoadRecentActivityList();
+                        if (RecentActivityCollection != null)
+                        {
+                            if (!RecentActivityCollection.FeedList.Any())
+                            {
+                                NoActivitiesTextBlock.Visibility = Visibility.Visible;
+                                NoActivitiesListTextBlock.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                RecentActivitiesGrid.Visibility = Visibility.Visible;
+                                RecentActivityStackPanel.DataContext = RecentActivityCollection.FeedList.FirstOrDefault();
+                            }
+                        }
+                        else
+                        {
+                            NoActivitiesTextBlock.Visibility = Visibility.Visible;
+                            NoActivitiesListTextBlock.Visibility = Visibility.Visible;
+                        }
+                    break;
+                case 3:
+                        await GetTrophyList();
+                    break;
+            }
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
+        }
     }
 }

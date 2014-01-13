@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using PlaystationApp.Core.Entity;
 using PlaystationApp.Core.Manager;
+using PlaystationApp.Resources;
 
 namespace PlaystationApp.Views
 {
@@ -23,6 +25,14 @@ namespace PlaystationApp.Views
                     trophyDetailManager.GetTrophyDetailList(App.SelectedTrophyTitle.NpCommunicationId,
                         App.SelectedUser.OnlineId, true,
                         App.UserAccountEntity);
+            if (trophys == null)
+            {
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+                return;
+            }
             TrophyList.DataContext = trophys;
         }
 

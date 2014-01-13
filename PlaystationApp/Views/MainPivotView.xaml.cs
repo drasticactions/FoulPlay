@@ -52,6 +52,7 @@ namespace PlaystationApp.Views
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             base.OnNavigatingFrom(e);
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
             FriendsLongListSelector.SelectedItem = null;
             RecentActivityLongListSelector.SelectedItem = null;
             MessageList.SelectedItem = null;
@@ -207,8 +208,12 @@ namespace PlaystationApp.Views
                         friendStatus, requesting, requested, onlineFilter, App.UserAccountEntity);
             if (items == null)
             {
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                FriendsMessageTextBlock.Visibility = Visibility.Visible;
+                FriendsLongListSelector.DataContext = FriendCollection;
                 return false;
             }
+            FriendsMessageTextBlock.Visibility = Visibility.Collapsed;
             FriendsMessageTextBlock.Visibility = !items.FriendList.Any() ? Visibility.Visible : Visibility.Collapsed;
             foreach (var item in items.FriendList)
             {
@@ -245,6 +250,9 @@ namespace PlaystationApp.Views
             var inviteEntity = await sessionInvite.GetSessionInvites(0, App.UserAccountEntity);
             if (inviteEntity == null)
             {
+                InviteCollection = null;
+                InvitationsLongListSelector.DataContext = InviteCollection;
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
                 NoInvitesTextBlock.Visibility = Visibility.Visible;
                 return false;
             }
@@ -252,11 +260,14 @@ namespace PlaystationApp.Views
             {
                 NoInvitesTextBlock.Visibility = Visibility.Visible;
             }
-            if (inviteEntity.Invitations != null)
+            if (inviteEntity.Invitations != null && inviteEntity.Invitations.Any())
+            {
+                NoInvitesTextBlock.Visibility = Visibility.Collapsed;
                 foreach (var item in inviteEntity.Invitations)
                 {
                     InviteCollection.InviteCollection.Add(item);
                 }
+            }
             InvitationsLongListSelector.DataContext = InviteCollection;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
             return true;
@@ -278,12 +289,15 @@ namespace PlaystationApp.Views
                 await recentActivityManager.GetActivityFeed(_user.OnlineId, 0, true, true, App.UserAccountEntity);
             if (recentActivityEntity == null)
             {
+                RecentActivityCollection = null;
+                RecentActivityLongListSelector.DataContext = RecentActivityCollection;
                 NoActivitiesTextBlock.Visibility = Visibility.Visible;
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
                 return false;
             }
             if (recentActivityEntity.FeedList != null)
             {
+                NoActivitiesTextBlock.Visibility = Visibility.Collapsed;
                 foreach (var item in recentActivityEntity.FeedList)
                 {
                     RecentActivityCollection.FeedList.Add(item);
@@ -315,10 +329,21 @@ namespace PlaystationApp.Views
 
         private async void FriendsLongListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            LoadingProgressBar.Visibility = Visibility.Visible;
             var friend = (FriendsEntity.Friend) FriendsLongListSelector.SelectedItem;
-            if (friend == null) return;
+            if (friend == null)
+            {
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                return;
+            }
             var userManager = new UserManager();
             App.SelectedUser = await userManager.GetUser(friend.OnlineId, App.UserAccountEntity);
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
+            if (App.SelectedUser == null)
+            {
+                MessageBox.Show(AppResources.GenericError);
+                return;
+            }
             NavigationService.Navigate(new Uri("/Views/UserPage.xaml", UriKind.Relative));
         }
 
@@ -436,11 +461,9 @@ namespace PlaystationApp.Views
                     await LoadMessages();
                     break;
                 case 2:
-                    if (InviteCollection == null)
                     await LoadSessionInviteList();
                     break;
                 case 3:
-                    if (RecentActivityCollection == null)
                     await LoadRecentActivityList();
                     break;
             }

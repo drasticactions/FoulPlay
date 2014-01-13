@@ -44,8 +44,10 @@ namespace PlaystationApp.ScheduledTask
             if (loginTest)
             {
                 UserAccountEntity.User user = await authManager.GetUserEntity(userAccountEntity);
+                if (user == null) return;
                 userAccountEntity.SetUserEntity(user);
                 NotificationEntity notificationEntity = await GetNotifications(userAccountEntity);
+                if (notificationEntity == null) return;
                 var notificationList = notificationEntity.Notifications.Where(o => o.SeenFlag == false);
                 NotificationEntity.Notification firstNotification = notificationList.FirstOrDefault();
                 ShellTile appTile = ShellTile.ActiveTiles.First();

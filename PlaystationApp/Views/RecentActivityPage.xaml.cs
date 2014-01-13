@@ -31,15 +31,32 @@ namespace PlaystationApp.Views
         {
             base.OnNavigatedTo(e);
             StoryCount = 0;
+            if (App.SelectedRecentActivityFeedEntity == null)
+            {
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+                return;
+            }
             _recentActivityFeedEntity = App.SelectedRecentActivityFeedEntity;
+            if (_recentActivityFeedEntity == null)
+            {
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+                return;
+            }
             _isLiked = _recentActivityFeedEntity.Liked;
             _likeCount = _recentActivityFeedEntity.LikeCount;
             ContentPanel.DataContext = App.SelectedRecentActivityFeedEntity;
             if (_recentActivityFeedEntity.CondensedStories != null)
             {
                 ActivityPageCount.Text = string.Format("1/{0}", _recentActivityFeedEntity.CondensedStories.Count);
-                SetDataContentCondensedStories(App.SelectedRecentActivityFeedEntity.StoryType,
-                    App.SelectedRecentActivityFeedEntity.CondensedStories[StoryCount]);
+                if (App.SelectedRecentActivityFeedEntity != null)
+                    SetDataContentCondensedStories(App.SelectedRecentActivityFeedEntity.StoryType,
+                        App.SelectedRecentActivityFeedEntity.CondensedStories[StoryCount]);
                 ActivityPageGrid.Visibility = Visibility.Visible;
             }
             else
@@ -205,18 +222,29 @@ namespace PlaystationApp.Views
         {
             var recentActivityManager = new RecentActivityManager();
             _isLiked = !_isLiked;
-            await recentActivityManager.LikeDislikeFeedItem(_isLiked, _recentActivityFeedEntity.StoryId, App.UserAccountEntity);
-            if (_isLiked)
+            var result = await recentActivityManager.LikeDislikeFeedItem(_isLiked, _recentActivityFeedEntity.StoryId, App.UserAccountEntity);
+            if (result == false)
             {
-                LikeButton.Content = AppResources.DislikeButton;
-                _likeCount += 1;
-                LikeCountTextBlock.Text = (_likeCount).ToString(CultureInfo.CurrentCulture);
+                _isLiked = !_isLiked;
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
             }
             else
             {
-                LikeButton.Content = AppResources.LikeButton;
-                _likeCount -= 1;
-                LikeCountTextBlock.Text = (_likeCount).ToString(CultureInfo.CurrentCulture);
+                if (_isLiked)
+                {
+                    LikeButton.Content = AppResources.DislikeButton;
+                    _likeCount += 1;
+                    LikeCountTextBlock.Text = (_likeCount).ToString(CultureInfo.CurrentCulture);
+                }
+                else
+                {
+                    LikeButton.Content = AppResources.LikeButton;
+                    _likeCount -= 1;
+                    LikeCountTextBlock.Text = (_likeCount).ToString(CultureInfo.CurrentCulture);
+                }
             }
         }
     }

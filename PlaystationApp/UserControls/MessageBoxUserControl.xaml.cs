@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using PlaystationApp.Resources;
 
 namespace PlaystationApp.UserControls
 {
@@ -47,7 +48,8 @@ namespace PlaystationApp.UserControls
 
             if(result != true)
             {
-                MessageBox.Show("An error has occurred.");
+                MessageBox.Show(AppResources.GenericError);
+                ProgressBar.Visibility = Visibility.Collapsed;
                 StatusPostButton.IsEnabled = true;
                 ImagePicker.IsEnabled = true;
                 CameraAccess.IsEnabled = true;

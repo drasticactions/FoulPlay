@@ -33,7 +33,7 @@
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <ProgressBar x:Name="LoadingProgressBar" Visibility="Collapsed" IsIndeterminate="True"/>
-            <Button x:Name="SendMessageButton" Tap="SendMessageButton_OnTap" Grid.Row="2"
+            <Button x:Name="SendMessageButton" IsEnabled="False" Tap="SendMessageButton_OnTap" Grid.Row="2"
                             Content="{Binding Path=LocalizedResources.SendMessage, Source={StaticResource LocalizedStrings}}" />
             <Grid Grid.Row="1">
                 <phone:LongListSelector x:Name="MessageList" SelectionChanged="MessageList_OnSelectionChanged"  ItemsSource="{Binding Messages}">

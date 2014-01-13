@@ -11,6 +11,8 @@ namespace PlaystationApp.Core.Manager
     {
         public async Task<RecentActivityEntity> GetActivityFeed(string userName, int? pageNumber, bool storePromo, bool isNews, UserAccountEntity userAccountEntity)
         {
+            try
+            {
             var authenticationManager = new AuthenticationManager();
             var feedNews = isNews ? "news" : "feed";
             if (userAccountEntity.GetAccessToken().Equals("refresh"))
@@ -24,8 +26,7 @@ namespace PlaystationApp.Core.Manager
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
             request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
-            try
-            {
+        
                 var response = await theAuthClient.SendAsync(request);
                 var responseContent = await response.Content.ReadAsStringAsync();
                 if (string.IsNullOrEmpty(responseContent)) return null;
@@ -47,18 +48,26 @@ namespace PlaystationApp.Core.Manager
 
         public async Task<bool> LikeDislikeFeedItem(bool isLiked, string feedId, UserAccountEntity userAccountEntity)
         {
-            var authenticationManager = new AuthenticationManager();
-            var liked = isLiked ? "like" : "dislike";
-            if (userAccountEntity.GetAccessToken().Equals("refresh"))
+            try
             {
-                await authenticationManager.RefreshAccessToken(userAccountEntity);
+                var authenticationManager = new AuthenticationManager();
+                var liked = isLiked ? "like" : "dislike";
+                if (userAccountEntity.GetAccessToken().Equals("refresh"))
+                {
+                    await authenticationManager.RefreshAccessToken(userAccountEntity);
+                }
+                string url = string.Format("https://activity.api.np.km.playstation.net/activity/api/v1/users/{0}/set/{1}/story/{2}", userAccountEntity.GetUserEntity().OnlineId, liked, feedId);
+                var theAuthClient = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Post, url);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
+                var response = await theAuthClient.SendAsync(request);
+                return response.IsSuccessStatusCode;
             }
-            string url = string.Format("https://activity.api.np.km.playstation.net/activity/api/v1/users/{0}/set/{1}/story/{2}", userAccountEntity.GetUserEntity().OnlineId, liked, feedId);
-            var theAuthClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
-            var response = await theAuthClient.SendAsync(request);
-            return response.IsSuccessStatusCode;
+            catch (Exception)
+            {
+                return false;
+            }
+           
         }
     }
 }

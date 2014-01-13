@@ -3,6 +3,7 @@ using System.Windows;
 using Microsoft.Phone.Controls;
 using PlaystationApp.Core.Entity;
 using PlaystationApp.Core.Manager;
+using PlaystationApp.Resources;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace PlaystationApp.Views
@@ -22,7 +23,15 @@ namespace PlaystationApp.Views
             ProgressBar.Visibility = Visibility.Visible;
             var userManager = new UserManager();
             User = await userManager.GetUser(SearchBox.Text, App.UserAccountEntity);
-            NoResultsFoundBlock.Visibility = string.IsNullOrEmpty(User.OnlineId)
+            if (User == null)
+            {
+                MessageBox.Show(AppResources.GenericError);
+                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                if (rootFrame != null)
+                    rootFrame.GoBack();
+                return;
+            }
+            NoResultsFoundBlock.Visibility = User != null && string.IsNullOrEmpty(User.OnlineId)
                 ? Visibility.Visible
                 : Visibility.Collapsed;
             UserSearchResultGrid.DataContext = User;

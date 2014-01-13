@@ -17,7 +17,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <ProgressBar VerticalAlignment="Top" Visibility="Collapsed" x:Name="LoadingProgressBar" IsIndeterminate="True" />
         <!--Pivot Control-->
-        <phone:Pivot x:Name="UserPivot" Title="{Binding OnlineId}">
+        <phone:Pivot x:Name="UserPivot" SelectionChanged="UserPivot_OnSelectionChanged" Title="{Binding OnlineId}">
             <!--Pivot item one-->
             <phone:PivotItem
                 Header="{Binding Path=LocalizedResources.ProfileHeader, Source={StaticResource LocalizedStrings}}">

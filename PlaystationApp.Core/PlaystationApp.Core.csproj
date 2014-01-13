@@ -98,7 +98,6 @@
     <Compile Include="Entity\UserAuthenticationEntity.cs" />
     <Compile Include="Entity\UserEntity.cs" />
     <Compile Include="Manager\AuthenticationManager.cs" />
-    <Compile Include="Manager\FilterItemManager.cs" />
     <Compile Include="Manager\FriendManager.cs" />
     <Compile Include="Manager\MessageManager.cs" />
     <Compile Include="Manager\NotificationManager.cs" />
