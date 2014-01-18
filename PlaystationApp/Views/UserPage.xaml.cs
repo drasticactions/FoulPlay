@@ -237,9 +237,11 @@ namespace PlaystationApp.Views
                 ? Visibility.Collapsed
                 : Visibility.Visible;
 
-            FriendRequestButton.Visibility = App.SelectedUser.Relation.Equals("friend of friends")
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            if (App.SelectedUser.Relation.Equals("friend of friends") ||
+                App.SelectedUser.Relation.Equals("no relationship"))
+            {
+                FriendRequestButton.Visibility = Visibility.Visible;
+            }
 
             if (App.SelectedUser.Relation.Equals("requested friend"))
             {
@@ -271,6 +273,7 @@ namespace PlaystationApp.Views
         private void SendMessageButton_OnTap(object sender, GestureEventArgs e)
         {
             App.SelectedMessageEventEntity = _messageEntity;
+            App.SelectedMessageGroupId = string.Format("~{0},{1}", App.SelectedUser.OnlineId, App.UserAccountEntity.GetUserEntity().OnlineId);
             NavigationService.Navigate(new Uri("/Views/MessagePostView.xaml", UriKind.Relative));
         }
 
