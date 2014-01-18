@@ -12,14 +12,14 @@ namespace PlaystationApp.Core.Entity
         {
             public string OnlineId { get; set; }
             public bool Earned { get; set; }
-            public DateTime EarnedDate { get; set; }
+            public string EarnedDate { get; set; }
         }
 
         public class ComparedUser
         {
             public string OnlineId { get; set; }
             public bool Earned { get; set; }
-            public DateTime EarnedDate { get; set; }
+            public string EarnedDate { get; set; }
         }
 
         public class Trophy
@@ -68,7 +68,7 @@ namespace PlaystationApp.Core.Entity
                 OnlineId = (String) o["onlineId"],
                 Earned = (Boolean) o["earned"],
                 EarnedDate =
-                    o["earnedDate"] != null ? DateTime.Parse((string) o["earnedDate"]).ToLocalTime() : new DateTime()
+                    o["earnedDate"] != null ? (string) o["earnedDate"] : string.Empty
             };
             return comparedUser;
         }
@@ -79,7 +79,7 @@ namespace PlaystationApp.Core.Entity
             {
                 OnlineId = (String)o["onlineId"],
                 Earned = (Boolean)o["earned"],
-                EarnedDate = o["earnedDate"] != null ? DateTime.Parse((string)o["earnedDate"]).ToLocalTime() : new DateTime()
+                EarnedDate = o["earnedDate"] != null ? (string)o["earnedDate"] : string.Empty
             };
             return fromUser;
         }
