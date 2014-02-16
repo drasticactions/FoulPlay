@@ -210,6 +210,18 @@
                     <TextBlock x:Name="NoActivitiesTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
                 </Grid> 
             </phone:PivotItem>
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.LiveFromPlaystation, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <phone:LongListSelector SelectionChanged="LiveFromPlaystationLongListSelector_OnSelectionChanged"
+                                        x:Name="LiveFromPlaystationLongListSelector" ItemsSource="{Binding LiveFeedList}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                    <TextBlock x:Name="NoLiveBroadcastsTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
+                </Grid>
+            </phone:PivotItem>
         </phone:Pivot>
     </Grid>
 </phone:PhoneApplicationPage>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -41,12 +42,10 @@ namespace PlaystationApp.Views
 
         public static InfiniteScrollingCollection InviteCollection { get; set; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (NavigationService != null && NavigationService.CanGoBack)
                 NavigationService.RemoveBackEntry();
-            //await LoadRecentActivityList();
-            //await LoadSessionInviteList();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -273,6 +272,20 @@ namespace PlaystationApp.Views
             return true;
         }
 
+        private async Task<bool> LoadLiveFromPlaystationList()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+            var liveStreamManager = new LiveStreamManager();
+
+            // TODO: Remove hardcoded filter list values. Currently this is used for testing.
+
+            var filterList = new Dictionary<string, string> { { "platform", "PS4" }, { "type", "live" }, { "interactive", "true" } };
+            var ustreamList = await liveStreamManager.GetUstreamFeed(0, 80, "compact", filterList, "views", string.Empty, App.UserAccountEntity);
+            var twitchList = await liveStreamManager.GetTwitchFeed(0, 80, "PS4", "true", string.Empty, App.UserAccountEntity);
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
+            return true;
+        }
+
         private async Task<bool> LoadRecentActivityList()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
@@ -394,10 +407,6 @@ namespace PlaystationApp.Views
             return true;
         }
 
-        private void MessageButton_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void LogOutButton_Click(object sender, EventArgs e)
         {
@@ -406,24 +415,6 @@ namespace PlaystationApp.Views
             _appSettings.Save();
             NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative));
         }
-
-        //private void NotificationListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    var item = (NotificationEntity.Notification) NotificationListSelector.SelectedItem;
-        //    if (item == null) return;
-        //    if (item.ActionUrl.Contains("NewMessage"))
-        //    {
-        //        HomePivot.SelectedIndex = 1;
-        //    }
-        //    if (item.ActionUrl.Contains("personalDetailSharing=requested"))
-        //    {
-        //        HomePivot.SelectedIndex = 0;
-        //    }
-        //    if (item.ActionUrl.Contains("friendStatus=requested"))
-        //    {
-        //        HomePivot.SelectedIndex = 0;
-        //    }
-        //}
 
         private void RecentActivityLongListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -466,7 +457,15 @@ namespace PlaystationApp.Views
                 case 3:
                     await LoadRecentActivityList();
                     break;
+                case 4:
+                    await LoadLiveFromPlaystationList();
+                    break;
             }
+        }
+
+        private void LiveFromPlaystationLongListSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -94,11 +94,14 @@
     <Compile Include="Entity\SessionInviteEntity.cs" />
     <Compile Include="Entity\TrophyDetailEntity.cs" />
     <Compile Include="Entity\TrophyEntity.cs" />
+    <Compile Include="Entity\TwitchEntity.cs" />
     <Compile Include="Entity\UserAccountEntity.cs" />
     <Compile Include="Entity\UserAuthenticationEntity.cs" />
     <Compile Include="Entity\UserEntity.cs" />
+    <Compile Include="Entity\UstreamEntity.cs" />
     <Compile Include="Manager\AuthenticationManager.cs" />
     <Compile Include="Manager\FriendManager.cs" />
+    <Compile Include="Manager\LiveStreamManager.cs" />
     <Compile Include="Manager\MessageManager.cs" />
     <Compile Include="Manager\NotificationManager.cs" />
     <Compile Include="Manager\RecentActivityManager.cs" />
