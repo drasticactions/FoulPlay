@@ -29,6 +29,7 @@
         <tools:MaxPlayersConverter x:Key="MaxPlayersConverter" />
         <tools:ConversationUsersConverter x:Key="ConversationUsersConverter" />
         <tools:HasSeenConverter x:Key="HasSeenConverter" />
+        <tools:ContentKeysImageConverter x:Key="ContentKeysImageConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

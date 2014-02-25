@@ -38,10 +38,7 @@ namespace PlaystationApp.Core.Manager
                 {
                     return null;
                 }
-                responseContent = "[" + responseContent + "]";
-                var a = JArray.Parse(responseContent);
-                var b = (JObject)a[0];
-                var messageGroup = await MessageGroupEntity.Parse(b, userAccountEntity);
+                var messageGroup = JsonConvert.DeserializeObject<MessageGroupEntity>(responseContent);
                 return messageGroup;
             }
             catch (Exception)
@@ -61,8 +58,8 @@ namespace PlaystationApp.Core.Manager
                 {
                     await authenticationManager.RefreshAccessToken(userAccountEntity);
                 }
-                var content = message.ContentKeys.HasImage ? "image-data-0" : "voice-data-0";
-                string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages/{2}?contentKey={3}&npLanguage={4}", user.Region, id, message.MessageUid, content, user.Language);
+                var content = "image-data-0";
+                string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages/{2}?contentKey={3}&npLanguage={4}", user.Region, id, message.messageUid, content, user.Language);
                 var theAuthClient = new HttpClient();
                 var request = new HttpRequestMessage(HttpMethod.Get, url);
                 request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
@@ -88,9 +85,9 @@ namespace PlaystationApp.Core.Manager
                     await authenticationManager.RefreshAccessToken(userAccountEntity);
                 }
                 var messageUids = new List<int>();
-                messageUids.AddRange(messageEntity.Messages.Where(o => o.SeenFlag == false).Select(message => message.MessageUid));
+                messageUids.AddRange(messageEntity.messages.Where(o => o.seenFlag == false).Select(message => message.messageUid));
                 if (messageUids.Count == 0) return true;
-                string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?messageUid={2}", user.Region, messageEntity.MessageGroupEntity.MessageGroupId, string.Join(",", messageUids));
+                string url = string.Format("https://{0}-gmsg.np.community.playstation.net/groupMessaging/v1/messageGroups/{1}/messages?messageUid={2}", user.Region, messageEntity.messageGroup.messageGroupId, string.Join(",", messageUids));
                 var theAuthClient = new HttpClient();
                 var request = new HttpRequestMessage(HttpMethod.Put, url);
                 request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
@@ -131,10 +128,7 @@ namespace PlaystationApp.Core.Manager
                 {
                     return null;
                 }
-                responseContent = "[" + responseContent + "]";
-                var a = JArray.Parse(responseContent);
-                var b = (JObject)a[0];
-                var messageGroup = await MessageEntity.Parse(b, userAccountEntity);
+                var messageGroup = JsonConvert.DeserializeObject<MessageEntity>(responseContent);
                 return messageGroup;
             }
             catch (Exception)

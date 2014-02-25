@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PlaystationApp.Core.Entity;
 
@@ -35,10 +36,7 @@ namespace PlaystationApp.Core.Manager
                 {
                     return null;
                 }
-                responseContent = "[" + responseContent + "]";
-                JArray a = JArray.Parse(responseContent);
-                var b = (JObject)a[0];
-                var trophy = TrophyEntity.Parse(b);
+                var trophy = JsonConvert.DeserializeObject<TrophyEntity>(responseContent);
                 return trophy;
             }
             catch (Exception)

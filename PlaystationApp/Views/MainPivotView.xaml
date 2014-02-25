@@ -212,14 +212,24 @@
             </phone:PivotItem>
             <phone:PivotItem Header="{Binding Path=LocalizedResources.LiveFromPlaystation, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <phone:LongListSelector SelectionChanged="LiveFromPlaystationLongListSelector_OnSelectionChanged"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <toolkit:ListPicker ExpansionMode="FullScreenOnly" SelectionMode="Single"
+                                        ItemTemplate="{StaticResource ListPickerItemTemplate}"
+                                        FullModeItemTemplate="{StaticResource ListPickerFullModeItemTemplate}"
+                                        x:Name="LiveListPicker" />
+                    <Grid Grid.Row="1">
+                        <phone:LongListSelector SelectionChanged="LiveFromPlaystationLongListSelector_OnSelectionChanged"
                                         x:Name="LiveFromPlaystationLongListSelector" ItemsSource="{Binding LiveFeedList}">
-                        <phone:LongListSelector.ItemTemplate>
-                            <DataTemplate>
-                            </DataTemplate>
-                        </phone:LongListSelector.ItemTemplate>
-                    </phone:LongListSelector>
-                    <TextBlock x:Name="NoLiveBroadcastsTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
+                            <phone:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                </DataTemplate>
+                            </phone:LongListSelector.ItemTemplate>
+                        </phone:LongListSelector>
+                        <TextBlock x:Name="NoLiveBroadcastsTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
+                    </Grid>
                 </Grid>
             </phone:PivotItem>
         </phone:Pivot>

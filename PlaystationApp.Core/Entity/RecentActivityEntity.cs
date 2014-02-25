@@ -82,13 +82,13 @@ namespace PlaystationApp.Core.Entity
             public string ServiceProviderName { get; set; }
             public bool Reshareable { get; set; }
         }
-        public List<Feed> FeedList { get; set; }
+        public List<Feed> feed { get; set; }
 
         public static RecentActivityEntity Parse(string json)
         {
             var recentActivity = new RecentActivityEntity();
             var a = (JArray)JsonConvert.DeserializeObject(json);
-            recentActivity.FeedList = (from JObject o in a
+            recentActivity.feed = (from JObject o in a
                 select new Feed
                 {
                     Caption = (String)o["caption"] ?? string.Empty,

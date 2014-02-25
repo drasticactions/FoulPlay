@@ -308,10 +308,10 @@ namespace PlaystationApp.Views
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
                 return false;
             }
-            if (recentActivityEntity.FeedList != null)
+            if (recentActivityEntity.feed != null)
             {
                 NoActivitiesTextBlock.Visibility = Visibility.Collapsed;
-                foreach (var item in recentActivityEntity.FeedList)
+                foreach (var item in recentActivityEntity.feed)
                 {
                     RecentActivityCollection.FeedList.Add(item);
                 }

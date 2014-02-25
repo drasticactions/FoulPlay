@@ -148,7 +148,7 @@ namespace PlaystationApp
         /// <summary>
         /// Gets and checks normal notifications.
         /// </summary>
-        /// <param name="userAccountEntity">The user account entity.</param>
+        /// <param Name="userAccountEntity">The user account entity.</param>
         /// <returns>A Notification Entity</returns>
         private async Task<NotificationEntity> GetNotifications(UserAccountEntity userAccountEntity)
         {

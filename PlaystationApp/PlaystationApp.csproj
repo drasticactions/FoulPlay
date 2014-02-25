@@ -109,6 +109,7 @@
     <Compile Include="Tools\AssociationUriMapper.cs" />
     <Compile Include="Tools\AvailablePlatformConverter.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Tools\ContentKeysImageConverter.cs" />
     <Compile Include="Tools\ConversationUsersConverter.cs" />
     <Compile Include="Tools\ExpiredConverter.cs" />
     <Compile Include="Tools\HasSeenConverter.cs" />

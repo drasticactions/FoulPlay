@@ -36,9 +36,9 @@ namespace PlaystationApp.Core.Tools
         /// <summary>
         /// Send the given data to the server using the established connection
         /// </summary>
-        /// <param name="serverName">The name of the server</param>
-        /// <param name="portNumber">The number of the port over which to send the data</param>
-        /// <param name="data">The data to send to the server</param>
+        /// <param Name="serverName">The Name of the server</param>
+        /// <param Name="portNumber">The number of the port over which to send the data</param>
+        /// <param Name="data">The data to send to the server</param>
         /// <returns>The result of the Send request</returns>
         public string Send(string serverName, int portNumber, string data)
         {
@@ -79,7 +79,7 @@ namespace PlaystationApp.Core.Tools
         /// <summary>
         /// Receive data from the server
         /// </summary>
-        /// <param name="portNumber">The port on which to receive data</param>
+        /// <param Name="portNumber">The port on which to receive data</param>
         /// <returns>The data received from the server</returns>
         public string Receive(int portNumber)
         {

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PlaystationApp.Core.Entity;
 
@@ -35,7 +36,7 @@ namespace PlaystationApp.Core.Manager
                 {
                     return null;
                 }
-                var friend = UserEntity.Parse(responseContent);
+                var friend = JsonConvert.DeserializeObject<UserEntity>(responseContent);
                 return friend;
             }
             catch (Exception)
@@ -67,7 +68,7 @@ namespace PlaystationApp.Core.Manager
                 {
                     return null;
                 }
-                var friend = UserEntity.Parse(responseContent);
+                var friend = JsonConvert.DeserializeObject<UserEntity>(responseContent);
                 return friend;
             }
             catch (Exception)

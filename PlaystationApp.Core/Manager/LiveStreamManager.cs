@@ -114,11 +114,4 @@ namespace PlaystationApp.Core.Manager
         }
 
     }
-
-    public class LiveStreamEntity
-    {
-        public UstreamEntity Ustream { get; set; }
-
-        public TwitchEntity Twitch { get; set; }
-    }
 }

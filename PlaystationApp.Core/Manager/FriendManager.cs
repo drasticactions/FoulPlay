@@ -43,11 +43,7 @@ namespace PlaystationApp.Core.Manager
                 request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true, MustRevalidate = true };
                 HttpResponseMessage response = await theAuthClient.SendAsync(request);
                 string responseContent = await response.Content.ReadAsStringAsync();
-                if (string.IsNullOrEmpty(responseContent)) return null;
-                responseContent = "[" + responseContent + "]";
-                JArray a = JArray.Parse(responseContent);
-                var b = (JObject)a[0];
-                var friend = FriendsEntity.Parse(b);
+                var friend = JsonConvert.DeserializeObject<FriendsEntity>(responseContent);
                 return friend;
             }
             catch (Exception)

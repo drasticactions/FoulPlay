@@ -86,6 +86,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Entity\FilterItemEntity.cs" />
     <Compile Include="Entity\FriendsEntity.cs" />
+    <Compile Include="Entity\LiveStreamEntity.cs" />
     <Compile Include="Entity\MessageEntity.cs" />
     <Compile Include="Entity\MessageGroupEntity.cs" />
     <Compile Include="Entity\NotificationEntity.cs" />

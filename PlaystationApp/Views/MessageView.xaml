@@ -36,7 +36,7 @@
             <Button x:Name="SendMessageButton" IsEnabled="False" Tap="SendMessageButton_OnTap" Grid.Row="2"
                             Content="{Binding Path=LocalizedResources.SendMessage, Source={StaticResource LocalizedStrings}}" />
             <Grid Grid.Row="1">
-                <phone:LongListSelector x:Name="MessageList" SelectionChanged="MessageList_OnSelectionChanged"  ItemsSource="{Binding Messages}">
+                <phone:LongListSelector x:Name="MessageList" SelectionChanged="MessageList_OnSelectionChanged"  ItemsSource="{Binding messages}">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="6">
@@ -53,24 +53,21 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="20"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="NoWrap" TextTrimming="WordEllipsis" Text="{Binding SenderOnlineId}" />
+                                    <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="NoWrap" TextTrimming="WordEllipsis" Text="{Binding senderOnlineId}" />
                                     <Grid Background="{StaticResource PhoneAccentBrush}" Grid.Row="1">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" TextWrapping="Wrap" Text="{Binding Body}" />
+                                        <TextBlock Grid.Column="0" TextWrapping="Wrap" Text="{Binding body}" />
                                         <Grid Grid.Column="1">
                                             <Image Width="50" HorizontalAlignment="Center" VerticalAlignment="Top"
                                                        Source="/Assets/appbar.image.png"
-                                                       Visibility="{Binding ContentKeys.HasImage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                            <Image Width="50" HorizontalAlignment="Center" VerticalAlignment="Top"
-                                                       Source="/Assets/appbar.speakerphone.png"
-                                                       Visibility="{Binding ContentKeys.HasAudio, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                       Visibility="{Binding contentKeys, Converter={StaticResource ContentKeysImageConverter}}" />
                                         </Grid>
                                     </Grid>
                                     <Grid Grid.Row="2">
-                                        <TextBlock HorizontalAlignment="Right" FontSize="15" TextWrapping="NoWrap" Text="{Binding ReceivedDate}" />
+                                        <TextBlock HorizontalAlignment="Right" FontSize="15" TextWrapping="NoWrap" Text="{Binding receivedDate}" />
                                     </Grid>
                                 </Grid>
                             </Grid>

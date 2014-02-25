@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PlaystationApp.Core.Entity;
 using System.Net.Http;
@@ -30,13 +31,7 @@ namespace PlaystationApp.Core.Manager
                 var response = await theAuthClient.SendAsync(request);
                 var responseContent = await response.Content.ReadAsStringAsync();
                 if (string.IsNullOrEmpty(responseContent)) return null;
-                responseContent = "[" + responseContent + "]";
-                JArray a = JArray.Parse(responseContent);
-                var b = (JObject)a[0];
-                if (b == null) return null;
-                if (b["message"] != null) return null;
-                if (b["feed"] == null) return null;
-                var recentActivityEntity = RecentActivityEntity.Parse(b["feed"].ToString());
+                var recentActivityEntity = JsonConvert.DeserializeObject<RecentActivityEntity>(responseContent);
                 return recentActivityEntity;
             }
             catch (Exception)

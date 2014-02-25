@@ -124,11 +124,11 @@ namespace PlaystationApp.Core.Tools
                 HasMoreItems = false;
                 return;
             }
-            foreach (var feed in feedEntity.FeedList)
+            foreach (var feed in feedEntity.feed)
             {
                 FeedList.Add(feed);
             }
-            if (feedEntity.FeedList.Any())
+            if (feedEntity.feed.Any())
             {
                 HasMoreItems = true;
                 PageCount++;

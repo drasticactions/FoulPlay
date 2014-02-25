@@ -83,12 +83,12 @@ namespace PlaystationApp.Views
                     recentActivityManager.GetActivityFeed(App.SelectedUser.OnlineId, 0, true, false,
                         App.UserAccountEntity);
             if (recentActivityEntity == null) return false;
-            if (recentActivityEntity.FeedList == null) return false;
-            foreach (RecentActivityEntity.Feed item in recentActivityEntity.FeedList)
+            if (recentActivityEntity.feed == null) return false;
+            foreach (RecentActivityEntity.Feed item in recentActivityEntity.feed)
             {
                 RecentActivityCollection.FeedList.Add(item);
             }
-            //App.SelectedRecentActivityEntity = RecentActivityCollection.FeedList;
+            //App.SelectedRecentActivityEntity = RecentActivityCollection.feed;
             RecentActivityLongListSelector.DataContext = RecentActivityCollection;
             RecentActivityLongListSelector.ItemRealized += RecentActivity_ItemRealized;
             return true;
@@ -395,21 +395,17 @@ namespace PlaystationApp.Views
             var item = (MessageEntity.Message)MessageList.SelectedItem;
             if (item == null) return;
             var messageManager = new MessageManager();
-            if (item.ContentKeys.HasImage)
+            if (item.contentKeys.Contains("image-data-0"))
             {
                 LoadingProgressBar.Visibility = Visibility.Visible;
                 App.SelectedMessage = item;
                 var imageBytes = await
-                    messageManager.GetMessageContent(_messageEntity.MessageGroupEntity.MessageGroupId, item,
+                    messageManager.GetMessageContent(_messageEntity.messageGroup.messageGroupId, item,
                         App.UserAccountEntity);
                 App.SelectedMessageImage = DecodeImage(imageBytes);
                 var messagePrompt = new MessagePrompt { Title = AppResources.Image, Body = new MessageImageUserControl() };
                 messagePrompt.Show();
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
-            }
-            else if (item.ContentKeys.HasAudio)
-            {
-                // TODO: Add audio support
             }
             MessageList.SelectedItem = null;
         }
