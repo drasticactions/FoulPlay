@@ -34,7 +34,10 @@ namespace PlaystationApp.Core.Entity
 
         public string Username { get; set; }
 
-
+        public void Parse(UstreamEntity.Item item)
+        {
+            this.TotalViewers = item.media.stats.viewer;
+        }
 
     }
 }

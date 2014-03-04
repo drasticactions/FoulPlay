@@ -19,7 +19,11 @@ namespace PlaystationApp.Tools
             {
                 case "FRIENDED":
                     var target = item.Targets.FirstOrDefault(o => o.Type.Equals("ONLINE_ID"));
-                    return target != null ? target.ImageUrl : null;
+                    if (target == null)
+                    {
+                        return item.Source != null ? item.Source.ImageUrl : item.SmallImageUrl;
+                    }
+                        return target.ImageUrl;
                 default:
                     return item.SmallImageUrl;
             }

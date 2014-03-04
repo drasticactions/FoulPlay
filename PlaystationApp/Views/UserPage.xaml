@@ -34,7 +34,7 @@
                                     Visibility="Collapsed"
                                     Content="{Binding Path=LocalizedResources.CancelFriendRequest, Source={StaticResource LocalizedStrings}}" />
                             <StackPanel Orientation="Horizontal">
-                                <Image x:Name="UserImage" Width="100" Height="100" Source="{Binding AvatarUrl}" />
+                                <Image x:Name="UserImage" Width="100" Height="100" Source="{Binding Converter={StaticResource PersonalIconConverter}}" />
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Padding="15,0,0,0" FontSize="40" Text="{Binding OnlineId}" />
                                     <TextBlock Padding="15,0,0,0" FontSize="25"
@@ -160,7 +160,7 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Padding="15,0,0,0" VerticalAlignment="Center"
                                                        TextWrapping="Wrap" Text="{Binding Caption}" FontSize="20" />
-                                            <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date}"
+                                            <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date, Converter={StaticResource DateConverter}}"
                                                        FontSize="15" />
                                         </Grid>
                                     </Grid>
@@ -233,7 +233,7 @@
                                                 </Grid>
                                             </Grid>
                                             <Grid Grid.Row="2">
-                                                <TextBlock HorizontalAlignment="Right" FontSize="15" TextWrapping="NoWrap" Text="{Binding ReceivedDate}" />
+                                                <TextBlock HorizontalAlignment="Right" FontSize="15" TextWrapping="NoWrap" Text="{Binding ReceivedDate, Converter={StaticResource DateConverter}}" />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -265,7 +265,7 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Row="0" Padding="15,0,0,0" VerticalAlignment="Center"
                                                TextWrapping="Wrap" Text="{Binding Caption}" FontSize="20" />
-                                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date}"
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date, Converter={StaticResource DateConverter}}"
                                                FontSize="15" />
                                     </Grid>
                                 </Grid>
@@ -294,18 +294,18 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Grid x:Name="ComparedUserGrid" Grid.Column="0">
+                            <Grid Grid.Column="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"
+                                <TextBlock x:Name="ComparedUserNameBlock" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"
                                            Text="{Binding OnlineId}" />
                             </Grid>
-                            <Grid x:Name="FromUserGrid" Grid.Column="1">
+                            <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"
+                                <TextBlock FontSize="20" x:Name="FromUserNameBlock" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"
                                            Text="{Binding OnlineId}" />
                             </Grid>
                         </Grid>

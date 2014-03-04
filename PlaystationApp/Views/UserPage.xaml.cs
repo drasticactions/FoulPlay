@@ -130,8 +130,6 @@ namespace PlaystationApp.Views
             {
                 AboutMeStackPanel.Visibility = Visibility.Collapsed;
             }
-            ComparedUserGrid.DataContext = App.SelectedUser;
-            FromUserGrid.DataContext = App.UserAccountEntity.GetUserEntity();
             var languageList = App.SelectedUser.LanguagesUsed.Select(ParseLanguageVariable).ToList();
             MyLanguagesBlock.Text = string.Join("," + Environment.NewLine, languageList);
             ProfileGrid.DataContext = App.SelectedUser;
@@ -164,6 +162,8 @@ namespace PlaystationApp.Views
             }
             TrophyList.ItemRealized += trophyList_ItemRealized;
             TrophyList.DataContext = TrophyCollection;
+            ComparedUserNameBlock.Text = App.UserAccountEntity.GetUserEntity().OnlineId.Equals(App.SelectedUser.OnlineId) ? string.Empty : App.SelectedUser.OnlineId;
+            FromUserNameBlock.Text = App.UserAccountEntity.GetUserEntity().OnlineId;
             return true;
         }
 
@@ -259,10 +259,6 @@ namespace PlaystationApp.Views
             if (App.SelectedUser.personalDetail == null ||
                 string.IsNullOrEmpty(App.SelectedUser.personalDetail.FirstName)) return;
             FriendRequestButton.Visibility = Visibility.Collapsed;
-            if (string.IsNullOrEmpty(App.SelectedUser.personalDetail.ProfilePictureUrl)) return;
-            var bm =
-                new BitmapImage(new Uri(App.SelectedUser.personalDetail.ProfilePictureUrl, UriKind.RelativeOrAbsolute));
-            UserImage.Source = bm;
         }
 
         private void UserTrophyGrid_OnTap(object sender, GestureEventArgs e)

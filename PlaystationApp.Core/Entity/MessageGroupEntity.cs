@@ -76,9 +76,6 @@ namespace PlaystationApp.Core.Entity
 
         }
 
-      
-
-
         public class Member
         {
             public string OnlineId { get; set; }

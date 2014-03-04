@@ -5,25 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using PlaystationApp.Core.Entity;
 
 namespace PlaystationApp.Tools
 {
-    public class ValuePercentConverter : IValueConverter
+    public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = value as TrophyEntity.TrophyTitle;
-            if (item == null) return string.Empty;
-            if (item.ComparedUser != null)
+            var dateString = value as string;
+            if (string.IsNullOrEmpty(dateString)) return value;
+            try
             {
-                return string.Format("{0}%", item.ComparedUser.Progress );
+                DateTime date = DateTime.Parse(dateString);
+                return date.ToLocalTime().ToString(CultureInfo.CurrentCulture);
             }
-            if (item.FromUser != null)
+            catch (Exception)
             {
-                return string.Format("{0}%", item.FromUser.Progress);
+                return value;
             }
-            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

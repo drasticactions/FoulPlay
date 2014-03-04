@@ -24,6 +24,8 @@ namespace PlaystationApp.Core.Manager
             // TODO: Fix this cheap hack to get around caching issue. For some reason, no-cache is not working...
             url += "&r=" + Guid.NewGuid();
             var theAuthClient = new HttpClient();
+            string language = userAccountEntity.GetUserEntity().Language;
+            theAuthClient.DefaultRequestHeaders.Add("Accept-Language", language);
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userAccountEntity.GetAccessToken());
             request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };

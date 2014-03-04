@@ -30,6 +30,11 @@
         <tools:ConversationUsersConverter x:Key="ConversationUsersConverter" />
         <tools:HasSeenConverter x:Key="HasSeenConverter" />
         <tools:ContentKeysImageConverter x:Key="ContentKeysImageConverter" />
+        <tools:TrophyDateConverter x:Key="TrophyDateConverter" />
+        <tools:TrophyEarnedVisibilityConverter x:Key="TrophyEarnedVisibilityConverter" />
+        <tools:TrophyPercentConverter x:Key="TrophyPercentConverter" />
+        <tools:DateConverter x:Key="DateConverter" />
+        <tools:PersonalIconConverter x:Key="PersonalIconConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

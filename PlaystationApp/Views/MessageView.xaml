@@ -45,7 +45,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border VerticalAlignment="Top" Grid.Column="0" Width="100" Height="100">
-                                    <Image Source="{Binding AvatarUrl}" Stretch="UniformToFill" />
+                                    <Image Source="{Binding user.AvatarUrl}" Stretch="UniformToFill" />
                                 </Border>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
@@ -67,7 +67,7 @@
                                         </Grid>
                                     </Grid>
                                     <Grid Grid.Row="2">
-                                        <TextBlock HorizontalAlignment="Right" FontSize="15" TextWrapping="NoWrap" Text="{Binding receivedDate}" />
+                                        <TextBlock HorizontalAlignment="Right" FontSize="15" TextWrapping="NoWrap" Text="{Binding receivedDate, Converter={StaticResource DateConverter}}" />
                                     </Grid>
                                 </Grid>
                             </Grid>

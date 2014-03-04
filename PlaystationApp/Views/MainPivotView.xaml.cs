@@ -73,7 +73,13 @@ namespace PlaystationApp.Views
                 {
                     Text = AppResources.Refresh
                 };
+
             refreshButton.Click += RefreshButton_Click;
+            var profileButton = new ApplicationBarMenuItem
+            {
+                Text = AppResources.ProfileHeader
+            };
+            profileButton.Click += profileButton_Click;
             var logoutButton = new ApplicationBarMenuItem
             {
                 Text = AppResources.Logout
@@ -90,17 +96,31 @@ namespace PlaystationApp.Views
             };
             batchFriendButton.Click += BatchFriendButton_Click;
             //ApplicationBar.MenuItems.Add(batchFriendButton);
+            ApplicationBar.MenuItems.Add(profileButton);
             ApplicationBar.MenuItems.Add(logoutButton);
             ApplicationBar.MenuItems.Add(aboutButton);
+
             ApplicationBar.Buttons.Add(appBarButton);
             ApplicationBar.Buttons.Add(refreshButton);
         }
 
+        private async void profileButton_Click(object sender, EventArgs e)
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+            var userManager = new UserManager();
+            App.SelectedUser = await userManager.GetUser(App.UserAccountEntity.GetUserEntity().OnlineId, App.UserAccountEntity);
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
+            if (App.SelectedUser == null)
+            {
+                MessageBox.Show(AppResources.GenericError);
+                return;
+            }
+            NavigationService.Navigate(new Uri("/Views/UserPage.xaml", UriKind.Relative));
+        }
+
         private void AboutButton_Click(object sender, EventArgs e)
         {
-            var p = new AboutPrompt();
-            p.Title = "FoulPlay";
-            p.VersionNumber = "v1.1.1.2";
+            var p = new AboutPrompt {Title = "FoulPlay", VersionNumber = "v.Stable"};
             p.Show("Tim Miller (DrasticActions)", "@innerlogic", "t_miller@outlook.com", @"http://twitter.com/innerlogic");
         }
 
@@ -185,7 +205,7 @@ namespace PlaystationApp.Views
             };
         }
 
-        public async Task<bool> GetFriendsList(bool onlineFilter, bool blockedPlayer, bool recentlyPlayed,
+        public async void GetFriendsList(bool onlineFilter, bool blockedPlayer, bool recentlyPlayed,
             bool personalDetailSharing, bool friendStatus, bool requesting, bool requested)
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
@@ -210,7 +230,7 @@ namespace PlaystationApp.Views
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
                 FriendsMessageTextBlock.Visibility = Visibility.Visible;
                 FriendsLongListSelector.DataContext = FriendCollection;
-                return false;
+                return;
             }
             FriendsMessageTextBlock.Visibility = Visibility.Collapsed;
             FriendsMessageTextBlock.Visibility = !items.FriendList.Any() ? Visibility.Visible : Visibility.Collapsed;
@@ -221,10 +241,9 @@ namespace PlaystationApp.Views
             FriendsLongListSelector.ItemRealized += friendList_ItemRealized;
             FriendsLongListSelector.DataContext = FriendCollection;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
-            return true;
         }
 
-        private async Task<bool> LoadMessages()
+        private async void LoadMessages()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
             var messageManager = new MessageManager();
@@ -234,10 +253,9 @@ namespace PlaystationApp.Views
                 : Visibility.Collapsed;
             MessageList.DataContext = message;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
-            return true;
         }
 
-        private async Task<bool> LoadSessionInviteList()
+        private async void LoadSessionInviteList()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
             InviteCollection = new InfiniteScrollingCollection
@@ -253,7 +271,7 @@ namespace PlaystationApp.Views
                 InvitationsLongListSelector.DataContext = InviteCollection;
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
                 NoInvitesTextBlock.Visibility = Visibility.Visible;
-                return false;
+                return;
             }
             if (inviteEntity.Invitations != null && !inviteEntity.Invitations.Any())
             {
@@ -269,10 +287,9 @@ namespace PlaystationApp.Views
             }
             InvitationsLongListSelector.DataContext = InviteCollection;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
-            return true;
         }
 
-        private async Task<bool> LoadLiveFromPlaystationList()
+        private async void LoadLiveFromPlaystationList()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
             var liveStreamManager = new LiveStreamManager();
@@ -283,10 +300,10 @@ namespace PlaystationApp.Views
             var ustreamList = await liveStreamManager.GetUstreamFeed(0, 80, "compact", filterList, "views", string.Empty, App.UserAccountEntity);
             var twitchList = await liveStreamManager.GetTwitchFeed(0, 80, "PS4", "true", string.Empty, App.UserAccountEntity);
             LoadingProgressBar.Visibility = Visibility.Collapsed;
-            return true;
+            return;
         }
 
-        private async Task<bool> LoadRecentActivityList()
+        private async void LoadRecentActivityList()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
             RecentActivityCollection = new InfiniteScrollingCollection
@@ -306,7 +323,7 @@ namespace PlaystationApp.Views
                 RecentActivityLongListSelector.DataContext = RecentActivityCollection;
                 NoActivitiesTextBlock.Visibility = Visibility.Visible;
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
-                return false;
+                return;
             }
             if (recentActivityEntity.feed != null)
             {
@@ -320,7 +337,6 @@ namespace PlaystationApp.Views
             RecentActivityLongListSelector.DataContext = RecentActivityCollection;
             RecentActivityLongListSelector.ItemRealized += RecentActivity_ItemRealized;
             LoadingProgressBar.Visibility = Visibility.Collapsed;
-            return true;
         }
 
         private void RecentActivity_ItemRealized(object sender, ItemRealizationEventArgs e)
@@ -380,7 +396,6 @@ namespace PlaystationApp.Views
             if (!FilterListPicker.Items.Any()) return;
             var filterItem = (FilterItemEntity) FilterListPicker.SelectedItem;
             if (filterItem == null) return;
-            await
                 GetFriendsList(filterItem.IsOnline, filterItem.PlayerBlocked, filterItem.PlayedRecently,
                     filterItem.PersonalDetailSharing, filterItem.FriendStatus, filterItem.Requesting,
                     filterItem.Requested);
@@ -391,20 +406,18 @@ namespace PlaystationApp.Views
             NavigationService.Navigate(new Uri("/Views/SearchPage.xaml", UriKind.Relative));
         }
 
-        private async void RefreshButton_Click(object sender, EventArgs e)
+        private void RefreshButton_Click(object sender, EventArgs e)
         {
-            await RefreshFriendsList();
+            RefreshFriendsList();
         }
 
-        private async Task<bool> RefreshFriendsList()
+        private void RefreshFriendsList()
         {
-            if (!FilterListPicker.Items.Any()) return false;
+            if (!FilterListPicker.Items.Any()) return;
             var filterItem = (FilterItemEntity)FilterListPicker.SelectedItem;
-            await
                 GetFriendsList(filterItem.IsOnline, filterItem.PlayerBlocked, filterItem.PlayedRecently,
                     filterItem.PersonalDetailSharing, filterItem.FriendStatus, filterItem.Requesting,
                     filterItem.Requested);
-            return true;
         }
 
 
@@ -444,21 +457,18 @@ namespace PlaystationApp.Views
             NavigationService.Navigate(new Uri(url, UriKind.Relative));
         }
 
-        private async void HomePivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void HomePivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (HomePivot.SelectedIndex)
             {
                 case 1:
-                    await LoadMessages();
+                    LoadMessages();
                     break;
                 case 2:
-                    await LoadSessionInviteList();
+                    LoadSessionInviteList();
                     break;
                 case 3:
-                    await LoadRecentActivityList();
-                    break;
-                case 4:
-                    await LoadLiveFromPlaystationList();
+                     LoadRecentActivityList();
                     break;
             }
         }

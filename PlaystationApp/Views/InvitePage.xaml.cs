@@ -65,8 +65,7 @@ namespace PlaystationApp.Views
                     {
                         foreach (var member in sessionInvite.session.Members)
                         {
-                            var userManager = new UserManager();
-                            var test = await userManager.GetUserAvatar(member.OnlineId, App.UserAccountEntity);
+                            var test = await UserManager.GetUserAvatar(member.OnlineId, App.UserAccountEntity);
                             member.AvatarUrl = test.AvatarUrl;
                         }
                         PlayersListSelector.ItemsSource = sessionInvite.session.Members;

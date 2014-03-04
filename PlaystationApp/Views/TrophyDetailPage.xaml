@@ -64,13 +64,13 @@
                         <TextBlock FontSize="40"
                                    Text="{Binding Path=LocalizedResources.TrophyStatus, Source={StaticResource LocalizedStrings}}" />
                         <TextBlock Margin="15,0,0,0" VerticalAlignment="Center" FontSize="30"
-                                   Text="{Binding ComparedUser.Earned, Converter={StaticResource TrophyStatusConverter}}" />
+                                   Text="{Binding Converter={StaticResource TrophyStatusConverter}}" />
                     </StackPanel>
                     <StackPanel
-                        Visibility="{Binding ComparedUser.Earned, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding Converter={StaticResource TrophyEarnedVisibilityConverter}}">
                         <TextBlock FontSize="40"
                                    Text="{Binding Path=LocalizedResources.TrophyEarnedDate, Source={StaticResource LocalizedStrings}}" />
-                        <TextBlock Margin="15,0,0,0" Text="{Binding ComparedUser.EarnedDate}" FontSize="30" />
+                        <TextBlock Margin="15,0,0,0" Text="{Binding Converter={StaticResource TrophyDateConverter}}" FontSize="30" />
                     </StackPanel>
                     <StackPanel>
                         <TextBlock FontSize="40"

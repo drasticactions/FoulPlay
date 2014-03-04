@@ -39,6 +39,10 @@ namespace PlaystationApp.Core.Manager
                     return null;
                 }
                 var messageGroup = JsonConvert.DeserializeObject<MessageGroupEntity>(responseContent);
+                foreach (var message in messageGroup.MessageGroups)
+                {
+                    message.LatestMessage.User = await UserManager.GetUserAvatar(message.LatestMessage.SenderOnlineId, userAccountEntity);
+                }
                 return messageGroup;
             }
             catch (Exception)
@@ -129,6 +133,11 @@ namespace PlaystationApp.Core.Manager
                     return null;
                 }
                 var messageGroup = JsonConvert.DeserializeObject<MessageEntity>(responseContent);
+                if (messageGroup.messages == null) return null;
+                foreach (var message in messageGroup.messages)
+                {
+                    message.user = await UserManager.GetUserAvatar(message.senderOnlineId, userAccountEntity);
+                }
                 return messageGroup;
             }
             catch (Exception)

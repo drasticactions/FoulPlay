@@ -137,7 +137,7 @@
                                         <StackPanel Background="{StaticResource PhoneAccentBrush}">
                                             <TextBlock TextWrapping="Wrap" Text="{Binding LatestMessage.Body}" />
                                         </StackPanel>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding LatestMessage.ReceivedDate}" />
+                                        <TextBlock FontSize="15" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding LatestMessage.ReceivedDate, Converter={StaticResource DateConverter}}" />
                                     </StackPanel>
                                </Grid>
                             </DataTemplate>
@@ -168,7 +168,7 @@
                                             <TextBlock Text="{Binding NpTitleDetail.NpTitleName}" />
                                             <TextBlock Text="{Binding AvailablePlatforms, Converter={StaticResource AvailablePlatformConverter}}" />
                                             <TextBlock Text="{Binding FromUser.OnlineId, Converter={StaticResource SenderNameConverter}}" />
-                                            <TextBlock HorizontalAlignment="Right" FontSize="15" Text="{Binding ReceivedDate}" />
+                                            <TextBlock HorizontalAlignment="Right" FontSize="15" Text="{Binding ReceivedDate, Converter={StaticResource DateConverter}}" />
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
@@ -200,7 +200,7 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Row="0" Padding="15,0,0,0" VerticalAlignment="Center"
                                                TextWrapping="Wrap" Text="{Binding Caption}" FontSize="20" />
-                                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date}"
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding Date, Converter={StaticResource DateConverter}}"
                                                FontSize="15" />
                                     </Grid>
                                 </Grid>
@@ -209,28 +209,6 @@
                     </phone:LongListSelector>
                     <TextBlock x:Name="NoActivitiesTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
                 </Grid> 
-            </phone:PivotItem>
-            <phone:PivotItem Header="{Binding Path=LocalizedResources.LiveFromPlaystation, Source={StaticResource LocalizedStrings}}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="100" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <toolkit:ListPicker ExpansionMode="FullScreenOnly" SelectionMode="Single"
-                                        ItemTemplate="{StaticResource ListPickerItemTemplate}"
-                                        FullModeItemTemplate="{StaticResource ListPickerFullModeItemTemplate}"
-                                        x:Name="LiveListPicker" />
-                    <Grid Grid.Row="1">
-                        <phone:LongListSelector SelectionChanged="LiveFromPlaystationLongListSelector_OnSelectionChanged"
-                                        x:Name="LiveFromPlaystationLongListSelector" ItemsSource="{Binding LiveFeedList}">
-                            <phone:LongListSelector.ItemTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </phone:LongListSelector.ItemTemplate>
-                        </phone:LongListSelector>
-                        <TextBlock x:Name="NoLiveBroadcastsTextBlock" Visibility="Collapsed" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.NoActivities, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"/>
-                    </Grid>
-                </Grid>
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>

@@ -63,9 +63,9 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <ProgressBar Grid.Column="0" Value="{Binding ComparedUser.Progress}" />
+                            <ProgressBar Grid.Column="0" Value="{Binding Converter={StaticResource TrophyPercentConverter}}" />
                             <TextBlock Grid.Column="1" HorizontalAlignment="Right"
-                                       Text="{Binding ComparedUser.Progress, Converter={StaticResource ValuePercentConverter}}" />
+                                       Text="{Binding Converter={StaticResource ValuePercentConverter}}" />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -103,7 +103,7 @@
                                                        TextTrimming="WordEllipsis" FontSize="15"
                                                        Text="{Binding TrophyDetail}" />
                                             <Grid
-                                                Visibility="{Binding ComparedUser.Earned, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                Visibility="{Binding Converter={StaticResource TrophyEarnedVisibilityConverter}}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="25" />
                                                     <ColumnDefinition Width="*" />
@@ -112,7 +112,7 @@
                                                        Source="{Binding TrophyType, Converter={StaticResource TrophyTypeConverter}}" />
                                                 <TextBlock Grid.Column="1" HorizontalAlignment="Left"
                                                            TextWrapping="Wrap" FontSize="15"
-                                                           Text="{Binding ComparedUser.EarnedDate}" />
+                                                           Text="{Binding Converter={StaticResource TrophyDateConverter}}" />
                                             </Grid>
                                         </StackPanel>
                                     </Grid>

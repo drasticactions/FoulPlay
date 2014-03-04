@@ -111,6 +111,7 @@
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
     <Compile Include="Tools\ContentKeysImageConverter.cs" />
     <Compile Include="Tools\ConversationUsersConverter.cs" />
+    <Compile Include="Tools\DateConverter.cs" />
     <Compile Include="Tools\ExpiredConverter.cs" />
     <Compile Include="Tools\HasSeenConverter.cs" />
     <Compile Include="Tools\HasTrophiesConverter.cs" />
@@ -119,11 +120,17 @@
     <Compile Include="Tools\MaxPlayersConverter.cs" />
     <Compile Include="Tools\NowPlayingVisibilityConverter.cs" />
     <Compile Include="Tools\OnlineConverter.cs" />
+    <Compile Include="Tools\PersonalIconConverter.cs" />
+    <Compile Include="Tools\PersonalNameConverter.cs" />
     <Compile Include="Tools\RecentActivityImageConverter.cs" />
     <Compile Include="Tools\SenderNameConverter.cs" />
+    <Compile Include="Tools\TrophyDateConverter.cs" />
     <Compile Include="Tools\TrophyEarnedRateConverter.cs" />
+    <Compile Include="Tools\TrophyEarnedVisibilityConverter.cs" />
     <Compile Include="Tools\TrophyGradeConverter.cs" />
     <Compile Include="Tools\TrophyHiddenConverter.cs" />
+    <Compile Include="Tools\TrophyHiddenIconConverter.cs" />
+    <Compile Include="Tools\TrophyPercentConverter.cs" />
     <Compile Include="Tools\TrophyRareConverter.cs" />
     <Compile Include="Tools\TrophyRareTextConverter.cs" />
     <Compile Include="Tools\TrophyStatusConverter.cs" />

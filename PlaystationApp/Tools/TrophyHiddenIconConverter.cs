@@ -5,25 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using PlaystationApp.Core.Entity;
+using System.Windows.Media.Imaging;
 
 namespace PlaystationApp.Tools
 {
-    public class ValuePercentConverter : IValueConverter
+    public class TrophyHiddenIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = value as TrophyEntity.TrophyTitle;
-            if (item == null) return string.Empty;
-            if (item.ComparedUser != null)
-            {
-                return string.Format("{0}%", item.ComparedUser.Progress );
-            }
-            if (item.FromUser != null)
-            {
-                return string.Format("{0}%", item.FromUser.Progress);
-            }
-            return string.Empty;
+            return value ?? new BitmapImage(new Uri("/Images/No-Trophy-Icon.png", UriKind.RelativeOrAbsolute));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

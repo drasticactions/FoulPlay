@@ -46,7 +46,7 @@ namespace PlaystationApp.Core.Manager
             
         }
 
-        public async Task<UserEntity> GetUserAvatar(string userName, UserAccountEntity userAccountEntity)
+        public async static Task<UserEntity> GetUserAvatar(string userName, UserAccountEntity userAccountEntity)
         {
             try
             {

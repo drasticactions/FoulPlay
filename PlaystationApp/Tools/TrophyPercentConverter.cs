@@ -1,26 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using PlaystationApp.Core.Entity;
-using PlaystationApp.Resources;
 
 namespace PlaystationApp.Tools
 {
-    public class TrophyStatusConverter : IValueConverter
+    public class TrophyPercentConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = value as TrophyDetailEntity.Trophy;
-            if (item == null) return AppResources.TrophyNotEarned;
+            var item = value as TrophyEntity.TrophyTitle;
+            if (item == null) return string.Empty;
             if (item.ComparedUser != null)
             {
-                return item.ComparedUser.Earned ? AppResources.TrophyEarned : AppResources.TrophyNotEarned;
+                return item.ComparedUser.Progress;
             }
             if (item.FromUser != null)
             {
-                return item.FromUser.Earned ? AppResources.TrophyEarned : AppResources.TrophyNotEarned;
+                return item.FromUser.Progress;
             }
-            return AppResources.TrophyNotEarned;
+            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

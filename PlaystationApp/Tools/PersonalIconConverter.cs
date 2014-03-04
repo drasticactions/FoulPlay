@@ -9,21 +9,17 @@ using PlaystationApp.Core.Entity;
 
 namespace PlaystationApp.Tools
 {
-    public class ValuePercentConverter : IValueConverter
+    public class PersonalIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = value as TrophyEntity.TrophyTitle;
+            var item = value as UserEntity;
             if (item == null) return string.Empty;
-            if (item.ComparedUser != null)
+            if (item.personalDetail != null)
             {
-                return string.Format("{0}%", item.ComparedUser.Progress );
+                return !string.IsNullOrEmpty(item.personalDetail.ProfilePictureUrl) ? item.personalDetail.ProfilePictureUrl : item.AvatarUrl;
             }
-            if (item.FromUser != null)
-            {
-                return string.Format("{0}%", item.FromUser.Progress);
-            }
-            return string.Empty;
+            return item.AvatarUrl;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

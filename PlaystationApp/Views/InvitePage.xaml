@@ -69,7 +69,7 @@
                         <StackPanel>
                             <TextBlock Text="{Binding NpTitleDetail.NpTitleName}" />
                             <TextBlock Text="{Binding AvailablePlatforms, Converter={StaticResource AvailablePlatformConverter}}" />
-                            <TextBlock HorizontalAlignment="Right" FontSize="15" Text="{Binding ReceivedDate}" />
+                            <TextBlock HorizontalAlignment="Right" FontSize="15" Text="{Binding ReceivedDate, Converter={StaticResource DateConverter}}" />
                         </StackPanel>
                     </Grid>
                 </Grid>

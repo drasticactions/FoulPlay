@@ -44,7 +44,7 @@ namespace PlaystationApp.Views
 
         private async void RefreshButton_Click(object sender, EventArgs e)
         {
-            await RefreshGroupMessages();
+            RefreshGroupMessages();
         }
 
         private MessageEntity _messageEntity;
@@ -52,27 +52,24 @@ namespace PlaystationApp.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await RefreshGroupMessages();
+            RefreshGroupMessages();
         }
 
-        private async Task<bool> RefreshGroupMessages()
+        private async void RefreshGroupMessages()
         {
             LoadingProgressBar.Visibility = Visibility.Visible;
             var messagerManager = new MessageManager();
             _messageEntity = await messagerManager.GetGroupConversation(App.SelectedMessageGroupId, App.UserAccountEntity);
             if (_messageEntity == null)
             {
-                MessageBox.Show(AppResources.GenericError);
-                var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
-                if (rootFrame != null)
-                    rootFrame.GoBack();
-                return false;
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                SendMessageButton.IsEnabled = true;
+                return;
             }
             MessageList.DataContext = _messageEntity;
             await messagerManager.ClearMessages(_messageEntity, App.UserAccountEntity);
             LoadingProgressBar.Visibility = Visibility.Collapsed;
             SendMessageButton.IsEnabled = true;
-            return true;
         }
 
         private void SendMessageButton_OnTap(object sender, GestureEventArgs e)
@@ -86,6 +83,7 @@ namespace PlaystationApp.Views
             var item = (MessageEntity.Message)MessageList.SelectedItem;
             if (item == null) return;
             var messageManager = new MessageManager();
+            if (item.contentKeys == null) return;
             if (item.contentKeys.Contains("image-data-0"))
             {
                 LoadingProgressBar.Visibility = Visibility.Visible;
